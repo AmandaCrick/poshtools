@@ -57,7 +57,7 @@ namespace PowerShellTools.Project
                         index = ImageListIndex.Test;
                     }
 
-                    return CommonProjectNode.ImageOffset + (int)index;
+                    return (int)index;
                 }
 
                 return base.ImageIndex;
