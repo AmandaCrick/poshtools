@@ -764,6 +764,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Templates\Files\PowerShellTest.ico" />
+    <Resource Include="Project\Images\TestIcon.png" />
     <Content Include="Templates\Files\PowerShellTest.vstemplate" />
     <Content Include="Templates\Files\ScriptDataFile.vstemplate" />
     <Content Include="Templates\Files\ScriptModule.vstemplate" />
