@@ -35,6 +35,7 @@
     <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" Path="|PowerShellTools.Common|" AssemblyName="|PowerShellTools.Common;AssemblyName|" d:ProjectName="%CurrentProject%.Common" />
     <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="%CurrentProject%.HostService.Console" Path="|PowerShell.HostService.Console|" AssemblyName="|PowerShell.HostService.Console;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="snippets.pkgdef" />
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\WpfWindow.zip" />
   </Assets>
   <Prerequisites>
     <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
