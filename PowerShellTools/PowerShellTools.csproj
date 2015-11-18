@@ -766,6 +766,8 @@
     <None Include="Resources\ErrorStatus.png" />
     <Resource Include="Project\Images\ProjectIcon.png" />
     <Resource Include="Project\Images\ScriptIcon.png" />
+    <None Include="Resources\WarningIcon.ico" />
+    <None Include="Resources\ErrorStatus.png" />
     <Content Include="Snippets\SnippetsIndex.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
