@@ -52,7 +52,7 @@
   <Target Name="GetVsixDisplayName" Outputs="$(VsixDisplayName)" />
   
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(Language)' == 'C#'" />
-  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(Language)' == 'C#' and '$(CreateVsixContainer)' != '' and $(CreateVsixContainer) and '$(VSToolsPath)' != ''" />
+  <Import Project="$(PkgVSSdkBuildTools)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(Language)' == 'C#' and '$(CreateVsixContainer)' != '' and $(CreateVsixContainer) and '$(PkgVSSdkBuildTools)' != ''" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="'$(Language)' == 'C++'" />
   <Import Project="$(WixTargetsPath)" Condition="'$(Language)' == 'WiX'" />
 </Project>
