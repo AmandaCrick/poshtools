@@ -36,10 +36,10 @@
     <TargetFrameworkVersion Condition="'$(VSTarget)' == '15.0'">v4.6</TargetFrameworkVersion>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v4.5</TargetFrameworkVersion>
 
-    <VSToolsPath Condition="'$(PkgVSSdkBuildTools)' == ''">..\packages\Microsoft.VSSDK.BuildTools.15.0.26201\tools</VSToolsPath>
-
     <BuildRoot Condition="'$(BuildRoot)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
     <TargetsPath>$(BuildRoot)\Build</TargetsPath>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(BuildRoot)\packages\Microsoft.VSSDK.BuildTools.15.0.26201\tools</VSToolsPath>
+
     <OutputPath Condition="'$(OutputPath)' == '' and '$(OutDir)' != '' and $(OutDir.EndsWith(`\`))">$(OutDir)</OutputPath>
     <OutputPath Condition="'$(OutputPath)' == '' and '$(OutDir)' != '' and !$(OutDir.EndsWith(`\`))">$(OutDir)\</OutputPath>
     <OutputPath Condition="'$(OutputPath)' == '' and '$(OutDir)' == ''">$(BuildRoot)\bin\$(VsVersionName)\$(Configuration)\</OutputPath>
