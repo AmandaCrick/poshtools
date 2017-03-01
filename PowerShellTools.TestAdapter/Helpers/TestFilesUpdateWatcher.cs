@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using XmlTestAdapter.EventWatchers.EventArgs;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using PowerShellTools.TestAdapter.Helpers;
 
 namespace XmlTestAdapter.EventWatchers
 {
