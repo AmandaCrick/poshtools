@@ -41,7 +41,7 @@ namespace XmlTestAdapter.EventWatchers
 
         public void AddWatch(string path)
         {
-            ValidateArg.NotNullOrEmpty(path, "path");
+            // ValidateArg.NotNullOrEmpty(path, "path");
 
             if (!String.IsNullOrEmpty(path))
             {
@@ -62,7 +62,7 @@ namespace XmlTestAdapter.EventWatchers
 
         public void RemoveWatch(string path)
         {
-            ValidateArg.NotNullOrEmpty(path, "path");
+            // ValidateArg.NotNullOrEmpty(path, "path");
 
             if (!String.IsNullOrEmpty(path))
             {

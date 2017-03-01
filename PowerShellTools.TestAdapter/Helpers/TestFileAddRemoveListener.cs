@@ -20,7 +20,7 @@ namespace XmlTestAdapter.EventWatchers
         [ImportingConstructor]
         public TestFileAddRemoveListener([Import(typeof(SVsServiceProvider))] IServiceProvider serviceProvider)
         {
-            ValidateArg.NotNull(serviceProvider, "serviceProvider");
+            // ValidateArg.NotNull(serviceProvider, "serviceProvider");
 
             projectDocTracker = serviceProvider.GetService(typeof(SVsTrackProjectDocuments)) as IVsTrackProjectDocuments2;
         }
