@@ -32,7 +32,7 @@
       </PropertyGroup>
     </When>
     <When Condition=" '$(VisualStudioVersion)'=='15.0'  Or '$(TargetVisualStudioVersion)'=='VS150' ">
-        <PropertyGroup>
+      <PropertyGroup>
         <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
         <FileUpgradeFlags>
         </FileUpgradeFlags>
@@ -120,6 +120,7 @@
     <Compile Include="Helpers\TestFileAddRemoveListener.cs" />
     <Compile Include="Helpers\TestFileChangedEventArgs.cs" />
     <Compile Include="Helpers\TestFilesUpdateWatcher.cs" />
+    <Compile Include="Helpers\ValidateArg.cs" />
     <Compile Include="Helpers\VsSolutionHelper.cs" />
     <Compile Include="PowerShellTestExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
