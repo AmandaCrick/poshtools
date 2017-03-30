@@ -6,7 +6,7 @@ version: 3.0.{build}
 #- Windows Server 2012 R2 # This has Dev 12.
 #- Visual Studio 2017 RC # This has Dev 14.
 image:
-- Visual Studio 2017 RC
+- Visual Studio 2017
 
 configuration: Release
 platform: Any CPU
@@ -16,10 +16,11 @@ environment:
     secure: fDI39OFs8s8fqvp08JPiOQ==
   matrix:
  # - VisualStudioVersion: 14.0
-  - VisualStudioVersion: 15.0
+    - VisualStudioVersion: 15.0
 
 before_build:
   - nuget restore
+  - cmd: "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat\""
 
 build:
   parallel: true
