@@ -143,7 +143,7 @@
     <Reference Include="Microsoft.VisualStudio.Package.LanguageService.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Platform.VSEditor" Condition="'$(VSTarget)' == '14.0'" />
     <Reference Include="Microsoft.VisualStudio.Platform.VSEditor" Condition="'$(VSTarget)' == '15.0'">
-      <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\Editor\Microsoft.VisualStudio.Platform.VSEditor.dll</HintPath>
+      <HintPath>$(DevEnvDir)\CommonExtensions\Microsoft\Editor\Microsoft.VisualStudio.Platform.VSEditor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
@@ -168,12 +168,8 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.14.0" Condition="'$(VSTarget)' == '14.0' OR '$(VSTarget)' == '15.0'" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0" />
     <Reference Include="Microsoft.VisualStudio.Threading, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Windows.Design.Host" Condition="'$(VSTarget)' != '15.0'">
-      <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio $(VSTarget)\Common7\IDE\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Windows.Design.Host" Condition="'$(VSTarget)' != '14.0'">
-      <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
+    <Reference Include="Microsoft.Windows.Design.Host">
+      <HintPath>$(DevEnvDir)\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
