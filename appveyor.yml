@@ -16,13 +16,10 @@ environment:
     secure: fDI39OFs8s8fqvp08JPiOQ==
   matrix:
  # - VisualStudioVersion: 14.0
-  - VisualStudioVersion: 15.0
+    - VisualStudioVersion: 15.0
 
 before_build:
   - nuget restore
-
-install:
-  - "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat\""
 
 build:
   parallel: true
