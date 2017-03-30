@@ -15,7 +15,6 @@ environment:
   signing_code:
     secure: fDI39OFs8s8fqvp08JPiOQ==
   matrix:
- # - VisualStudioVersion: 14.0
     - VisualStudioVersion: 15.0
 
 before_build:
@@ -27,9 +26,6 @@ build:
   verbosity: minimal
 
 artifacts:
-#  - path: bin\VS140\Release\PowerShellTools.14.0.vsix
-  #  name: PowerShellTools.14.0.vsix
-  #- path: bin\VS140\Release\PDB
   - path: bin\VS150\Release\PowerShellTools.15.0.vsix
     name: PowerShellTools.15.0.vsix
   - path: bin\VS150\Release\PDB
