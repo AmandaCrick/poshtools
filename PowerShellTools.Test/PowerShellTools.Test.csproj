@@ -174,7 +174,6 @@
     <None Include="Modules\Pester-3.3.5\Functions\TestResults.ps1" />
     <None Include="Modules\Pester-3.3.5\Pester.psd1" />
     <None Include="Modules\Pester-3.3.5\Pester.psm1" />
-    <None Include="packages.config" />
     <None Include="Pretty.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

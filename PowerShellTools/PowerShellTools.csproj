@@ -696,7 +696,6 @@
     <EmbeddedResource Include="Project\Resources\CommonImageList.bmp" />
     <EmbeddedResource Include="Resources\PowerShellInteractiveWindow_16x.png" />
     <Compile Include="Project\ProvideCodeExpansionsAttribute.cs" />
-    <None Include="packages.config" />
     <None Include="Resources\WarningIcon.ico" />
     <None Include="Resources\ErrorStatus.png" />
     <Content Include="Snippets\SnippetsIndex.xml">
