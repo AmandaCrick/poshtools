@@ -20,6 +20,7 @@ environment:
 
 before_build:
   - nuget restore
+  - cmd: "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat\""
 
 build:
   parallel: true
