@@ -2,7 +2,7 @@
 
 namespace PowerShellTools.TestAdapter.Helpers
 {
-    internal static class ValidateArg
+    internal static class ValidateArgs
     {
         public static void NotNull<T>(T obj, string objName)
         {
