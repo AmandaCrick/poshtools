@@ -17,6 +17,7 @@ environment:
   - VisualStudioVersion: 14.0
 
 before_build:
+  - copy packages.14.config packages.config
   - nuget restore
 
 build:

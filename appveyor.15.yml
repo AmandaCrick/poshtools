@@ -18,6 +18,7 @@ environment:
     - VisualStudioVersion: 15.0
 
 before_build:
+  - copy packages.15.config packages.config
   - nuget restore
   - cmd: "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat\""
 
