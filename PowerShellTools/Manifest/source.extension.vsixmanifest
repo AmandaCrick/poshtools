@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="|%CurrentProject%;GetVsixGuid|" Version="|%CurrentProject%;GetVsixVersion|" Language="en-US" Publisher="Adam Driscoll" />
+    <Identity Id="PowerShellToolsVS2017" Version="|%CurrentProject%;GetVsixVersion|" Language="en-US" Publisher="AdamRDriscoll" />
     <DisplayName>|%CurrentProject%;GetVsixDisplayName|</DisplayName>
     <Description xml:space="preserve">A set of tools for developing and debugging PowerShell scripts and modules in Visual Studio.</Description>
     <MoreInfo>http://adamdriscoll.github.io/poshtools</MoreInfo>
@@ -36,4 +36,9 @@
     <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="%CurrentProject%.HostService.Console" Path="|PowerShell.HostService.Console|" AssemblyName="|PowerShell.HostService.Console;AssemblyName|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="snippets.pkgdef" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.Component.NetFX.Core.Runtime" Version="[15.0,16.0)" DisplayName="Visual Studio NetFX Core Runtime" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0,16.0)" DisplayName="Visual Studio Managed Desktop" />
+  </Prerequisites>
 </PackageManifest>

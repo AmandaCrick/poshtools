@@ -30,6 +30,10 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(VSTarget)' == '15.0' ">
+    <DefineConstants>$(DefineConstants);DEV15;DEV15_OR_LATER;DEV14;DEV14_OR_LATER;DEV12_OR_LATER;DEV11_OR_LATER</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" '$(VSTarget)' == '14.0' ">
     <DefineConstants>$(DefineConstants);DEV14;DEV14_OR_LATER;DEV12_OR_LATER;DEV11_OR_LATER</DefineConstants>
   </PropertyGroup>
@@ -44,6 +48,10 @@
 
   <PropertyGroup Condition=" '$(VSTarget)' == '10.0' ">
     <DefineConstants>$(DefineConstants);DEV10</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <VSCTDefinitions Condition="'$(VSTarget)' == '15.0'">DEV15;DEV14;DEV_12_OR_LATER;DEV_12_OR_LATER;DEV11_OR_LATER</VSCTDefinitions>
   </PropertyGroup>
 
   <PropertyGroup>

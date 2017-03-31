@@ -51,7 +51,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PowerShellTools.Common</RootNamespace>
     <AssemblyName>PowershellTools.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -103,7 +102,7 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="Microsoft.VisualStudio.Shell.$(VSTarget)" />
-    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.$(VSTarget)" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.14.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />

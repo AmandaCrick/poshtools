@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using XmlTestAdapter;
+using PowerShellTools.TestAdapter.Helpers;
 
 namespace XmlTestAdapter.EventWatchers
 {
@@ -20,7 +21,7 @@ namespace XmlTestAdapter.EventWatchers
         [ImportingConstructor]
         public TestFileAddRemoveListener([Import(typeof(SVsServiceProvider))] IServiceProvider serviceProvider)
         {
-            ValidateArg.NotNull(serviceProvider, "serviceProvider");
+            ValidateArgs.NotNull(serviceProvider, "serviceProvider");
 
             projectDocTracker = serviceProvider.GetService(typeof(SVsTrackProjectDocuments)) as IVsTrackProjectDocuments2;
         }

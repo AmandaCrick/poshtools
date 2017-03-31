@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using XmlTestAdapter;
+using PowerShellTools.TestAdapter.Helpers;
 
 namespace XmlTestAdapter.EventWatchers
 {
@@ -25,7 +26,7 @@ namespace XmlTestAdapter.EventWatchers
         [ImportingConstructor]
         public SolutionEventsListener([Import(typeof(SVsServiceProvider))]IServiceProvider serviceProvider)
         {
-            ValidateArg.NotNull(serviceProvider, "serviceProvider");
+            ValidateArgs.NotNull(serviceProvider, "serviceProvider");
             this.solution = serviceProvider.GetService(typeof(SVsSolution)) as IVsSolution;
         }
 
