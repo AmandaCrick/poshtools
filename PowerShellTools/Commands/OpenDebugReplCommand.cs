@@ -18,7 +18,6 @@ using Microsoft.VisualStudio;
 using PowerShellTools.Repl;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudioTools;
 using PowerShellTools.LanguageService;
 
 namespace PowerShellTools.Commands
@@ -36,7 +35,7 @@ namespace PowerShellTools.Commands
 
         internal static IReplWindow/*!*/ EnsureReplWindow()
         {
-            var compModel = CommonPackage.ComponentModel;
+            var compModel = PowerShellToolsPackage.ComponentModel;
             var provider = compModel.GetService<IReplWindowProvider>();
 
             var window = provider.FindReplWindow("PowerShell");

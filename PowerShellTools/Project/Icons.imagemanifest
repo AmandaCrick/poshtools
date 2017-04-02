@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImageManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                           xmlns="http://schemas.microsoft.com/VisualStudio/ImageManifestSchema/2014">
+  <Symbols>
+    <String Name="Resources" Value="/PowerShellTools.Project;Component/" />
+    <Guid Name="IconsGuid" Value="bd4da623-bc03-4465-b5f9-95565a3f66b6" />
+    <ID Name="ProjectIcon" Value="0" />
+  </Symbols>
+  <Images>
+    <Image Guid="$(IconsGuid)" ID="$(ProjectIcon)">
+      <Source Uri="$(Resources)/Images/IconsProjectIcon.xaml" />
+      <Source Uri="$(Resources)/Images/IconsProjectIcon.png" >
+        <Size Value="16" />
+      </Source>  
+    </Image>
+  </Images>
+  <ImageLists />
+</ImageManifest>

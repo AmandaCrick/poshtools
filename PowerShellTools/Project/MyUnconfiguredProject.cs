@@ -22,7 +22,7 @@ namespace PowerShellTools.Project
 
 	[Export]
 	[AppliesTo(MyUnconfiguredProject.UniqueCapability)]
-	[ProjectTypeRegistration(VsPackage.ProjectTypeGuid, "PowerShell", "#2", ProjectExtension, Language, resourcePackageGuid: VsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\MyCustomProject")]
+	[ProjectTypeRegistration(VsPackage.ProjectTypeGuid, "PowerShell", "#2", ProjectExtension, Language, resourcePackageGuid: VsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\PowerShell")]
 	[ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\Module", 500)]
 	[ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\Script", 500)]
 	internal class MyUnconfiguredProject

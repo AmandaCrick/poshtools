@@ -39,36 +39,38 @@ namespace PowerShellTools.LanguageService
 
         public CodeWindowManager(IVsCodeWindow codeWindow, IWpfTextView textView, IVsStatusbar statusBar)
         {
-            //_window = codeWindow;
-            //_textView = textView;
+			_window = codeWindow;
+			_textView = textView;
 
-            //var adaptersFactory = model.GetService<IVsEditorAdaptersFactoryService>();
-            //var factory = model.GetService<IEditorOperationsFactoryService>();
+			var model = PowerShellToolsPackage.ComponentModel;
 
-            //EditFilter editFilter = _filter = new EditFilter(textView, factory.GetEditorOperations(textView), statusBar);
-            //var textViewAdapter = adaptersFactory.GetViewAdapter(textView);
-            //editFilter.AttachKeyboardFilter(textViewAdapter);
+			var adaptersFactory = model.GetService<IVsEditorAdaptersFactoryService>();
+			var factory = model.GetService<IEditorOperationsFactoryService>();
 
-            //var viewFilter = new TextViewFilter();
-            //viewFilter.AttachFilter(textViewAdapter);
-        }
+			EditFilter editFilter = _filter = new EditFilter(textView, factory.GetEditorOperations(textView), statusBar);
+			var textViewAdapter = adaptersFactory.GetViewAdapter(textView);
+			editFilter.AttachKeyboardFilter(textViewAdapter);
 
-        //private static void OnIdle(object sender, ComponentManagerEventArgs e)
-        //{
-        //    foreach (var window in _windows)
-        //    {
-        //        if (e.ComponentManager.FContinueIdle() == 0)
-        //        {
-        //            break;
-        //        }
+			var viewFilter = new TextViewFilter();
+			viewFilter.AttachFilter(textViewAdapter);
+		}
 
-        //        //window.Value._filter.DoIdle(e.ComponentManager);
-        //    }
-        //}
+		//private static void OnIdle(object sender, ComponentManagerEventArgs e)
+		//{
+		//    foreach (var window in _windows)
+		//    {
+		//        if (e.ComponentManager.FContinueIdle() == 0)
+		//        {
+		//            break;
+		//        }
 
-        #region IVsCodeWindowManager Members
+		//        //window.Value._filter.DoIdle(e.ComponentManager);
+		//    }
+		//}
 
-        public int AddAdornments()
+		#region IVsCodeWindowManager Members
+
+		public int AddAdornments()
         {
             _windows[_textView] = this;
 

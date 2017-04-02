@@ -14,13 +14,7 @@
 
 using System;
 using System.ComponentModel.Design;
-using Microsoft.VisualStudio;
-using PowerShellTools.Repl;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudioTools;
-using PowerShellTools.LanguageService;
-using PowerShellTools.Explorer;
 
 namespace PowerShellTools.Commands
 {

@@ -9,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using Microsoft;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
@@ -27,36 +26,16 @@ using PowerShellTools.LanguageService;
 using PowerShellTools.Options;
 using PowerShellTools.Service;
 using PowerShellTools.ServiceManagement;
-using Engine = PowerShellTools.DebugEngine.Engine;
 using MessageBox = System.Windows.MessageBox;
 using Threading = System.Threading.Tasks;
-
-using Microsoft.VisualStudio.Debugger;
-using Microsoft.VisualStudio.Debugger.Interop;
 using PowerShellTools.Common.Logging;
-using PowerShellTools.DebugEngine.Remote;
 using PowerShellTools.Explorer;
 using PowerShellTools.Common.ServiceManagement.ExplorerContract;
+using Microsoft.VisualStudio.ComponentModelHost;
 
 namespace PowerShellTools
 {
-    /// <summary>
-    /// This is the class that implements the package exposed by this assembly.
-    ///
-    /// The minimum requirement for a class to be considered a valid package for Visual Studio
-    /// is to implement the IVsPackage interface and register itself with the shell.
-    /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    /// to do it: it derives from the Package class that provides the implementation of the 
-    /// IVsPackage interface and uses the registration attributes defined in the framework to 
-    /// register itself and its components with the shell.
-    /// </summary>
-    // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
-    // a package.
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    // This attribute is used to register the information needed to show this package
-    // in the Help/About dialog of Visual Studio.
-    //[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
-
     // There are a few user scenarios which will trigger package to load
     // 1. Open/Create any type of PowerShell project
     // 2. Open/Create PowerShell file(.ps1, .psm1, .psd1) from file->open/create or solution explorer
@@ -76,7 +55,6 @@ namespace PowerShellTools
                             RequestStockColors = true)]
     //[ProvideEditorFactory(typeof(PowerShellEditorFactory), 114, TrustLevel = __VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
     [ProvideBraceCompletion(PowerShellConstants.LanguageName)]
-    // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideKeyBindingTable(GuidList.guidCustomEditorEditorFactoryString, 102)]
     [Guid(GuidList.PowerShellToolsPackageGuid)]
@@ -228,11 +206,19 @@ namespace PowerShellTools
         internal DependencyValidator DependencyValidator { get; set; }
 
 
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
-        /// </summary>
-        protected override void Initialize()
+		public static IComponentModel ComponentModel
+		{
+			get
+			{
+				return (IComponentModel)GetGlobalService(typeof(SComponentModel));
+			}
+		}
+
+		/// <summary>
+		/// Initialization of the package; this method is called right after the package is sited, so this is the place
+		/// where you can put all the initialization code that rely on services provided by VisualStudio.
+		/// </summary>
+		protected override void Initialize()
         {
             try
             {
@@ -291,16 +277,16 @@ namespace PowerShellTools
 
             var textManager = (IVsTextManager)GetService(typeof(SVsTextManager));
 
-            //RefreshCommands(new ExecuteSelectionCommand(this.DependencyValidator),
-            //                new ExecuteFromEditorContextMenuCommand(this.DependencyValidator),
-            //                new ExecuteWithParametersAsScriptCommand(adaptersFactory, textManager, this.DependencyValidator),
-            //                new ExecuteFromSolutionExplorerContextMenuCommand(this.DependencyValidator),
-            //                new ExecuteWithParametersAsScriptFromSolutionExplorerCommand(adaptersFactory, textManager, this.DependencyValidator),
-            //                new PrettyPrintCommand(),
-            //                new OpenDebugReplCommand(),
-            //                new OpenExplorerCommand());
+			RefreshCommands(/*new ExecuteSelectionCommand(this.DependencyValidator),
+							new ExecuteFromEditorContextMenuCommand(this.DependencyValidator),
+							new ExecuteWithParametersAsScriptCommand(adaptersFactory, textManager, this.DependencyValidator),
+							new ExecuteFromSolutionExplorerContextMenuCommand(this.DependencyValidator),
+							new ExecuteWithParametersAsScriptFromSolutionExplorerCommand(adaptersFactory, textManager, this.DependencyValidator),*/
+							new PrettyPrintCommand(),
+							new OpenDebugReplCommand(),
+							new OpenExplorerCommand());
 
-            try
+			try
             {
                 Threading.Task.Run(
                     () =>
@@ -336,21 +322,21 @@ namespace PowerShellTools
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
 
-        //private void ShowToolWindow(object sender, EventArgs e)
-        //{
-        //    // Get the instance number 0 of this tool window. This window is single instance so this instance
-        //    // is actually the only one.
-        //    // The last flag is set to true so that if the tool window does not exists it will be created.
-        //    ToolWindowPane window = this.FindToolWindow(typeof(PSCommandExplorerWindow), 0, true);
-        //    if ((null == window) || (null == window.Frame))
-        //    {
-        //        throw new NotSupportedException("");
-        //    }
-        //    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-        //    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-        //}
+		//private void ShowToolWindow(object sender, EventArgs e)
+		//{
+		//    // Get the instance number 0 of this tool window. This window is single instance so this instance
+		//    // is actually the only one.
+		//    // The last flag is set to true so that if the tool window does not exists it will be created.
+		//    ToolWindowPane window = this.FindToolWindow(typeof(PSCommandExplorerWindow), 0, true);
+		//    if ((null == window) || (null == window.Frame))
+		//    {
+		//        throw new NotSupportedException("");
+		//    }
+		//    IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+		//    Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+		//}
 
-        private void RefreshCommands(params ICommand[] commands)
+		private void RefreshCommands(params ICommand[] commands)
         {
             // Add our command handlers for menu (commands must exist in the .vsct file)
             var mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -455,5 +441,20 @@ namespace PowerShellTools
                 }
             }
         }
-    }
+
+		internal IContentType ContentType
+		{
+			get
+			{
+				if (_contentType == null)
+				{
+					_contentType = ComponentModel.GetService<IContentTypeRegistryService>().GetContentType(PowerShellConstants.LanguageName);
+				}
+				return _contentType;
+			}
+		}
+
+
+
+	}
 }

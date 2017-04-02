@@ -1,12 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Management.Automation.Language;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudioTools.Project;
-using PowerShellTools.Commands.UserInterface;
 using PowerShellTools.Project;
 
 namespace PowerShellTools.Commands
