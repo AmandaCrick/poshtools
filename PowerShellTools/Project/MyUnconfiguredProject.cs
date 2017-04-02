@@ -22,15 +22,16 @@ namespace PowerShellTools.Project
 
 	[Export]
 	[AppliesTo(MyUnconfiguredProject.UniqueCapability)]
-	[ProjectTypeRegistration(VsPackage.ProjectTypeGuid, "Windows Script", "#2", ProjectExtension, Language, resourcePackageGuid: VsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\MyCustomProject")]
-	[ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\MyCustomProject", 500)]
+	[ProjectTypeRegistration(VsPackage.ProjectTypeGuid, "PowerShell", "#2", ProjectExtension, Language, resourcePackageGuid: VsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\MyCustomProject")]
+	[ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\Module", 500)]
+	[ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\Script", 500)]
 	internal class MyUnconfiguredProject
 	{
 		/// <summary>
 		/// The file extension used by your project type.
 		/// This does not include the leading period.
 		/// </summary>
-		internal const string ProjectExtension = "wsproj";
+		internal const string ProjectExtension = "pssproj";
 
 		/// <summary>
 		/// A project capability that is present in your project type and none others.
@@ -40,9 +41,9 @@ namespace PowerShellTools.Project
 		/// <remarks>
 		/// This value should be kept in sync with the capability as actually defined in your .targets.
 		/// </remarks>
-		internal const string UniqueCapability = "WindowsScriptSample";
+		internal const string UniqueCapability = "PowerShell";
 
-		internal const string Language = "WindowsScript";
+		internal const string Language = "PowerShell";
 
 		[ImportingConstructor]
 		public MyUnconfiguredProject(UnconfiguredProject unconfiguredProject)

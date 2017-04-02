@@ -27,12 +27,12 @@
 		/// The GUID for this project type.  It is unique with the project file extension and
 		/// appears under the VS registry hive's Projects key.
 		/// </summary>
-		public const string ProjectTypeGuid = "1C4711F1-3766-4F84-9516-43FA4169CC36";
+		public const string ProjectTypeGuid = "1C4711F1-3766-4F84-9516-43FA4169CC34";
 
 		/// <summary>
 		/// The file extension of this project type.  No preceding period.
 		/// </summary>
-		public const string ProjectExtension = "psproj";
+		public const string ProjectExtension = "pssproj";
 
 		/// <summary>
 		/// The default namespace this project compiles with, so that manifest
