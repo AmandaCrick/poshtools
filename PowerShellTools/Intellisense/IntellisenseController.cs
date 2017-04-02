@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudioTools;
+
 
 namespace PowerShellTools.Intellisense
 {
@@ -118,7 +118,7 @@ namespace PowerShellTools.Intellisense
 
         public int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
         {
-            if (pguidCmdGroup == CommonConstants.Std2KCmdGroupGuid)
+            if (pguidCmdGroup == typeof(VSConstants.VSStd2KCmdID).GUID)
             {
                 for (int i = 0; i < cCmds; i++)
                 {

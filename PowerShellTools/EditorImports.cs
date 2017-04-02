@@ -20,10 +20,10 @@ namespace PowerShellTools
         {
             get
             {
-                if (_classificationTypeRegistryService == null)
-                {
-                    _classificationTypeRegistryService = PowerShellToolsPackage.ComponentModel.GetService<IClassificationTypeRegistryService>();
-                }
+                //if (_classificationTypeRegistryService == null)
+                //{
+                //    _classificationTypeRegistryService = PowerShellToolsPackage.ComponentModel.GetService<IClassificationTypeRegistryService>();
+                //}
                 return _classificationTypeRegistryService;
             }
             set

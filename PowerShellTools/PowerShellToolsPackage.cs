@@ -15,8 +15,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
-using Microsoft.VisualStudioTools;
-using Microsoft.VisualStudioTools.Navigation;
 using PowerShellTools.Classification;
 using PowerShellTools.Commands;
 using PowerShellTools.Common.ServiceManagement.DebuggingContract;
@@ -27,7 +25,6 @@ using PowerShellTools.Diagnostics;
 using PowerShellTools.Intellisense;
 using PowerShellTools.LanguageService;
 using PowerShellTools.Options;
-using PowerShellTools.Project.PropertyPages;
 using PowerShellTools.Service;
 using PowerShellTools.ServiceManagement;
 using Engine = PowerShellTools.DebugEngine.Engine;
@@ -40,7 +37,6 @@ using PowerShellTools.Common.Logging;
 using PowerShellTools.DebugEngine.Remote;
 using PowerShellTools.Explorer;
 using PowerShellTools.Common.ServiceManagement.ExplorerContract;
-using PowerShellTools.Project;
 
 namespace PowerShellTools
 {
@@ -78,17 +74,17 @@ namespace PowerShellTools
                             ShowDropDownOptions = true,
                             EnableCommenting = true,
                             RequestStockColors = true)]
-    [ProvideEditorFactory(typeof(PowerShellEditorFactory), 114, TrustLevel = __VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
+    //[ProvideEditorFactory(typeof(PowerShellEditorFactory), 114, TrustLevel = __VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
     [ProvideBraceCompletion(PowerShellConstants.LanguageName)]
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideKeyBindingTable(GuidList.guidCustomEditorEditorFactoryString, 102)]
     [Guid(GuidList.PowerShellToolsPackageGuid)]
-    [ProvideObject(typeof(InformationPropertyPage))]
-    [ProvideObject(typeof(ComponentsPropertyPage))]
-    [ProvideObject(typeof(ExportsPropertyPage))]
-    [ProvideObject(typeof(RequirementsPropertyPage))]
-    [ProvideObject(typeof(DebugPropertyPage))]
+    //[ProvideObject(typeof(InformationPropertyPage))]
+    //[ProvideObject(typeof(ComponentsPropertyPage))]
+    //[ProvideObject(typeof(ExportsPropertyPage))]
+    //[ProvideObject(typeof(RequirementsPropertyPage))]
+    //[ProvideObject(typeof(DebugPropertyPage))]
     [Microsoft.VisualStudio.Shell.ProvideDebugEngine("{43ACAB74-8226-4920-B489-BFCF05372437}", "PowerShell",
         PortSupplier = "{708C1ECA-FF48-11D2-904F-00C04FA302A1}",
         ProgramProvider = "{08F3B557-C153-4F6C-8745-227439E55E79}", Attach = true,
@@ -99,10 +95,10 @@ namespace PowerShellTools
     [Clsid(Clsid = "{08F3B557-C153-4F6C-8745-227439E55E79}",
            Assembly = "PowerGuiVsx.Core.DebugEngine",
         Class = "PowerGuiVsx.Core.DebugEngine.ScriptProgramProvider")]
-    [Microsoft.VisualStudioTools.ProvideDebugEngine("PowerShell",
-                                                    typeof(ScriptProgramProvider),
-                                                    typeof(Engine),
-        "{43ACAB74-8226-4920-B489-BFCF05372437}")]
+    //[Microsoft.VisualStudioTools.ProvideDebugEngine("PowerShell",
+    //                                                typeof(ScriptProgramProvider),
+    //                                                typeof(Engine),
+    //    "{43ACAB74-8226-4920-B489-BFCF05372437}")]
     [ProvideIncompatibleEngineInfo("{92EF0900-2251-11D2-B72E-0000F87572EF}")]
     [ProvideIncompatibleEngineInfo("{F200A7E7-DEA5-11D0-B854-00A0244A1DE2}")]
     [ProvideOptionPage(typeof(GeneralDialogPage), PowerShellConstants.LanguageDisplayName, "General", 101, 106, true)]
@@ -111,15 +107,15 @@ namespace PowerShellTools
     [ProvideLanguageExtension(typeof(PowerShellLanguageInfo), ".ps1")]
     [ProvideLanguageExtension(typeof(PowerShellLanguageInfo), ".psm1")]
     [ProvideLanguageExtension(typeof(PowerShellLanguageInfo), ".psd1")]
-    [ProvideCodeExpansions(GuidList.PowerShellLanguage, false, 106, "PowerShell", @"Snippets\SnippetsIndex.xml", @"Snippets\PowerShell\")]
-    [ProvideDebugPortSupplier("Powershell Remote Debugging (SSL Required)", typeof(RemoteDebugPortSupplier), PowerShellTools.Common.Constants.PortSupplierId, typeof(RemotePortPicker))]
-    [ProvideDebugPortSupplier("Powershell Remote Debugging", typeof(RemoteUnsecuredDebugPortSupplier), PowerShellTools.Common.Constants.UnsecuredPortSupplierId, typeof(RemoteUnsecuredPortPicker))]
-    [ProvideDebugPortPicker(typeof(RemotePortPicker))]
+    //[ProvideCodeExpansions(GuidList.PowerShellLanguage, false, 106, "PowerShell", @"Snippets\SnippetsIndex.xml", @"Snippets\PowerShell\")]
+    //[ProvideDebugPortSupplier("Powershell Remote Debugging (SSL Required)", typeof(RemoteDebugPortSupplier), PowerShellTools.Common.Constants.PortSupplierId, typeof(RemotePortPicker))]
+    //[ProvideDebugPortSupplier("Powershell Remote Debugging", typeof(RemoteUnsecuredDebugPortSupplier), PowerShellTools.Common.Constants.UnsecuredPortSupplierId, typeof(RemoteUnsecuredPortPicker))]
+    //[ProvideDebugPortPicker(typeof(RemotePortPicker))]
     [ProvideToolWindow(
         typeof(PSCommandExplorerWindow),
         Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed,
         Window = "dd9b7693-1385-46a9-a054-06566904f861")]
-    public sealed class PowerShellToolsPackage : CommonPackage
+    public sealed class PowerShellToolsPackage : Package
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PowerShellToolsPackage));
         private Lazy<PowerShellService> _powerShellService;
@@ -197,16 +193,6 @@ namespace PowerShellTools
             return base.GetService(type);
         }
 
-        public override Type GetLibraryManagerType()
-        {
-            return null;
-        }
-
-        public override bool IsRecognizedFile(string filename)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Returns the PowerShell host for the package.
         /// </summary>
@@ -241,27 +227,6 @@ namespace PowerShellTools
 
         internal DependencyValidator DependencyValidator { get; set; }
 
-        internal override LibraryManager CreateLibraryManager(CommonPackage package)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal IContentType ContentType
-        {
-            get
-            {
-                if (_contentType == null)
-                {
-                    _contentType = ComponentModel.GetService<IContentTypeRegistryService>().GetContentType(PowerShellConstants.LanguageName);
-                }
-                return _contentType;
-            }
-        }
-
-        internal T GetDialogPage<T>() where T : DialogPage
-        {
-            return (T)GetDialogPage(typeof(T));
-        }
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
@@ -318,7 +283,6 @@ namespace PowerShellTools
             var langService = new PowerShellLanguageInfo(this);
             ((IServiceContainer)this).AddService(langService.GetType(), langService, true);
 
-            _textBufferFactoryService = ComponentModel.GetService<ITextBufferFactoryService>();
 
             if (_textBufferFactoryService != null)
             {
@@ -326,16 +290,15 @@ namespace PowerShellTools
             }
 
             var textManager = (IVsTextManager)GetService(typeof(SVsTextManager));
-            var adaptersFactory = ComponentModel.GetService<IVsEditorAdaptersFactoryService>();
 
-            RefreshCommands(new ExecuteSelectionCommand(this.DependencyValidator),
-                            new ExecuteFromEditorContextMenuCommand(this.DependencyValidator),
-                            new ExecuteWithParametersAsScriptCommand(adaptersFactory, textManager, this.DependencyValidator),
-                            new ExecuteFromSolutionExplorerContextMenuCommand(this.DependencyValidator),
-                            new ExecuteWithParametersAsScriptFromSolutionExplorerCommand(adaptersFactory, textManager, this.DependencyValidator),
-                            new PrettyPrintCommand(),
-                            new OpenDebugReplCommand(),
-                            new OpenExplorerCommand());
+            //RefreshCommands(new ExecuteSelectionCommand(this.DependencyValidator),
+            //                new ExecuteFromEditorContextMenuCommand(this.DependencyValidator),
+            //                new ExecuteWithParametersAsScriptCommand(adaptersFactory, textManager, this.DependencyValidator),
+            //                new ExecuteFromSolutionExplorerContextMenuCommand(this.DependencyValidator),
+            //                new ExecuteWithParametersAsScriptFromSolutionExplorerCommand(adaptersFactory, textManager, this.DependencyValidator),
+            //                new PrettyPrintCommand(),
+            //                new OpenDebugReplCommand(),
+            //                new OpenExplorerCommand());
 
             try
             {

@@ -118,7 +118,7 @@ namespace PowerShellTools.ServiceManagement
                 if (_powerShellIntelliSenseService == null || _powerShellDebuggingService == null || _powerShellExplorerService == null)
                 {
                     EnsureCloseProcess();
-                    var page = PowerShellToolsPackage.Instance.GetDialogPage<GeneralDialogPage>();
+                    var page = (GeneralDialogPage)PowerShellToolsPackage.Instance.GetDialogPage(typeof(GeneralDialogPage));
                     _hostProcess = PowershellHostProcessHelper.CreatePowerShellHostProcess(page.Bitness);
                     _process = _hostProcess.Process;
                     _process.Exited += ConnectionExceptionHandler;

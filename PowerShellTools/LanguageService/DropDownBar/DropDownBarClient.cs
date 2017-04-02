@@ -25,7 +25,6 @@ using System.Windows.Threading;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudioTools.Project;
 using PowerShellTools.Classification;
 
 namespace PowerShellTools.LanguageService.DropDownBar
@@ -48,7 +47,6 @@ namespace PowerShellTools.LanguageService.DropDownBar
 
         public DropDownBarClient(IWpfTextView textView)
         {
-            Utilities.ArgumentNotNull("textView", textView);
             _textView = textView;
 
             if (_textView.TextBuffer.ContentType.IsOfType(PowerShellConstants.LanguageName))

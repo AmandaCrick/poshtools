@@ -10,7 +10,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudioTools;
 using PowerShellTools.Classification;
 using PowerShellTools.Common.Logging;
 
@@ -42,7 +41,7 @@ namespace PowerShellTools.LanguageService
 
         public int QueryStatus(ref Guid pguidCmdGroup, uint cCmds, OLECMD[] prgCmds, IntPtr pCmdText)
         {
-            if (pguidCmdGroup == CommonConstants.Std2KCmdGroupGuid)
+            if (pguidCmdGroup == typeof(VSConstants.VSStd2KCmdID).GUID)
             {
                 for (int i = 0; i < cCmds; i++)
                 {
@@ -76,7 +75,7 @@ namespace PowerShellTools.LanguageService
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
-            if (pguidCmdGroup == CommonConstants.Std2KCmdGroupGuid)
+            if (pguidCmdGroup == typeof(VSConstants.VSStd2KCmdID).GUID)
             {
                 switch ((VSConstants.VSStd2KCmdID)nCmdID)
                 {

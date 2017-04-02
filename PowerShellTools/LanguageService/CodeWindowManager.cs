@@ -19,7 +19,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudioTools;
 using PowerShellTools.Language;
 using PowerShellTools.LanguageService.DropDownBar;
 
@@ -35,38 +34,37 @@ namespace PowerShellTools.LanguageService
 
         static CodeWindowManager()
         {
-            PowerShellToolsPackage.Instance.OnIdle += OnIdle;
+           // PowerShellToolsPackage.Instance.OnIdle += OnIdle;
         }
 
         public CodeWindowManager(IVsCodeWindow codeWindow, IWpfTextView textView, IVsStatusbar statusBar)
         {
-            _window = codeWindow;
-            _textView = textView;
+            //_window = codeWindow;
+            //_textView = textView;
 
-            var model = CommonPackage.ComponentModel;
-            var adaptersFactory = model.GetService<IVsEditorAdaptersFactoryService>();
-            var factory = model.GetService<IEditorOperationsFactoryService>();
+            //var adaptersFactory = model.GetService<IVsEditorAdaptersFactoryService>();
+            //var factory = model.GetService<IEditorOperationsFactoryService>();
 
-            EditFilter editFilter = _filter = new EditFilter(textView, factory.GetEditorOperations(textView), statusBar);
-            var textViewAdapter = adaptersFactory.GetViewAdapter(textView);
-            editFilter.AttachKeyboardFilter(textViewAdapter);
+            //EditFilter editFilter = _filter = new EditFilter(textView, factory.GetEditorOperations(textView), statusBar);
+            //var textViewAdapter = adaptersFactory.GetViewAdapter(textView);
+            //editFilter.AttachKeyboardFilter(textViewAdapter);
 
-            var viewFilter = new TextViewFilter();
-            viewFilter.AttachFilter(textViewAdapter);
+            //var viewFilter = new TextViewFilter();
+            //viewFilter.AttachFilter(textViewAdapter);
         }
 
-        private static void OnIdle(object sender, ComponentManagerEventArgs e)
-        {
-            foreach (var window in _windows)
-            {
-                if (e.ComponentManager.FContinueIdle() == 0)
-                {
-                    break;
-                }
+        //private static void OnIdle(object sender, ComponentManagerEventArgs e)
+        //{
+        //    foreach (var window in _windows)
+        //    {
+        //        if (e.ComponentManager.FContinueIdle() == 0)
+        //        {
+        //            break;
+        //        }
 
-                //window.Value._filter.DoIdle(e.ComponentManager);
-            }
-        }
+        //        //window.Value._filter.DoIdle(e.ComponentManager);
+        //    }
+        //}
 
         #region IVsCodeWindowManager Members
 

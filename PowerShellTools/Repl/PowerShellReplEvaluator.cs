@@ -42,7 +42,7 @@ namespace PowerShellTools.Repl
                     }
                 );
 
-            var page = PowerShellToolsPackage.Instance.GetDialogPage<GeneralDialogPage>();
+            var page = (GeneralDialogPage)PowerShellToolsPackage.Instance.GetDialogPage(typeof(GeneralDialogPage));
 
             window.TextView.Properties.AddProperty(BufferProperties.FromRepl, null);
 

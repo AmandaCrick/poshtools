@@ -16,7 +16,6 @@ using System;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudioTools;
 
 namespace PowerShellTools.Language
 {

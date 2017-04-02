@@ -151,6 +151,7 @@
     <None Include="..\Build\FinalPublicKey.snk">
       <Link>FinalPublicKey.snk</Link>
     </None>
+    <None Include="app.config" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\Be.ps1" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeGreaterThan.ps1" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeLessThan.ps1" />
