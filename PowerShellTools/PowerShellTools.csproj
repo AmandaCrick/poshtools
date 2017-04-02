@@ -438,6 +438,7 @@
     <Compile Include="Project\SharedProject\AssemblyReferenceNode.cs" />
     <Compile Include="Project\SharedProject\Attributes.cs" />
     <Compile Include="Project\SharedProject\Automation\AutomationScope.cs" />
+    <Compile Include="Project\SharedProject\Automation\OABuildManager.cs" />
     <Compile Include="Project\SharedProject\Automation\OAFileItem.cs" />
     <Compile Include="Project\SharedProject\Automation\OAFolderItem.cs" />
     <Compile Include="Project\SharedProject\Automation\OANavigableProjectItems.cs" />
