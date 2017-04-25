@@ -18,6 +18,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using EnvDTE;
+using Microsoft.VisualStudio.Package.Automation;
 using VSLangProj;
 
 namespace Microsoft.VisualStudioTools.Project.Automation

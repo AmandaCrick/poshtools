@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.Project;
 
 namespace PowerShellTools.Project
@@ -37,10 +38,19 @@ namespace PowerShellTools.Project
                 return _designerContext;
             }
         }
-
-        public override int QueryService(ref Guid guidService, out object result)
+		
+		public override int QueryService(ref Guid guidService, out object result)
         {
-            if (XamlDesignerSupport.DesignerContextType != null &&
+	        //
+	        // If you have a code dom provider you'd provide it here.
+	        if (guidService == typeof(SVSMDCodeDomProvider).GUID)
+	        {
+		        result = new PowerShellCodeDomProvider();
+		        return VSConstants.S_OK;
+	        }
+
+
+			if (XamlDesignerSupport.DesignerContextType != null &&
                 guidService == XamlDesignerSupport.DesignerContextType.GUID &&
                 Path.GetExtension(Url).Equals(".xaml", StringComparison.OrdinalIgnoreCase))
             {

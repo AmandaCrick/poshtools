@@ -97,17 +97,12 @@ namespace PowerShellTools.Project
         public override CommonFileNode CreateCodeFileNode(ProjectElement item)
         {
             var node = new PowerShellFileNode(this, item);
-
-            //node.OleServiceProvider.AddService(typeof(SVSMDCodeDomProvider), CreateServices, false);
-
             return node;
         }
 
         public override CommonFileNode CreateNonCodeFileNode(ProjectElement item)
         {
             var node = new PowerShellNonCodeFileNode(this, item);
-            //node.OleServiceProvider.AddService(typeof(SVSMDCodeDomProvider), CreateServices, false);
-
             return node;
         }
 

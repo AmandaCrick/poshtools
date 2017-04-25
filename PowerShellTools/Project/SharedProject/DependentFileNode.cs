@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
+using PowerShellTools.Project;
 using OleConstants = Microsoft.VisualStudio.OLE.Interop.Constants;
 using VsCommands = Microsoft.VisualStudio.VSConstants.VSStd97CmdID;
 using VsCommands2K = Microsoft.VisualStudio.VSConstants.VSStd2KCmdID;
@@ -135,12 +136,15 @@ namespace Microsoft.VisualStudioTools.Project {
         }
 
         public override int QueryService(ref Guid guidService, out object result) {
-            //
-            // If you have a code dom provider you'd provide it here.
-            // if (guidService == typeof(SVSMDCodeDomProvider).GUID) {
-            // }
+			//
+			// If you have a code dom provider you'd provide it here.
+			if (guidService == typeof(SVSMDCodeDomProvider).GUID)
+			{
+				result = new PowerShellCodeDomProvider();
+				return VSConstants.S_OK;
+			}
 
-            return base.QueryService(ref guidService, out result);
+			return base.QueryService(ref guidService, out result);
         }
 
         internal override FileNode RenameFileNode(string oldFileName, string newFileName) {

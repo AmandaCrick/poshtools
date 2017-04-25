@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.Project;
 using PowerShellTools.Project.Images;
 
@@ -93,8 +94,20 @@ namespace PowerShellTools.Project
             }
         }
 #endif
+		public override int QueryService(ref Guid guidService, out object result)
+		{
+			//
+			// If you have a code dom provider you'd provide it here.
+			if (guidService == typeof(SVSMDCodeDomProvider).GUID)
+			{
+				result = new PowerShellCodeDomProvider();
+				return VSConstants.S_OK;
+			}
 
-        internal override int QueryStatusOnNode(Guid guidCmdGroup, uint cmd, IntPtr pCmdText, ref QueryStatusResult result)
+			return base.QueryService(ref guidService, out result);
+		}
+
+		internal override int QueryStatusOnNode(Guid guidCmdGroup, uint cmd, IntPtr pCmdText, ref QueryStatusResult result)
         {
             if (guidCmdGroup == VsMenus.guidStandardCommandSet97 && IsFormSubType)
             {
