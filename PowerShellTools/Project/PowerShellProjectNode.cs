@@ -118,8 +118,8 @@ namespace PowerShellTools.Project
         {
             return PowerShellMonikers.ProjectIconImageMoniker;
         }
-#else
-        public override int ImageIndex
+#else 
+		public override int ImageIndex
         {
             get
             {

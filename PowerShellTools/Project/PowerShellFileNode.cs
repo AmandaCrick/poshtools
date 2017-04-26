@@ -53,7 +53,7 @@ namespace PowerShellTools.Project
                 return PowerShellMonikers.ScriptIconImageMoniker;
             }
         }
-#else
+
         public override int ImageIndex
         {
             get

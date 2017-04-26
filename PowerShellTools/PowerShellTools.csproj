@@ -760,16 +760,19 @@
     <EmbeddedResource Include="Project\Resources\ImageList.bmp" />
     <EmbeddedResource Include="Project\Resources\CommonImageList.bmp" />
     <EmbeddedResource Include="Resources\PowerShellInteractiveWindow_16x.png" />
-    <Resource Include="Project\Images\DataIcon.png" />
-    <Resource Include="Project\Images\ModuleIcon.png" />
-    <Content Include="Project\Images\PoshTools.imagemanifest">
+    <Resource Include="Resources\DataIcon.png" />
+    <Resource Include="Resources\ModuleIcon.png" />
+    <Content Include="PowerShellTools.15.0.imagemanifest">
       <IncludeInVSIX>true</IncludeInVSIX>
+      <VsixPath>.</VsixPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Project\SharedProject\ProcessOutput.cs.rej" />
     <None Include="Resources\WarningIcon.ico" />
     <None Include="Resources\ErrorStatus.png" />
-    <Resource Include="Project\Images\ProjectIcon.png" />
-    <Resource Include="Project\Images\ScriptIcon.png" />
+    <Resource Include="Resources\ProjectIcon.png" />
+    <Resource Include="Resources\ScriptIcon.png" />
     <None Include="Resources\WarningIcon.ico" />
     <None Include="Resources\ErrorStatus.png" />
     <Content Include="Snippets\SnippetsIndex.xml">
@@ -777,7 +780,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Templates\Files\PowerShellTest.ico" />
-    <Resource Include="Project\Images\TestIcon.png" />
+    <Resource Include="Resources\TestIcon.png" />
     <Content Include="Templates\Files\PowerShellTest.vstemplate" />
     <Content Include="Templates\Files\ScriptDataFile.vstemplate" />
     <Content Include="Templates\Files\ScriptModule.vstemplate" />
@@ -924,6 +927,10 @@
     <Page Include="DebugEngine\PromptUI\ReadHostPromptForChoicesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Project\Images\Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Project\SharedProject\OverwriteFileDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
