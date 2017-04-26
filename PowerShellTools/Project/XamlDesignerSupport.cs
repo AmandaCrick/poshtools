@@ -1,8 +1,15 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Management.Automation.Language;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.Windows.Design.Host;
+using PowerShellTools.Classification;
+using PowerShellTools.DebugEngine;
 
 namespace PowerShellTools.Project {
     /// <summary>
@@ -54,7 +61,11 @@ namespace PowerShellTools.Project {
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void InitializeEventBindingProviderNoInline(object designerContext, PowerShellFileNode codeNode) {
             Debug.Assert(designerContext is DesignerContext);
-            ((DesignerContext)designerContext).EventBindingProvider = new WpfEventBindingProvider(codeNode);
+
+	        var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+	        var x = componentModel.DefaultExportProvider.GetExports<Func<Func<IWpfTextView>, EventBindingProvider>>("WpfEventProviderFactory").FirstOrDefault();
+
+	        ((DesignerContext) designerContext).EventBindingProvider = x.Value(codeNode.GetTextView);
         }
 
         public static Type DesignerContextType {

@@ -645,7 +645,6 @@
     <Compile Include="Project\Utils\DropDownListPropertyEditor.cs" />
     <Compile Include="Project\Utils\FileListTypeConverter.cs" />
     <Compile Include="Project\Utils\VersionConverter.cs" />
-    <Compile Include="Project\WpfEventBindingProvider.cs" />
     <Compile Include="Project\XamlDesignerSupport.cs" />
     <Compile Include="ProvideDiffSupportedContentTypeAttribute.cs" />
     <Compile Include="RegistrationAttributes.cs">
@@ -738,10 +737,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ItemTemplates\WpfWindow.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="Manifest\source.extension.vsixmanifest" />
     <Content Include="poshtools.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -786,7 +781,6 @@
     <Content Include="Templates\Files\ScriptModule.vstemplate" />
     <Content Include="Templates\Files\Script.vstemplate" />
     <Resource Include="Templates\Projects\PowerShellModuleProject.ico" />
-    <Content Include="Templates\Files\WpfWindow.vstemplate" />
     <Content Include="Templates\Projects\PowerShellModuleProject.vstemplate" />
     <Content Include="Templates\Projects\PowerShellProject.vstemplate" />
     <Resource Include="Templates\Projects\PowerShellProject.ico" />
@@ -862,11 +856,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="PostBuild.ps1" />
-    <None Include="Templates\Files\Script.Test.ps1" />
     <None Include="Templates\Files\Script.psd1" />
     <None Include="Templates\Files\Script.psm1" />
     <None Include="Templates\Files\Script.Tests.ps1" />
-    <None Include="Templates\Files\WpfWindow.xaml.ps1" />
     <None Include="Templates\Projects\Module.psd1" />
     <None Include="Templates\Projects\Module.psm1" />
     <None Include="Templates\Projects\Module.tests.ps1" />
@@ -945,10 +937,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Project\SharedProject\Wpf\Controls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Templates\Files\WpfWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

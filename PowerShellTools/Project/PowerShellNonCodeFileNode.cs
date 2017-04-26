@@ -22,14 +22,7 @@ namespace PowerShellTools.Project
                 if (_designerContext == null)
                 {
                     _designerContext = XamlDesignerSupport.CreateDesignerContext();
-                    //Set the EventBindingProvider for this XAML file so the designer will call it
-                    //when event handlers need to be generated
-                    var dirName = Path.GetDirectoryName(Url);
-                    var fileName = Path.GetFileNameWithoutExtension(Url);
-                    var filenameWithoutExt = Path.Combine(dirName, fileName);
-
-                    // look for ps1
-                    var child = ProjectMgr.FindNodeByFullPath(filenameWithoutExt + PowerShellConstants.PS1File);
+                    var child = ProjectMgr.FindNodeByFullPath(Url + PowerShellConstants.PS1File);
                     if (child != null)
                     {
                         XamlDesignerSupport.InitializeEventBindingProvider(_designerContext, child as PowerShellFileNode);
@@ -48,7 +41,6 @@ namespace PowerShellTools.Project
 		        result = new PowerShellCodeDomProvider();
 		        return VSConstants.S_OK;
 	        }
-
 
 			if (XamlDesignerSupport.DesignerContextType != null &&
                 guidService == XamlDesignerSupport.DesignerContextType.GUID &&
