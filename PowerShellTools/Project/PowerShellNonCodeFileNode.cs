@@ -1,14 +1,20 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudioTools.Project;
+using Microsoft.Windows.Design.Host;
 
 namespace PowerShellTools.Project
 {
     class PowerShellNonCodeFileNode : CommonNonCodeFileNode
     {
-        private object _designerContext;
+        private DesignerContext _designerContext;
+	    private PowerShellFileNode _child;
 
         public PowerShellNonCodeFileNode(CommonProjectNode root, ProjectElement e)
             : base(root, e)
@@ -21,12 +27,15 @@ namespace PowerShellTools.Project
             {
                 if (_designerContext == null)
                 {
-                    _designerContext = XamlDesignerSupport.CreateDesignerContext();
-                    var child = ProjectMgr.FindNodeByFullPath(Url + PowerShellConstants.PS1File);
-                    if (child != null)
-                    {
-                        XamlDesignerSupport.InitializeEventBindingProvider(_designerContext, child as PowerShellFileNode);
-                    }
+                    _designerContext = new DesignerContext();
+                    var child = ProjectMgr.FindNodeByFullPath(Url + PowerShellConstants.PS1File) as DependentFileNode;
+	                if (child == null) return _designerContext;
+
+	                _child = new PowerShellFileNode(ProjectMgr, child.ItemNode);
+					var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+	                var x = componentModel.DefaultExportProvider.GetExports<Func<Func<IWpfTextView>, EventBindingProvider>>("WpfEventProviderFactory").FirstOrDefault();
+
+	                _designerContext.EventBindingProvider = x.Value(_child.GetTextView);
                 }
                 return _designerContext;
             }
@@ -42,12 +51,10 @@ namespace PowerShellTools.Project
 		        return VSConstants.S_OK;
 	        }
 
-			if (XamlDesignerSupport.DesignerContextType != null &&
-                guidService == XamlDesignerSupport.DesignerContextType.GUID &&
-                Path.GetExtension(Url).Equals(".xaml", StringComparison.OrdinalIgnoreCase))
+			if (guidService == typeof(DesignerContext).GUID && Path.GetExtension(Url)?.Equals(".xaml", StringComparison.OrdinalIgnoreCase) == true)
             {
-                // Create a DesignerContext for the XAML designer for this file
-                result = DesignerContext;
+				// Create a DesignerContext for the XAML designer for this file
+				result = DesignerContext;
                 return VSConstants.S_OK;
             }
 

@@ -159,5 +159,11 @@ namespace PowerShellTools.Project
 
             return CodeFileExtensions.Any(x => x.Equals(fi.Extension, StringComparison.OrdinalIgnoreCase));
         }
-    }
+
+	    //public override DependentFileNode CreateDependentFileNode(MsBuildProjectElement item)
+	    //{
+		   // return new PowerShellFileNode(this, item);
+	    //}
+
+	}
 }

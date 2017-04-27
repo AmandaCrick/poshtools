@@ -48,7 +48,7 @@ namespace Microsoft.VisualStudioTools.Project {
         internal static int LastTracedProperty;
 #endif
 
-        private ProjectElement itemNode;
+        public ProjectElement itemNode;
         private ProjectNode projectMgr;
         private HierarchyNode parentNode;
         private HierarchyNode nextSibling;
