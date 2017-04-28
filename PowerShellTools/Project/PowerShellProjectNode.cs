@@ -2,9 +2,12 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Microsoft.VisualStudio.Imaging;
+using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.Project;
 using PowerShellTools.Classification;
+using PowerShellTools.Project.Images;
 using PowerShellTools.Project.PropertyPages;
 
 namespace PowerShellTools.Project
@@ -94,28 +97,36 @@ namespace PowerShellTools.Project
         public override CommonFileNode CreateCodeFileNode(ProjectElement item)
         {
             var node = new PowerShellFileNode(this, item);
-
-            node.OleServiceProvider.AddService(typeof(SVSMDCodeDomProvider), CreateServices, false);
-
             return node;
         }
 
         public override CommonFileNode CreateNonCodeFileNode(ProjectElement item)
         {
-            var node = new PowerShellFileNode(this, item);
-            node.OleServiceProvider.AddService(typeof(SVSMDCodeDomProvider), CreateServices, false);
-
+            var node = new PowerShellNonCodeFileNode(this, item);
             return node;
         }
 
-        public override int ImageIndex
+        internal override string IssueTrackerUrl { get;  }
+
+#if DEV14_OR_LATER
+        protected override bool SupportsIconMonikers
+        {
+            get { return true; }
+        }
+
+        protected override ImageMoniker GetIconMoniker(bool open)
+        {
+            return PowerShellMonikers.ProjectIconImageMoniker;
+        }
+#else 
+		public override int ImageIndex
         {
             get
             {
-                return CommonProjectNode.ImageOffset + (int)ImageListIndex.Project;
+                return (int)ImageListIndex.Project;
             }
         }
-
+#endif
         protected override ConfigProvider CreateConfigProvider()
         {
             return new PowerShellConfigProvider(_package, this);
@@ -148,5 +159,11 @@ namespace PowerShellTools.Project
 
             return CodeFileExtensions.Any(x => x.Equals(fi.Extension, StringComparison.OrdinalIgnoreCase));
         }
-    }
+
+	    //public override DependentFileNode CreateDependentFileNode(MsBuildProjectElement item)
+	    //{
+		   // return new PowerShellFileNode(this, item);
+	    //}
+
+	}
 }

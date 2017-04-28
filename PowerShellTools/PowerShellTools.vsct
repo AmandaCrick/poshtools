@@ -203,6 +203,11 @@
     <GuidSymbol name="guidReplImage" value="{9F35C43F-D1AD-4A84-AB48-732DE8157697}"/>
     <GuidSymbol name="guidExplorerImage" value="{56BFF972-C4AC-4C8E-8A17-70BD8368F11A}"/>
 
+   <GuidSymbol name="ProjectGuid" value="{072A9D46-0C24-4CFA-990A-25D7E12271F5}">
+      <IDSymbol name="ProjectIcon" value="0" />
+   </GuidSymbol>
+
+     
   </Symbols>
 
 </CommandTable>
