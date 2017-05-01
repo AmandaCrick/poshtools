@@ -759,7 +759,7 @@
     <EmbeddedResource Include="Resources\PowerShellInteractiveWindow_16x.png" />
     <Resource Include="Resources\DataIcon.png" />
     <Resource Include="Resources\ModuleIcon.png" />
-    <Content Include="PowerShellTools.15.0.imagemanifest">
+    <Content Include="PowerShellTools.$(VSTarget).imagemanifest">
       <IncludeInVSIX>true</IncludeInVSIX>
       <VsixPath>.</VsixPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1002,5 +1002,9 @@
   <Import Project="..\Build\ProjectAfter.settings" />
   <PropertyGroup>
     <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
