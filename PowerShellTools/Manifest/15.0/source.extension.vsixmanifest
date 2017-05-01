@@ -4,7 +4,7 @@
     <Identity Id="PowerShellTools.VS2017" Version="|%CurrentProject%;GetVsixVersion|" Language="en-US" Publisher="Adam Driscoll" />
     <DisplayName>|%CurrentProject%;GetVsixDisplayName|</DisplayName>
     <Description xml:space="preserve">A set of tools for developing and debugging PowerShell scripts and modules in Visual Studio.</Description>
-    <MoreInfo>http://adamdriscoll.github.io/poshtools</MoreInfo>
+    <MoreInfo>https://poshtools.com</MoreInfo>
     <License>License.txt</License>
     <Icon>poshtools.png</Icon>
     <PreviewImage>preview.png</PreviewImage>
