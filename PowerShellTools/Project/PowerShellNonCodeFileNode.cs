@@ -30,12 +30,11 @@ namespace PowerShellTools.Project
                     _designerContext = new DesignerContext();
                     var child = ProjectMgr.FindNodeByFullPath(Url + PowerShellConstants.PS1File) as DependentFileNode;
 	                if (child == null) return _designerContext;
-
 	                _child = new PowerShellFileNode(ProjectMgr, child.ItemNode);
 					var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-	                var x = componentModel.DefaultExportProvider.GetExports<Func<Func<IWpfTextView>, EventBindingProvider>>("WpfEventProviderFactory").FirstOrDefault();
+	                var x = componentModel.DefaultExportProvider.GetExports<Func<Func<IWpfTextView>, Func<IWpfTextView>, EventBindingProvider>>("WpfEventProviderFactory").FirstOrDefault();
 
-	                _designerContext.EventBindingProvider = x.Value(_child.GetTextView);
+	                _designerContext.EventBindingProvider = x.Value(GetTextView, _child.GetTextView);
                 }
                 return _designerContext;
             }
