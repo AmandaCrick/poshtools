@@ -33,14 +33,10 @@ using PowerShellTools.ServiceManagement;
 using Engine = PowerShellTools.DebugEngine.Engine;
 using MessageBox = System.Windows.MessageBox;
 using Threading = System.Threading.Tasks;
-
-using Microsoft.VisualStudio.Debugger;
-using Microsoft.VisualStudio.Debugger.Interop;
 using PowerShellTools.Common.Logging;
 using PowerShellTools.DebugEngine.Remote;
 using PowerShellTools.Explorer;
 using PowerShellTools.Common.ServiceManagement.ExplorerContract;
-using PowerShellTools.Project;
 
 namespace PowerShellTools
 {
@@ -132,6 +128,7 @@ namespace PowerShellTools
         private static PowerShellToolsPackage _instance;
         public static EventWaitHandle DebuggerReadyEvent = new EventWaitHandle(false, EventResetMode.ManualReset);
         public static bool PowerShellHostInitialized = false;
+	    public bool ResetPowerShellSession;
 
         /// <summary>
         /// Default constructor of the package.
@@ -452,6 +449,7 @@ namespace PowerShellTools
         {
             var page = (GeneralDialogPage)GetDialogPage(typeof(GeneralDialogPage));
 
+	        ResetPowerShellSession = page.ResetPowerShellSession;
             OverrideExecutionPolicyConfiguration = page.OverrideExecutionPolicyConfiguration;
 
             Log.Info("InitializePowerShellHost");
@@ -477,6 +475,11 @@ namespace PowerShellTools
         {
             ConnectionManager.Instance.ProcessEventHandler(e.NewBitness);
         }
+
+	    internal void ResetPowerShellSessionChanged(object sender, EventArgs<bool> e)
+	    {
+		    ResetPowerShellSession = e.Value;
+	    }
 
         internal void DiagnosticLoggingSettingChanged(object sender, bool enabled)
         {
