@@ -116,7 +116,7 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testCase = WriteTestFile("Test..Should pass", testScript);
+            var testCase = WriteTestFile("Test.No Context.Should pass", testScript);
 	        _executor.RunTestSet(_powerShell, testCase, _runContext.Object);
 	        var result = testCase.TestResults.First();
 
@@ -134,7 +134,7 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testCase = WriteTestFile("Test..Should pass", testScript);
+            var testCase = WriteTestFile("Test.No Context.Should pass", testScript);
 	        _executor.RunTestSet(_powerShell, testCase, _runContext.Object);
 	        var result = testCase.TestResults.First();
 

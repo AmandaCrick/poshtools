@@ -117,7 +117,7 @@ namespace PowerShellTools.TestAdapter
                 return GetParentContextName(logger, ast.Parent);
             }
 
-            return null;
+            return "No Context";
         }
 
 		private static string GetFunctionName(IMessageLogger logger, Ast context, string functionName)

@@ -38,6 +38,9 @@ namespace PowerShellTools.TestAdapter
 				var context = result.Properties["Context"].Value as string;
 				var name = result.Properties["Name"].Value as string;
 
+				if (string.IsNullOrEmpty(context))
+					context = "No Context";
+
 				// Skip test cases we aren't trying to run
 				var testCase = TestCases.FirstOrDefault(m => m.FullyQualifiedName == string.Format("{0}.{1}.{2}", describe, context, name));
 				if (testCase == null) continue;
