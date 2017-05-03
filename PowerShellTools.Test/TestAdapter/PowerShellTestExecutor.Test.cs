@@ -113,7 +113,7 @@ namespace PowerShellTools.Test.TestAdapter
             Assert.AreEqual(TestOutcome.Passed, result.Outcome);
         }
 
-        [TestMethod]
+		[TestMethod]
         public void ShouldRunTestWithoutContext()
         {
             const string testScript = @"

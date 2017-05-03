@@ -1,6 +1,4 @@
-using Microsoft.VisualStudio.Shell.Interop;
-
-namespace XmlTestAdapter.EventWatchers.EventArgs
+namespace PowerShellTools.TestAdapter.Helpers
 {
     public enum SolutionChangedReason
     {
@@ -12,10 +10,10 @@ namespace XmlTestAdapter.EventWatchers.EventArgs
 
     public class SolutionEventsListenerEventArgs : System.EventArgs
     {
-        public IVsProject Project { get; private set; }
+        public IProject Project { get; private set; }
         public SolutionChangedReason ChangedReason { get; private set; }
 
-        public SolutionEventsListenerEventArgs(IVsProject project, SolutionChangedReason reason)
+        public SolutionEventsListenerEventArgs(IProject project, SolutionChangedReason reason)
         {
             Project = project;
             ChangedReason = reason;

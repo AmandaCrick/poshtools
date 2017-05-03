@@ -1,7 +1,6 @@
 using System;
-using XmlTestAdapter.EventWatchers.EventArgs;
 
-namespace XmlTestAdapter.EventWatchers
+namespace PowerShellTools.TestAdapter.Helpers
 {
     public interface ITestFileAddRemoveListener
     {

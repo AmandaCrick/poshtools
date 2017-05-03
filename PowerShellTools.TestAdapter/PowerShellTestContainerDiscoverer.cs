@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TestWindow.Extensibility;
-using XmlTestAdapter;
-using XmlTestAdapter.EventWatchers;
-using XmlTestAdapter.EventWatchers.EventArgs;
+using PowerShellTools.TestAdapter.Helpers;
 
 namespace PowerShellTools.TestAdapter
 {
@@ -18,7 +14,7 @@ namespace PowerShellTools.TestAdapter
         private readonly List<ITestContainer> _cachedContainers;
 
         private readonly ILogger _logger;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly ISolutionProvider _solutionProvider;
         private bool _initialContainerSearch;
         private ISolutionEventsListener _solutionListener;
         private ITestFileAddRemoveListener _testFilesAddRemoveListener;
@@ -26,7 +22,7 @@ namespace PowerShellTools.TestAdapter
 
         [ImportingConstructor]
         public PowerShellTestContainerDiscoverer(
-            [Import(typeof (SVsServiceProvider))] IServiceProvider serviceProvider,
+			ISolutionProvider solutionProvider,
             ILogger logger,
             ISolutionEventsListener solutionListener,
             ITestFilesUpdateWatcher testFilesUpdateWatcher,
@@ -34,7 +30,7 @@ namespace PowerShellTools.TestAdapter
         {
             _initialContainerSearch = true;
             _cachedContainers = new List<ITestContainer>();
-            _serviceProvider = serviceProvider;
+	        _solutionProvider = solutionProvider;
             _logger = logger;
             _solutionListener = solutionListener;
             _testFilesUpdateWatcher = testFilesUpdateWatcher;
@@ -202,7 +198,7 @@ namespace PowerShellTools.TestAdapter
             if (_initialContainerSearch)
             {
                 _cachedContainers.Clear();
-                IEnumerable<string> testFiles = FindPowerShellTestFiles();
+                var testFiles = FindPowerShellTestFiles();
                 UpdateFileWatcher(testFiles, true);
                 _initialContainerSearch = false;
             }
@@ -212,18 +208,16 @@ namespace PowerShellTools.TestAdapter
 
         private IEnumerable<string> FindPowerShellTestFiles()
         {
-            var solution = (IVsSolution) _serviceProvider.GetService(typeof (SVsSolution));
-            IEnumerable<IVsProject> loadedProjects =
-                solution.EnumerateLoadedProjects(__VSENUMPROJFLAGS.EPF_LOADEDINSOLUTION).OfType<IVsProject>();
+	        var solution = _solutionProvider.GetLoadedSolution();
 
-            return loadedProjects.SelectMany(FindPowerShellTestFiles).ToList();
+            return solution.Projects.SelectMany(FindPowerShellTestFiles).ToList();
         }
 
-        private IEnumerable<string> FindPowerShellTestFiles(IVsProject project)
+        private IEnumerable<string> FindPowerShellTestFiles(IProject project)
         {
             _logger.Log(MessageLevel.Diagnostic,
                 "PowerShellTestContainerDiscoverer:OnTestContainersChanged - FindPs1Files");
-            return from item in VsSolutionHelper.GetProjectItems(project)
+            return from item in project.Items
                 where IsPowerShellTestFile(item)
                 select item;
         }

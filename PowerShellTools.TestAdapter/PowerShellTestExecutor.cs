@@ -44,7 +44,7 @@ namespace PowerShellTools.TestAdapter
                     break;
                 }
 
-                if ((policy <= currentPolicy || currentPolicy == ExecutionPolicy.Bypass) && currentPolicy != ExecutionPolicy.Undefined) //Bypass is the absolute least restrictive, but as added in PS 2.0, and thus has a value of '4' instead of a value that corresponds to it's relative restrictiveness
+                if ((currentPolicy <= policy || currentPolicy == ExecutionPolicy.Bypass) && currentPolicy != ExecutionPolicy.Undefined) //Bypass is the absolute least restrictive, but as added in PS 2.0, and thus has a value of '4' instead of a value that corresponds to it's relative restrictiveness
                     return;
 
                 ps.Commands.Clear();
@@ -117,7 +117,8 @@ namespace PowerShellTools.TestAdapter
 
         public PowerShellTestResult RunTest(PowerShell powerShell, TestCase testCase, IRunContext runContext)
         {
-            var module = FindModule("Pester", runContext);
+	        SetupExecutionPolicy();
+			var module = FindModule("Pester", runContext);
             powerShell.AddCommand("Import-Module").AddParameter("Name", module);
             powerShell.Invoke();
             powerShell.Commands.Clear();
