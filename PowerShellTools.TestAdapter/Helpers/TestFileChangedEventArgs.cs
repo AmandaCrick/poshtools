@@ -1,4 +1,4 @@
-namespace XmlTestAdapter.EventWatchers.EventArgs
+namespace PowerShellTools.TestAdapter.Helpers
 {
     public enum TestFileChangedReason
     {

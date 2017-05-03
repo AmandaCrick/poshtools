@@ -1,14 +1,10 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using XmlTestAdapter.EventWatchers.EventArgs;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using XmlTestAdapter;
-using PowerShellTools.TestAdapter.Helpers;
 
-namespace XmlTestAdapter.EventWatchers
+namespace PowerShellTools.TestAdapter.Helpers
 {
     [Export(typeof(ITestFileAddRemoveListener))]
     public sealed class TestFileAddRemoveListener : IVsTrackProjectDocumentsEvents2, IDisposable, ITestFileAddRemoveListener

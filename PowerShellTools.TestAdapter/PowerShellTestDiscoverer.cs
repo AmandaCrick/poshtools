@@ -58,29 +58,6 @@ namespace PowerShellTools.TestAdapter
 
                 var tags = GetDescribeTags(logger, ast1);
 
-                var testcase = new TestCase(describeName, PowerShellTestExecutor.ExecutorUri, source)
-                {
-                    DisplayName = describeName,
-                    CodeFilePath = source,
-                    LineNumber = ast1.Extent.StartLineNumber
-                };
-
-                foreach(var tag in tags)
-                {
-                    testcase.Traits.Add(tag, string.Empty);
-                }
-                
-                SendMessage(TestMessageLevel.Informational,
-                    string.Format(Resources.AddingTestFormat, describeName, source, testcase.LineNumber), logger);
-
-                if (discoverySink != null)
-                {
-                    discoverySink.SendTestCase(testcase);
-                }
-
-                tests.Add(testcase);
-
-                /* TODO: When Pester supports this, we can implement it.
                 var its = ast1.FindAll(
                 m =>
                     (m is CommandAst) &&
@@ -100,10 +77,30 @@ namespace PowerShellTools.TestAdapter
                         continue;
                     }
 
-                    var displayName = String.Format("{0} It {1}", contextName, itName);
-                    var fullName = String.Format("{0}||{1}||{2}", describeName, contextName, itName);
-                }
-                */
+                    var fullName = String.Format("{0}.{1}.{2}", describeName, contextName, itName);
+
+	                var testcase = new TestCase(fullName, PowerShellTestExecutor.ExecutorUri, source)
+	                {
+		                DisplayName = itName,
+		                CodeFilePath = source,
+		                LineNumber = itAst.Extent.StartLineNumber,
+					};
+
+	                foreach (var tag in tags)
+	                {
+		                testcase.Traits.Add(tag, string.Empty);
+	                }
+
+	                SendMessage(TestMessageLevel.Informational,
+		                string.Format(Resources.AddingTestFormat, describeName, source, testcase.LineNumber), logger);
+
+	                if (discoverySink != null)
+	                {
+		                discoverySink.SendTestCase(testcase);
+	                }
+
+	                tests.Add(testcase);
+				}
             }
         }
 
@@ -120,10 +117,10 @@ namespace PowerShellTools.TestAdapter
                 return GetParentContextName(logger, ast.Parent);
             }
 
-            return null;
+            return "No Context";
         }
 
-        private static string GetFunctionName(IMessageLogger logger, Ast context, string functionName)
+		private static string GetFunctionName(IMessageLogger logger, Ast context, string functionName)
         {
             var contextAst = (CommandAst) context;
             var contextName = string.Empty;

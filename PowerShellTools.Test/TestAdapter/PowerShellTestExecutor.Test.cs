@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PowerShellTools.TestAdapter;
 using System.IO;
+using System.Linq;
 using System.Management.Automation.Runspaces;
 
 namespace PowerShellTools.Test.TestAdapter
@@ -61,38 +62,28 @@ namespace PowerShellTools.Test.TestAdapter
             }
         }
 
-        [TestMethod]
-        public void ShouldReturnFailureIfCantFindPesterModule()
-        {
-            _runContext.Setup(m => m.TestRunDirectory).Returns(TestContext.TestDeploymentDir);
-            _runContext.Setup(m => m.SolutionDirectory).Returns(GetModuleDir("1.0.0"));
+	    private string GetModuleDir(string pesterVersion)
+	    {
+		    return Path.Combine(TestContext.TestDeploymentDir, "Pester-" + pesterVersion);
+	    }
 
-            var testCase = WriteTestFile("Test||Blah||Should pass", String.Empty);
-            var result = _executor.RunTest(_powerShell, testCase, _runContext.Object);
+	    private TestCaseSet WriteTestFile(string name, string contents)
+	    {
+		    _pesterTestDir = Path.Combine(Path.GetTempPath(), DateTime.Now.Ticks.ToString());
 
-            Assert.AreEqual(TestOutcome.Failed, result.Outcome);
-            Assert.IsTrue(result.ErrorMessage.Contains("Failed to load Pester module."));
-        }
+		    Directory.CreateDirectory(_pesterTestDir);
 
-        private string GetModuleDir(string pesterVersion)
-        {
-            return Path.Combine(TestContext.TestDeploymentDir, "Pester-" + pesterVersion);
-        }
+		    _tempFile = Path.Combine(_pesterTestDir, "MyTests.Tests.ps1");
+		    File.WriteAllText(_tempFile, contents);
 
-        private TestCase WriteTestFile(string name, string contents)
-        {
-            _pesterTestDir = Path.Combine(Path.GetTempPath(), DateTime.Now.Ticks.ToString());
+		    var testCase = new TestCase(name, new Uri("http://test.com"), _tempFile);
+		    testCase.CodeFilePath = _tempFile;
 
-            Directory.CreateDirectory(_pesterTestDir);
-
-            _tempFile = Path.Combine(_pesterTestDir, "MyTests.Tests.ps1");
-            File.WriteAllText(_tempFile, contents);
-
-            var testCase = new TestCase(name, new Uri("http://test.com"), _tempFile);
-            testCase.CodeFilePath = _tempFile;
-            return testCase;
-        }
-
+		    var describe = name.Split('.').First();
+		    var set = new TestCaseSet(_tempFile, describe);
+		    set.TestCases.Add(testCase);
+		    return set;
+	    }
 
         [TestMethod]
         public void ShouldReturnSuccessfulTestResults()
@@ -107,13 +98,14 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testCase = WriteTestFile("Test", testScript);
-            var result = _executor.RunTest(_powerShell, testCase, _runContext.Object);
+            var testCase = WriteTestFile("Test.Blah.Should pass", testScript);
+	        _executor.RunTestSet(_powerShell, testCase, _runContext.Object);
+	        var result = testCase.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Passed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Passed, result.Outcome);
         }
 
-        [TestMethod]
+		[TestMethod]
         public void ShouldRunTestWithoutContext()
         {
             const string testScript = @"
@@ -124,10 +116,11 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testCase = WriteTestFile("Test", testScript);
-            var result = _executor.RunTest(_powerShell, testCase, _runContext.Object);
+            var testCase = WriteTestFile("Test.No Context.Should pass", testScript);
+	        _executor.RunTestSet(_powerShell, testCase, _runContext.Object);
+	        var result = testCase.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Passed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Passed, result.Outcome);
         }
 
         [TestMethod]
@@ -141,10 +134,11 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testCase = WriteTestFile("Test", testScript);
-            var result = _executor.RunTest(_powerShell, testCase, _runContext.Object);
+            var testCase = WriteTestFile("Test.No Context.Should pass", testScript);
+	        _executor.RunTestSet(_powerShell, testCase, _runContext.Object);
+	        var result = testCase.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Failed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Failed, result.Outcome);
         }
 
 
@@ -161,11 +155,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Failed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Failed, result.Outcome);
         }
 
         [TestMethod]
@@ -181,11 +176,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
+			Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
         }
 
 
@@ -201,11 +197,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
+			Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
         }
 
         [TestMethod]
@@ -220,11 +217,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
+			Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
         }
 
         [TestMethod]
@@ -240,11 +238,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Failed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Failed, result.Outcome);
         }
 
         [TestMethod]
@@ -264,11 +263,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Failed, result.Outcome);
+			Assert.AreEqual(TestOutcome.Failed, result.Outcome);
         }
 
         [TestMethod]
@@ -288,11 +288,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
+			Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
         }
 
         [TestMethod]
@@ -312,11 +313,12 @@ namespace PowerShellTools.Test.TestAdapter
             }
             ";
 
-            var testFile = WriteTestFile("Test", testScript);
+            var testFile = WriteTestFile("Test.Blah.Should fail", testScript);
 
-            var result = _executor.RunTest(_powerShell, testFile, _runContext.Object);
+	        _executor.RunTestSet(_powerShell, testFile, _runContext.Object);
+	        var result = testFile.TestResults.First();
 
-            Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
+			Assert.AreEqual(TestOutcome.Skipped, result.Outcome);
         }
     }
 }
