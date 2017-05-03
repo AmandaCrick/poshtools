@@ -58,21 +58,39 @@ namespace PowerShellTools.TestAdapter
         {
             _mCancelled = false;
             SetupExecutionPolicy();
-            foreach (var test in tests)
+
+	        var testSets = new List<TestCaseSet>();
+	        foreach (var testCase in tests)
+	        {
+		        var describe = testCase.FullyQualifiedName.Split('.').First();
+		        var codeFile = testCase.CodeFilePath;
+
+		        var testSet = testSets.FirstOrDefault(m => m.Describe.Equals(describe, StringComparison.OrdinalIgnoreCase) &&
+		                                                   m.File.Equals(codeFile, StringComparison.OrdinalIgnoreCase));
+
+		        if (testSet == null)
+		        {
+			        testSet = new TestCaseSet(codeFile, describe);
+					testSets.Add(testSet);
+		        }
+
+				testSet.TestCases.Add(testCase);
+	        }
+
+            foreach (var testSet in testSets)
             {
                 if (_mCancelled) break;
 
-                var testResult = new TestResult(test);
-                testResult.Outcome = TestOutcome.Failed;
-                testResult.ErrorMessage = Resources.UnexpectedError;
-
-                PowerShellTestResult testResultData = null;
                 var testOutput = new StringBuilder();
 
                 try
                 {
                     var testAdapter = new TestAdapterHost();
-                    testAdapter.HostUi.OutputString = s => testOutput.Append(s);
+                    testAdapter.HostUi.OutputString = s =>
+                    {
+						if (!string.IsNullOrEmpty(s))
+							testOutput.Append(s);
+                    };
 
                     var runpsace = RunspaceFactory.CreateRunspace(testAdapter);
                     runpsace.Open();
@@ -80,29 +98,30 @@ namespace PowerShellTools.TestAdapter
                     using (var ps = PowerShell.Create())
                     {
                         ps.Runspace = runpsace;
-                        testResultData = RunTest(ps, test, runContext);
+	                    RunTestSet(ps, testSet, runContext);
+
+	                    foreach (var testResult in testSet.TestResults)
+	                    {
+							frameworkHandle.RecordResult(testResult);
+						}
                     }
                 }
                 catch (Exception ex)
                 {
-                    testResult.Outcome = TestOutcome.Failed;
-                    testResult.ErrorMessage = ex.Message;
-                    testResult.ErrorStackTrace = ex.StackTrace;
-                }
-
-                if (testResultData != null)
-                {
-                    testResult.Outcome = testResultData.Outcome;
-                    testResult.ErrorMessage = testResultData.ErrorMessage;
-                    testResult.ErrorStackTrace = testResultData.ErrorStacktrace;
+	                foreach (var testCase in testSet.TestCases)
+	                {
+						var testResult = new TestResult(testCase);
+		                testResult.Outcome = TestOutcome.Failed;
+		                testResult.ErrorMessage = ex.Message;
+		                testResult.ErrorStackTrace = ex.StackTrace;
+						frameworkHandle.RecordResult(testResult);
+	                }
                 }
 
                 if (testOutput.Length > 0)
                 {
                     frameworkHandle.SendMessage(TestMessageLevel.Informational, testOutput.ToString());
                 }
-
-                frameworkHandle.RecordResult(testResult);
             }
         }
 
@@ -115,106 +134,36 @@ namespace PowerShellTools.TestAdapter
         public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
         private bool _mCancelled;
 
-        public PowerShellTestResult RunTest(PowerShell powerShell, TestCase testCase, IRunContext runContext)
-        {
-	        SetupExecutionPolicy();
-			var module = FindModule("Pester", runContext);
-            powerShell.AddCommand("Import-Module").AddParameter("Name", module);
-            powerShell.Invoke();
-            powerShell.Commands.Clear();
+	    public void RunTestSet(PowerShell powerShell, TestCaseSet testCaseSet, IRunContext runContext)
+	    {
+			SetupExecutionPolicy();
+		    var module = FindModule("Pester", runContext);
+		    powerShell.AddCommand("Import-Module").AddParameter("Name", module);
+		    powerShell.Invoke();
+		    powerShell.Commands.Clear();
 
-            if (powerShell.HadErrors)
-            {
-                var errorRecord = powerShell.Streams.Error.FirstOrDefault();
-                var errorMessage = errorRecord == null ? string.Empty : errorRecord.ToString();
-                return new PowerShellTestResult(TestOutcome.Failed, Resources.FailedToLoadPesterModule + errorMessage, string.Empty);
-            }
+		    if (powerShell.HadErrors)
+		    {
+			    var errorRecord = powerShell.Streams.Error.FirstOrDefault();
+			    var errorMessage = errorRecord == null ? string.Empty : errorRecord.ToString();
 
-            var fi = new FileInfo(testCase.CodeFilePath);
+				throw new Exception(Resources.FailedToLoadPesterModule + errorMessage);
+		    }
 
-            var tempFile = Path.GetTempFileName();
+		    var fi = new FileInfo(testCaseSet.File);
 
-            var describeName = testCase.FullyQualifiedName;
+		    powerShell.AddCommand("Invoke-Pester")
+			    .AddParameter("Path", fi.Directory.FullName)
+			    .AddParameter("TestName", testCaseSet.Describe)
+			    .AddParameter("PassThru");
 
-            powerShell.AddCommand("Invoke-Pester")
-                .AddParameter("Path", fi.Directory.FullName)
-                .AddParameter("TestName", describeName)
-                .AddParameter("PassThru");
+		    var pesterResults = powerShell.Invoke();
+		    powerShell.Commands.Clear();
 
-            var pesterResults = powerShell.Invoke();
-            powerShell.Commands.Clear();
-
-            // The test results are not necessary stored in the first PSObject.
-            var results = GetTestResults(pesterResults);
-
-            TestOutcome testOutcome = TestOutcome.NotFound;
-
-            var error = new StringBuilder();
-            var stackTrace = new StringBuilder();
-
-            foreach (PSObject result in results)
-            {
-                var describe = result.Properties["Describe"].Value as string;
-                var errorMessage = string.Format("Error in {0}", fi.FullName);
-
-                // Pester returns either the "describe" or an errorMessage when there was an error/exception while running the script
-                if (describeName.Equals(describe, StringComparison.OrdinalIgnoreCase) || errorMessage.Equals(describe, StringComparison.OrdinalIgnoreCase))
-                {
-                    var currentOutcome = GetOutcome(result.Properties["Result"].Value as string);
-                    if (currentOutcome == TestOutcome.Failed)
-                    {
-                        testOutcome = TestOutcome.Failed;
-                    }
-                    else if (testOutcome == TestOutcome.Passed && currentOutcome != TestOutcome.Passed)
-                    {
-                        testOutcome = currentOutcome;
-                    }
-                    else if (testOutcome == TestOutcome.NotFound)
-                    {
-                        testOutcome = currentOutcome;
-                    }
-
-                    var context = result.Properties["Context"].Value as string;
-                    var name = result.Properties["Name"].Value as string;
-                    var stackTraceString = result.Properties["StackTrace"].Value as string;
-                    var errorString = result.Properties["FailureMessage"].Value as string;
-
-                    if (!string.IsNullOrEmpty(stackTraceString))
-                    {
-                        stackTrace.AppendLine(string.Format("{0} it {1}\r\n{2}", context, name, stackTraceString));
-                    }
-
-                    if (!string.IsNullOrEmpty(errorString))
-                    {
-                        error.AppendLine(string.Format("{0} it {1}\r\n{2}", context, name, errorString));
-                    }
-                }
-            }
-
-            return new PowerShellTestResult(testOutcome, error.ToString(), stackTrace.ToString());
-        }
-
-        private TestOutcome GetOutcome(string testResult)
-        {
-            if (string.IsNullOrEmpty(testResult))
-            {
-                return TestOutcome.NotFound;
-            }
-
-            if (testResult.Equals("passed", StringComparison.OrdinalIgnoreCase))
-            {
-                return TestOutcome.Passed;
-            }
-            if (testResult.Equals("skipped", StringComparison.OrdinalIgnoreCase))
-            {
-                return TestOutcome.Skipped;
-            }
-            if (testResult.Equals("pending", StringComparison.OrdinalIgnoreCase))
-            {
-                return TestOutcome.Skipped;
-            }
-            return TestOutcome.Failed;
-        }
+		    // The test results are not necessary stored in the first PSObject.
+		    var results = GetTestResults(pesterResults);
+			testCaseSet.ProcessTestResults(results);
+		}
 
         protected string FindModule(string moduleName, IRunContext runContext)
         {
@@ -243,7 +192,7 @@ namespace PowerShellTools.TestAdapter
         /// </returns>
         private static Array GetTestResults(Collection<PSObject> psObjects)
         {
-            var resultObject = psObjects.Where(o => o.Properties["TestResult"] != null).FirstOrDefault();
+            var resultObject = psObjects.FirstOrDefault(o => o.Properties["TestResult"] != null);
 
             return resultObject.Properties["TestResult"].Value as Array;
         }
