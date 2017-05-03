@@ -111,7 +111,7 @@ namespace PowerShellTools.ServiceManagement
             }
         }
 
-        private void OpenClientConnection()
+        public void OpenClientConnection()
         {
             lock (_syncObject)
             {
@@ -171,7 +171,7 @@ namespace PowerShellTools.ServiceManagement
             EnsureCloseProcess();
         }
 
-        private void EnsureCloseProcess()
+        public void EnsureCloseProcess()
         {
             if (_process != null)
             {
@@ -199,7 +199,7 @@ namespace PowerShellTools.ServiceManagement
             }
         }
 
-        private void EnsureClearServiceChannel()
+        public void EnsureClearServiceChannel()
         {
             if (_intelliSenseServiceChannelFactory != null)
             {

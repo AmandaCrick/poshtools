@@ -2,20 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Management.Automation;
 using System.Management.Automation.Runspaces;
+using System.Net.Configuration;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Debugger.Interop;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using PowerShellTools.Common.ServiceManagement.DebuggingContract;
 using PowerShellTools.DebugEngine.Definitions;
 using Task = System.Threading.Tasks.Task;
 using Thread = System.Threading.Thread;
 using PowerShellTools.Common;
 using PowerShellTools.Common.Logging;
+using PowerShellTools.ServiceManagement;
 
 namespace PowerShellTools.DebugEngine
 {
@@ -86,6 +85,13 @@ namespace PowerShellTools.DebugEngine
         /// </remarks>
         public void Execute()
         {
+	        if (PowerShellToolsPackage.Instance.ResetPowerShellSession)
+	        {
+		        ConnectionManager.Instance.EnsureCloseProcess();
+		        ConnectionManager.Instance.EnsureClearServiceChannel();
+				ConnectionManager.Instance.OpenClientConnection();
+	        }
+
             if (!PowerShellToolsPackage.PowerShellHostInitialized)
             {
                 // TODO: UI Work required to give user inidcation that it is waiting for debugger to get alive.

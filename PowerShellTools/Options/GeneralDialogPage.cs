@@ -1,19 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using Microsoft.VisualStudio.Shell;
+using PowerShellTools.DebugEngine;
 
 namespace PowerShellTools.Options
 {
     internal class GeneralDialogPage : DialogPage
     {
         private BitnessOptions _savedBitness;
+	    private bool _savedResetSession;
 
         public event EventHandler<BitnessEventArgs> BitnessSettingChanged;
+	    public event EventHandler<EventArgs<bool>> ResetPowerShellSessionChanged;
 
-        /// <summary>
-        /// The constructor
-        /// </summary>
-        public GeneralDialogPage()
+		/// <summary>
+		/// The constructor
+		/// </summary>
+		public GeneralDialogPage()
         {
             InitializeSettings();
         }
@@ -35,7 +38,11 @@ namespace PowerShellTools.Options
         [Description("When false, the host service will not load any profiles on startup.")]
         public bool ShouldLoadProfiles { get; set; }
 
-        protected override void OnApply(DialogPage.PageApplyEventArgs e)
+	    [DisplayName(@"Reset PowerShell Session")]
+	    [Description("When true, resets the PowerShell session between executions.")]
+	    public bool ResetPowerShellSession { get; set; }
+
+		protected override void OnApply(PageApplyEventArgs e)
         {
             base.OnApply(e);
 
@@ -45,6 +52,18 @@ namespace PowerShellTools.Options
                 Bitness = BitnessOptions.DefaultToOperatingSystem;
                 return;
             }
+
+	        if (_savedResetSession != ResetPowerShellSession)
+	        {
+				var changed = ResetPowerShellSessionChanged;
+		        if (changed != null)
+		        {
+			        changed(this, new EventArgs<bool>(ResetPowerShellSession));
+		        }
+			}
+
+	        _savedResetSession = ResetPowerShellSession;
+
             if (_savedBitness != Bitness)
             {
                 var changed = BitnessSettingChanged;
@@ -73,8 +92,10 @@ namespace PowerShellTools.Options
                 Bitness = BitnessOptions.DefaultToOperatingSystem;
             }
 
+	        ResetPowerShellSessionChanged += PowerShellToolsPackage.Instance.ResetPowerShellSessionChanged;
             BitnessSettingChanged += PowerShellToolsPackage.Instance.BitnessSettingChanged;
 
+	        this.ResetPowerShellSession = false;
             this.ShouldLoadProfiles = true;
         }
     }
