@@ -17,6 +17,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
 using Microsoft.VisualStudioTools;
 using Microsoft.VisualStudioTools.Navigation;
+using Microsoft.Win32;
 using PowerShellTools.Classification;
 using PowerShellTools.Commands;
 using PowerShellTools.Common.ServiceManagement.DebuggingContract;
@@ -287,7 +288,14 @@ namespace PowerShellTools
                 _powerShellHostClientService = new Lazy<PowerShellHostClientService> (() => { return new PowerShellHostClientService(); });
                 
                 RegisterServices();
-            }
+
+	            if (ShouldShowReleaseNotes())
+	            {
+					IVsWindowFrame ppFrame;
+		            var service = GetGlobalService(typeof(IVsWebBrowsingService)) as IVsWebBrowsingService;
+		            service.Navigate("https://poshtools.com/release/current", (uint)__VSWBNAVIGATEFLAGS.VSNWB_ForceNew, out ppFrame);
+				}
+			}
             catch (Exception ex)
             {
                 Log.Error("Failed to initialize package.", ex);
@@ -299,7 +307,41 @@ namespace PowerShellTools
             }
         }
 
-        private void InitializeInternal()
+	    private bool ShouldShowReleaseNotes()
+	    {
+			var page = (GeneralDialogPage)GetDialogPage(typeof(GeneralDialogPage));
+		    if (!page.ShowReleaseNotes) return false;
+
+		    using (var key = Registry.CurrentUser.CreateSubKey(@"Software\PowerShell Tools for Visual Studio", true))
+		    {
+			    var lastReleaseNoteVersion = key.GetValue("LastReleaseNoteVersion") as string;
+			    if (string.IsNullOrEmpty(lastReleaseNoteVersion))
+			    {
+				    key.SetValue("LastReleaseNoteVersion", Version);
+				    return true;
+			    }
+
+			    if (System.Version.Parse(lastReleaseNoteVersion) < System.Version.Parse(Version))
+			    {
+					key.SetValue("LastReleaseNoteVersion", Version);
+				    return true;
+				}
+
+			    return false;
+		    }
+	    }
+
+	    public static string Version
+	    {
+		    get
+		    {
+			    Assembly asm = Assembly.GetExecutingAssembly();
+			    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
+			    return fvi.FileVersion;
+		    }
+	    }
+
+		private void InitializeInternal()
         {
             _intelliSenseServiceContext = new IntelliSenseEventsHandlerProxy();
 
