@@ -42,6 +42,10 @@ namespace PowerShellTools.Options
 	    [Description("When true, resets the PowerShell session between executions.")]
 	    public bool ResetPowerShellSession { get; set; }
 
+	    [DisplayName(@"Show Release Notes")]
+	    [Description("When true, shows release notes after PowerShell tools is updated.")]
+	    public bool ShowReleaseNotes { get; set; }
+
 		protected override void OnApply(PageApplyEventArgs e)
         {
             base.OnApply(e);
@@ -97,6 +101,7 @@ namespace PowerShellTools.Options
 
 	        this.ResetPowerShellSession = false;
             this.ShouldLoadProfiles = true;
+	        this.ShowReleaseNotes = true;
         }
     }
 }
