@@ -312,7 +312,7 @@ namespace PowerShellTools
 			var page = (GeneralDialogPage)GetDialogPage(typeof(GeneralDialogPage));
 		    if (!page.ShowReleaseNotes) return false;
 
-		    using (var key = Registry.CurrentUser.CreateSubKey(@"Software\PowerShell Tools for Visual Studio", true))
+		    using (var key = Registry.CurrentUser.CreateSubKey(@"Software\PowerShell Tools for Visual Studio"))
 		    {
 			    var lastReleaseNoteVersion = key.GetValue("LastReleaseNoteVersion") as string;
 			    if (string.IsNullOrEmpty(lastReleaseNoteVersion))
