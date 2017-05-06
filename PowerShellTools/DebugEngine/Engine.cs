@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Debugger.Interop;
+using Microsoft.VisualStudio.Shell.Interop;
 using PowerShellTools.Common.ServiceManagement.DebuggingContract;
 using PowerShellTools.DebugEngine.Definitions;
 using Task = System.Threading.Tasks.Task;
@@ -90,7 +91,15 @@ namespace PowerShellTools.DebugEngine
 		        ConnectionManager.Instance.EnsureCloseProcess();
 		        ConnectionManager.Instance.EnsureClearServiceChannel();
 				ConnectionManager.Instance.OpenClientConnection();
-	        }
+
+		        var solution = PowerShellToolsPackage.Instance.GetService(typeof(IVsSolution)) as IVsSolution;
+		        if (solution != null)
+		        {
+			        string solutionDir, solutionFile, other;
+			        if (solution.GetSolutionInfo(out solutionDir, out solutionFile, out other) == VSConstants.S_OK)
+				        Debugger.ExecuteInternal(string.Format("Set-Location '{0}'", solutionDir));
+		        }
+			}
 
             if (!PowerShellToolsPackage.PowerShellHostInitialized)
             {

@@ -130,6 +130,7 @@ namespace PowerShellTools
         public static EventWaitHandle DebuggerReadyEvent = new EventWaitHandle(false, EventResetMode.ManualReset);
         public static bool PowerShellHostInitialized = false;
 	    public bool ResetPowerShellSession;
+	    private SolutionEventsListener _solutionEventsListener;
 
         /// <summary>
         /// Default constructor of the package.
@@ -484,36 +485,57 @@ namespace PowerShellTools
             }
         }
 
-        /// <summary>
-        /// Initialize the PowerShell host.
-        /// </summary>
-        private void InitializePowerShellHost()
-        {
-            var page = (GeneralDialogPage)GetDialogPage(typeof(GeneralDialogPage));
+	    /// <summary>
+	    /// Initialize the PowerShell host.
+	    /// </summary>
+	    private void InitializePowerShellHost()
+	    {
+		    var page = (GeneralDialogPage) GetDialogPage(typeof(GeneralDialogPage));
 
-	        ResetPowerShellSession = page.ResetPowerShellSession;
-            OverrideExecutionPolicyConfiguration = page.OverrideExecutionPolicyConfiguration;
+		    ResetPowerShellSession = page.ResetPowerShellSession;
+		    OverrideExecutionPolicyConfiguration = page.OverrideExecutionPolicyConfiguration;
 
-            Log.Info("InitializePowerShellHost");
+		    Log.Info("InitializePowerShellHost");
 
-            _debugger = new ScriptDebugger(page.OverrideExecutionPolicyConfiguration);
+		    _debugger = new ScriptDebugger(page.OverrideExecutionPolicyConfiguration);
 
-            // Warm up the intellisense service due to the reason that the 
-            // first intellisense request is often times slower than usual
-            // TODO: Should we move this into the HostService's initializiation?
-            IntelliSenseService.GetDummyCompletionList();
+		    // Warm up the intellisense service due to the reason that the 
+		    // first intellisense request is often times slower than usual
+		    // TODO: Should we move this into the HostService's initializiation?
+		    IntelliSenseService.GetDummyCompletionList();
 
-            DebuggerReadyEvent.Set();
+		    DebuggerReadyEvent.Set();
 
-            PowerShellHostInitialized = true;
+		    PowerShellHostInitialized = true;
 
-            if (page.ShouldLoadProfiles)
-            {
-                DebuggingService.LoadProfiles();
-            }
+		    if (page.ShouldLoadProfiles)
+		    {
+			    DebuggingService.LoadProfiles();
+		    }
+
+		    SetReplLocationToSolutionDir();
+			_solutionEventsListener = new SolutionEventsListener(this);
+			_solutionEventsListener.StartListeningForChanges();
+			_solutionEventsListener.SolutionOpened += _solutionEventsListener_SolutionOpened;
         }
 
-        internal void BitnessSettingChanged(object sender, BitnessEventArgs e)
+		private void _solutionEventsListener_SolutionOpened(object sender, EventArgs e)
+		{
+			SetReplLocationToSolutionDir();
+		}
+
+	    private void SetReplLocationToSolutionDir()
+	    {
+			var solution = GetService(typeof(IVsSolution)) as IVsSolution;
+		    if (solution != null)
+		    {
+			    string solutionDir, solutionFile, other;
+			    if (solution.GetSolutionInfo(out solutionDir, out solutionFile, out other) == VSConstants.S_OK)
+				    Debugger.ExecuteInternal(string.Format("Set-Location '{0}'", solutionDir));
+		    }
+		}
+
+		internal void BitnessSettingChanged(object sender, BitnessEventArgs e)
         {
             ConnectionManager.Instance.ProcessEventHandler(e.NewBitness);
         }
