@@ -296,6 +296,8 @@ namespace PowerShellTools
 		            var service = GetGlobalService(typeof(IVsWebBrowsingService)) as IVsWebBrowsingService;
 		            service.Navigate("https://poshtools.com/release/current", (uint)__VSWBNAVIGATEFLAGS.VSNWB_ForceNew, out ppFrame);
 				}
+
+	            
 			}
             catch (Exception ex)
             {

@@ -25,7 +25,6 @@ namespace PowerShellTools.TestAdapter
 		public void ProcessTestResults(Array results)
 		{
 			_testResults = new List<TestResult>();
-			var testOutcome = TestOutcome.NotFound;
 
 			foreach (PSObject result in results)
 			{
@@ -46,21 +45,7 @@ namespace PowerShellTools.TestAdapter
 				if (testCase == null) continue;
 				var testResult = new TestResult(testCase);
 
-				var currentOutcome = GetOutcome(result.Properties["Result"].Value as string);
-				if (currentOutcome == TestOutcome.Failed)
-				{
-					testOutcome = TestOutcome.Failed;
-				}
-				else if (testOutcome == TestOutcome.Passed && currentOutcome != TestOutcome.Passed)
-				{
-					testOutcome = currentOutcome;
-				}
-				else if (testOutcome == TestOutcome.NotFound)
-				{
-					testOutcome = currentOutcome;
-				}
-
-				testResult.Outcome = testOutcome;
+				testResult.Outcome = GetOutcome(result.Properties["Result"].Value as string);
 
 				var stackTraceString = result.Properties["StackTrace"].Value as string;
 				var errorString = result.Properties["FailureMessage"].Value as string;
