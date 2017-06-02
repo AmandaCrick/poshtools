@@ -68,8 +68,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PowerShellTools</RootNamespace>
-    <AssemblyName Condition="'$(InboxBuild)' == 'false'">PowerShellTools.$(VSTarget)</AssemblyName>
-    <AssemblyName Condition="'$(InboxBuild)' == 'true'">PowerShellTools.$(VSTarget).inbox</AssemblyName>
+    <AssemblyName>PowerShellTools.$(VSTarget)</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -1004,8 +1003,7 @@
   </PropertyGroup>
   <Import Project="..\Build\ProjectAfter.settings" />
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(InboxBuild)' == 'false'">PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix</PostBuildEvent>
-    <PostBuildEvent Condition="'$(InboxBuild)' == 'true'">PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).inbox.vsix</PostBuildEvent>
+    <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
