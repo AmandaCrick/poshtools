@@ -29,8 +29,6 @@ build:
 artifacts:
   - path: bin\VS150\Release\PowerShellTools.15.0.vsix
     name: PowerShellTools.15.0.vsix
-  - path: bin\VS150\Release\PowerShellTools.15.0.inbox.vsix
-    name: PowerShellTools.15.0.vsix
   - path: bin\VS150\Release\PowerShellTools.VS2017.json
     name: PowerShellTools.VS2017.json
   - path: bin\VS150\Release\PDB
