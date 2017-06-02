@@ -33,13 +33,15 @@
     </When>
     <When Condition=" '$(VisualStudioVersion)'=='15.0'  Or '$(TargetVisualStudioVersion)'=='VS150' ">
       <PropertyGroup>
+        <InboxBuild Condition="'$(inbox)' != ''">$(inbox)</InboxBuild>
+        <InboxBuild Condition="'$(InboxBuild)' == ''">false</InboxBuild>
         <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
         <FileUpgradeFlags>
         </FileUpgradeFlags>
         <UpgradeBackupLocation>
         </UpgradeBackupLocation>
         <OldToolsVersion>4.0</OldToolsVersion>
-        <IsProductComponent Condition=" '$(IsProductComponent)' == '' ">false</IsProductComponent>
+        <IsProductComponent Condition=" '$(IsProductComponent)' == '' ">$(InboxBuild)</IsProductComponent>
         <!--
           IsProductComponent is only needed when inserting the VSIX into VS 2017 installer.
           It will make the build process to generate a json file which can be used to create a component manifest file.
