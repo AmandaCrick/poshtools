@@ -27,10 +27,8 @@ namespace PowerShellTools.Project
             _dependenciesResolved = dependenciesResolved;
             _package = package;
             AddCATIDMapping(typeof(DebugPropertyPage), typeof(DebugPropertyPage).GUID);
-            AddCATIDMapping(typeof(InformationPropertyPage), typeof(InformationPropertyPage).GUID);
-            AddCATIDMapping(typeof(ComponentsPropertyPage), typeof(ComponentsPropertyPage).GUID);
-            AddCATIDMapping(typeof(ExportsPropertyPage), typeof(ExportsPropertyPage).GUID);
-            AddCATIDMapping(typeof(RequirementsPropertyPage), typeof(RequirementsPropertyPage).GUID);
+            AddCATIDMapping(typeof(ModuleManifestPropertyPage), typeof(ModuleManifestPropertyPage).GUID);
+            AddCATIDMapping(typeof(BuildEventPropertyPage), typeof(BuildEventPropertyPage).GUID);
         }
 
         public override Type GetProjectFactoryType()
@@ -62,10 +60,8 @@ namespace PowerShellTools.Project
         {
             return new[] { 
                 typeof(DebugPropertyPage).GUID, 
-                typeof(InformationPropertyPage).GUID, 
-                typeof(ComponentsPropertyPage).GUID, 
-                typeof(ExportsPropertyPage).GUID, 
-                typeof(RequirementsPropertyPage).GUID };
+                typeof(ModuleManifestPropertyPage).GUID,
+                typeof(BuildEventPropertyPage).GUID };
         }
 
         public override Type GetLibraryManagerType()

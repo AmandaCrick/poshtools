@@ -32,17 +32,13 @@ namespace PowerShellTools.Project.PropertyPages
 
         public override void Apply()
         {
-            Project.SetProjectProperty(ProjectConstants.CodeSigningCert, _control.CodeSigningCert);
             Project.SetProjectProperty(ProjectConstants.OutputDirectory, _control.OutputDirectory);
-            Project.SetProjectProperty(ProjectConstants.SignOutput, _control.SignOutput.ToString());
             IsDirty = false;
         }
 
         public override void LoadSettings()
         {
             _control.LoadingSettings = true;
-            _control.CodeSigningCert = Project.GetProjectProperty(ProjectConstants.CodeSigningCert, false);
-            _control.SignOutput = Convert.ToBoolean(Project.GetProjectProperty(ProjectConstants.SignOutput, false));
             _control.OutputDirectory = Project.GetProjectProperty(ProjectConstants.OutputDirectory, false);
             _control.LoadingSettings = false;
         }

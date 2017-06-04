@@ -5,13 +5,13 @@ using Microsoft.VisualStudioTools.Project;
 namespace PowerShellTools.Project.PropertyPages
 {
     [Guid(GuidList.ComponentsPropertiesPageGuid)]
-    public class ComponentsPropertyPage : CommonPropertyPage
+    public class ModulePropertyPage : CommonPropertyPage
     {
-        private readonly ComponentsPropertyPageControl _control;
+        private readonly ModulePropertyPageControl _control;
 
-        public ComponentsPropertyPage()
+        public ModulePropertyPage()
         {
-            _control = new ComponentsPropertyPageControl(this);
+            _control = new ModulePropertyPageControl(this);
         }
 
         public override Control Control

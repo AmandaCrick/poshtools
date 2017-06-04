@@ -22,13 +22,9 @@ namespace PowerShellTools
 
         //Property Pages
         public const string GeneralPropertiesPageGuid = "C9619BDD-D1B3-4ACA-ADF3-2323EB62315E";
-        public const string ModulePropertiesPageGuid = "C9619BDD-D1B3-4ACA-ADF3-2323EB623154";
         public const string DebugPropertiesPageGuid = "E6C81F79-910C-4C91-B9DF-321883DC9F44";
-
-        public const string RequirementsPropertiesPageGuid = "C83BB2CD-5AD0-4A67-A7EC-1F3AAA53BF40";
-        public const string ExportsPropertiesPageGuid = "0EFCF8AA-BD48-4D4B-B871-2D7B5C3374F7";
-        public const string InformationPropertiesPageGuid = "E4096CF0-A695-41B8-BEA7-1705729C633C";
-        public const string ComponentsPropertiesPageGuid = "3B19A81A-BE20-4F0D-B577-5093853FB681";
+        public const string BuildEventsPropertiesPageGuid = "0974F0EF-8D19-423E-9637-FB853C4EA232";
+        public const string ModuleManifestPropertiesPageGuid = "3B19A81A-BE20-4F0D-B577-5093853FB681";
 
         //Commands
         public const string CmdSetGuid = "099073C0-B561-4BC1-A847-92657B89A00E";

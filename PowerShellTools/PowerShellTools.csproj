@@ -57,6 +57,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>14.0</OldToolsVersion>
+    <InstallRoot>MSBuild</InstallRoot>
+    <VSIXSubPath>Adam Driscoll\PowerShell Tools for Visual Studio</VSIXSubPath>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -400,26 +402,19 @@
     <Compile Include="Project\LocDisplayNameAttribute.cs" />
     <Compile Include="Project\PowerShellConfigProvider.cs" />
     <Compile Include="Project\PowerShellNonCodeFileNode.cs" />
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPageControl.cs">
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPage.cs" />
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPageControl.Designer.cs">
-      <DependentUpon>ComponentsPropertyPageControl.cs</DependentUpon>
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPageControl.Designer.cs">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Project\PropertyPages\ExportsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\ExportsPropertyPageControl.cs">
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPage.cs" />
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Project\PropertyPages\ExportsPropertyPageControl.Designer.cs">
-      <DependentUpon>ExportsPropertyPageControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Project\PropertyPages\InformationPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\InformationPropertyPageControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\InformationPropertyPageControl.Designer.cs">
-      <DependentUpon>InformationPropertyPageControl.cs</DependentUpon>
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPageControl.Designer.cs">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Project\PropertyPages\DebugPropertyPage.cs" />
     <Compile Include="Project\PropertyPages\DebugPropertyPageControl.cs">
@@ -445,21 +440,8 @@
     <Compile Include="Project\PowerShellProjectPackage.cs" />
     <Compile Include="Project\PropertyPages\GeneralPropertyPage.cs" />
     <Compile Include="Project\ProjectConstants.cs" />
-    <Compile Include="Project\PropertyPages\ItemCollection.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\ItemCollection.Designer.cs">
-      <DependentUpon>ItemCollection.cs</DependentUpon>
-    </Compile>
     <Compile Include="Project\PropertyPages\PropertyPageUserControl.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPageControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPageControl.Designer.cs">
-      <DependentUpon>RequirementsPropertyPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Project\ProvideCodeExpansionPathAttribute.cs" />
     <Compile Include="Project\PSBuildTask.cs" />
@@ -686,26 +668,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ComponentsPropertyPageControl.resx">
-      <DependentUpon>ComponentsPropertyPageControl.cs</DependentUpon>
+    <EmbeddedResource Include="Project\PropertyPages\BuildEventPropertyPageControl.resx">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ExportsPropertyPageControl.resx">
-      <DependentUpon>ExportsPropertyPageControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\InformationPropertyPageControl.resx">
-      <DependentUpon>InformationPropertyPageControl.cs</DependentUpon>
+    <EmbeddedResource Include="Project\PropertyPages\ModuleManifestPropertyPageControl.resx">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\PropertyPages\DebugPropertyPageControl.resx">
       <DependentUpon>DebugPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\PropertyPages\GeneralPropertyPageControl.resx">
       <DependentUpon>GeneralPropertyPageControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ItemCollection.resx">
-      <DependentUpon>ItemCollection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\RequirementsPropertyPageControl.resx">
-      <DependentUpon>RequirementsPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\Resources\ProjectResources.resx" />
     <EmbeddedResource Include="Project\SharedProject\ProjectResources.resx">
@@ -981,6 +954,13 @@
       <Project>{103c9af2-f8a5-4bf0-a341-a43147c320aa}</Project>
       <Name>PowerShellTools.Contracts</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.MSBuild\PowerShellTools.MSBuild.csproj">
+      <Project>{ad5114ca-6837-40c0-8202-81a523025105}</Project>
+      <Name>PowerShellTools.MSBuild</Name>
+      <InstallRoot>MSBuild</InstallRoot>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <VSIXSubPath>AdamDriscoll\PoshTools</VSIXSubPath>
     </ProjectReference>
     <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
       <Project>{df4ab4f5-6b06-4aae-aee7-8cab296db5f9}</Project>
