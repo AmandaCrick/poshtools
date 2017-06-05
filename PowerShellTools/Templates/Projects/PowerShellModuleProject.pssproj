@@ -6,7 +6,6 @@
         <OutputType>Exe</OutputType>
         <RootNamespace>MyApplication</RootNamespace>
         <AssemblyName>MyApplication</AssemblyName>
-        <BuildEventExecutionPolicy>Default</BuildEventExecutionPolicy>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -32,18 +31,5 @@
         <Compile Include="$projectname$.tests.ps1"/>
     </ItemGroup>
     <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-    <Target Name="ModuleManifest">
-      <Exec Command="powershell.exe -Command { New-ModuleManifest  -Path '$(Path)' -NestedModules '$(NestedModules)' - } " />
-    </Target>
-    <Target Name="PreBuild">
-      <Exec Command="powershell.exe -ExecutionPolicy $(BuildEventExecutionPolicy) -Command { $(PreBuild) } " />
-    </Target>
-    <Target Name="PostBuild">
-      <Exec Command="powershell.exe -ExecutionPolicy $(BuildEventExecutionPolicy) -Command { $(PostBuild) } " />
-    </Target>
-    <Target Name="Build">
-      <CallTarget Targets="PreBuild" Condition="'$(PreBuild)' != ''" />
-      <CallTarget Targets="ModuleManifest" Condition="'$(GenerateModuleManifest)' == 'True'" />
-      <CallTarget Targets="PostBuild" Condition="'$(PostBuild)' != ''" />
-    </Target>
+    <Import Project="$(MSBuildBinPath)\PowerShellTools.targets" />
 </Project>

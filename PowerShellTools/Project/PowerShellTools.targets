@@ -1,0 +1,16 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="ModuleManifest">
+    <Exec Command="powershell.exe -Command { New-ModuleManifest  -Path '$(Path)' -NestedModules '$(NestedModules)' - } " />
+  </Target>
+  <Target Name="PreBuild">
+    <Exec Command="powershell.exe -ExecutionPolicy $(BuildEventExecutionPolicy) -Command { $(PreBuild) } " />
+  </Target>
+  <Target Name="PostBuild">
+    <Exec Command="powershell.exe -ExecutionPolicy $(BuildEventExecutionPolicy) -Command { $(PostBuild) } " />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="PreBuild" Condition="'$(PreBuild)' != ''" />
+    <CallTarget Targets="ModuleManifest" Condition="'$(GenerateModuleManifest)' == 'True'" />
+    <CallTarget Targets="PostBuild" Condition="'$(PostBuild)' != ''" />
+  </Target>
+</Project>

@@ -740,6 +740,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Project\PowerShellTools.targets">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <InstallRoot>MSBuild</InstallRoot>
+    </Content>
     <None Include="Project\SharedProject\ProcessOutput.cs.rej" />
     <None Include="Resources\WarningIcon.ico" />
     <None Include="Resources\ErrorStatus.png" />
@@ -954,13 +959,6 @@
       <Project>{103c9af2-f8a5-4bf0-a341-a43147c320aa}</Project>
       <Name>PowerShellTools.Contracts</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
-    </ProjectReference>
-    <ProjectReference Include="..\PowerShellTools.MSBuild\PowerShellTools.MSBuild.csproj">
-      <Project>{ad5114ca-6837-40c0-8202-81a523025105}</Project>
-      <Name>PowerShellTools.MSBuild</Name>
-      <InstallRoot>MSBuild</InstallRoot>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <VSIXSubPath>AdamDriscoll\PoshTools</VSIXSubPath>
     </ProjectReference>
     <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
       <Project>{df4ab4f5-6b06-4aae-aee7-8cab296db5f9}</Project>
