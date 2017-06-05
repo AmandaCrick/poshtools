@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabModule = new System.Windows.Forms.TabPage();
+            this.chkGenerateModuleManifest = new System.Windows.Forms.CheckBox();
             this.label26 = new System.Windows.Forms.Label();
             this.txtHelpInfoUri = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -86,7 +87,6 @@
             this.txtPowerShellHostVersion = new System.Windows.Forms.MaskedTextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.chkGenerateModuleManifest = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabModule.SuspendLayout();
             this.tabAuthor.SuspendLayout();
@@ -102,10 +102,11 @@
             this.tabControl1.Controls.Add(this.tabComponents);
             this.tabControl1.Controls.Add(this.tabExports);
             this.tabControl1.Controls.Add(this.tabRequirements);
-            this.tabControl1.Location = new System.Drawing.Point(19, 16);
+            this.tabControl1.Location = new System.Drawing.Point(14, 13);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(931, 434);
+            this.tabControl1.Size = new System.Drawing.Size(698, 353);
             this.tabControl1.TabIndex = 73;
             // 
             // tabModule
@@ -125,133 +126,144 @@
             this.tabModule.Controls.Add(this.label14);
             this.tabModule.Controls.Add(this.label1);
             this.tabModule.Controls.Add(this.txtPath);
-            this.tabModule.Location = new System.Drawing.Point(4, 25);
+            this.tabModule.Location = new System.Drawing.Point(4, 22);
+            this.tabModule.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabModule.Name = "tabModule";
-            this.tabModule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabModule.Size = new System.Drawing.Size(923, 405);
+            this.tabModule.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabModule.Size = new System.Drawing.Size(690, 327);
             this.tabModule.TabIndex = 4;
             this.tabModule.Text = "Module";
             this.tabModule.UseVisualStyleBackColor = true;
             // 
+            // chkGenerateModuleManifest
+            // 
+            this.chkGenerateModuleManifest.AutoSize = true;
+            this.chkGenerateModuleManifest.Location = new System.Drawing.Point(23, 22);
+            this.chkGenerateModuleManifest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkGenerateModuleManifest.Name = "chkGenerateModuleManifest";
+            this.chkGenerateModuleManifest.Size = new System.Drawing.Size(151, 17);
+            this.chkGenerateModuleManifest.TabIndex = 95;
+            this.chkGenerateModuleManifest.Text = "Generate Module Manifest";
+            this.chkGenerateModuleManifest.UseVisualStyleBackColor = true;
+            this.chkGenerateModuleManifest.Visible = false;
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(28, 316);
+            this.label26.Location = new System.Drawing.Point(21, 257);
+            this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(91, 17);
+            this.label26.Size = new System.Drawing.Size(72, 13);
             this.label26.TabIndex = 94;
             this.label26.Text = "Help Info URI";
             // 
             // txtHelpInfoUri
             // 
-            this.txtHelpInfoUri.Location = new System.Drawing.Point(153, 316);
+            this.txtHelpInfoUri.Location = new System.Drawing.Point(115, 257);
+            this.txtHelpInfoUri.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtHelpInfoUri.Name = "txtHelpInfoUri";
-            this.txtHelpInfoUri.Size = new System.Drawing.Size(392, 22);
+            this.txtHelpInfoUri.Size = new System.Drawing.Size(295, 20);
             this.txtHelpInfoUri.TabIndex = 93;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(28, 110);
+            this.label24.Location = new System.Drawing.Point(21, 89);
+            this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(88, 17);
+            this.label24.Size = new System.Drawing.Size(68, 13);
             this.label24.TabIndex = 92;
             this.label24.Text = "Root Module";
             // 
             // txtRootModule
             // 
-            this.txtRootModule.Location = new System.Drawing.Point(153, 105);
+            this.txtRootModule.Location = new System.Drawing.Point(115, 85);
+            this.txtRootModule.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtRootModule.Name = "txtRootModule";
-            this.txtRootModule.Size = new System.Drawing.Size(392, 22);
+            this.txtRootModule.Size = new System.Drawing.Size(295, 20);
             this.txtRootModule.TabIndex = 91;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(153, 210);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDescription.Location = new System.Drawing.Point(115, 171);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(392, 58);
+            this.txtDescription.Size = new System.Drawing.Size(295, 48);
             this.txtDescription.TabIndex = 88;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(28, 210);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(21, 171);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(83, 17);
+            this.label8.Size = new System.Drawing.Size(63, 13);
             this.label8.TabIndex = 87;
             this.label8.Text = "Description:";
             // 
             // txtVersion
             // 
-            this.txtVersion.Location = new System.Drawing.Point(153, 281);
-            this.txtVersion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtVersion.Location = new System.Drawing.Point(115, 228);
             this.txtVersion.Name = "txtVersion";
-            this.txtVersion.Size = new System.Drawing.Size(392, 22);
+            this.txtVersion.Size = new System.Drawing.Size(295, 20);
             this.txtVersion.TabIndex = 90;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(28, 281);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Location = new System.Drawing.Point(21, 228);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(60, 17);
+            this.label23.Size = new System.Drawing.Size(45, 13);
             this.label23.TabIndex = 89;
             this.label23.Text = "Version:";
             // 
             // txtGuid
             // 
-            this.txtGuid.Location = new System.Drawing.Point(153, 175);
-            this.txtGuid.Margin = new System.Windows.Forms.Padding(4);
+            this.txtGuid.Location = new System.Drawing.Point(115, 142);
             this.txtGuid.Name = "txtGuid";
-            this.txtGuid.Size = new System.Drawing.Size(392, 22);
+            this.txtGuid.Size = new System.Drawing.Size(295, 20);
             this.txtGuid.TabIndex = 86;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(28, 175);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(21, 142);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 17);
+            this.label11.Size = new System.Drawing.Size(37, 13);
             this.label11.TabIndex = 85;
             this.label11.Text = "GUID:";
             // 
             // txtNestedModules
             // 
-            this.txtNestedModules.Location = new System.Drawing.Point(153, 140);
-            this.txtNestedModules.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNestedModules.Location = new System.Drawing.Point(115, 114);
             this.txtNestedModules.Name = "txtNestedModules";
-            this.txtNestedModules.Size = new System.Drawing.Size(392, 22);
+            this.txtNestedModules.Size = new System.Drawing.Size(295, 20);
             this.txtNestedModules.TabIndex = 84;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(28, 143);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(21, 116);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(110, 17);
+            this.label14.Size = new System.Drawing.Size(84, 13);
             this.label14.TabIndex = 83;
             this.label14.Text = "Nested Modules";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 70);
+            this.label1.Location = new System.Drawing.Point(21, 57);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 17);
+            this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Path";
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(153, 70);
+            this.txtPath.Location = new System.Drawing.Point(115, 57);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(392, 22);
+            this.txtPath.Size = new System.Drawing.Size(295, 20);
             this.txtPath.TabIndex = 0;
             // 
             // tabAuthor
@@ -262,64 +274,59 @@
             this.tabAuthor.Controls.Add(this.label6);
             this.tabAuthor.Controls.Add(this.txtAuthor);
             this.tabAuthor.Controls.Add(this.label3);
-            this.tabAuthor.Location = new System.Drawing.Point(4, 25);
+            this.tabAuthor.Location = new System.Drawing.Point(4, 22);
+            this.tabAuthor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabAuthor.Name = "tabAuthor";
-            this.tabAuthor.Size = new System.Drawing.Size(923, 405);
+            this.tabAuthor.Size = new System.Drawing.Size(690, 327);
             this.tabAuthor.TabIndex = 2;
             this.tabAuthor.Text = "Author";
             this.tabAuthor.UseVisualStyleBackColor = true;
             // 
             // txtCopyright
             // 
-            this.txtCopyright.Location = new System.Drawing.Point(132, 108);
-            this.txtCopyright.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCopyright.Location = new System.Drawing.Point(99, 88);
             this.txtCopyright.Name = "txtCopyright";
-            this.txtCopyright.Size = new System.Drawing.Size(307, 22);
+            this.txtCopyright.Size = new System.Drawing.Size(231, 20);
             this.txtCopyright.TabIndex = 64;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 106);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(17, 86);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 17);
+            this.label7.Size = new System.Drawing.Size(54, 13);
             this.label7.TabIndex = 63;
             this.label7.Text = "Copyright:";
             // 
             // txtCompany
             // 
-            this.txtCompany.Location = new System.Drawing.Point(132, 64);
-            this.txtCompany.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCompany.Location = new System.Drawing.Point(99, 52);
             this.txtCompany.Name = "txtCompany";
-            this.txtCompany.Size = new System.Drawing.Size(307, 22);
+            this.txtCompany.Size = new System.Drawing.Size(231, 20);
             this.txtCompany.TabIndex = 62;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 65);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(17, 53);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 17);
+            this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 61;
             this.label6.Text = "Company:";
             // 
             // txtAuthor
             // 
-            this.txtAuthor.Location = new System.Drawing.Point(132, 27);
-            this.txtAuthor.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAuthor.Location = new System.Drawing.Point(99, 22);
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(307, 22);
+            this.txtAuthor.Size = new System.Drawing.Size(231, 20);
             this.txtAuthor.TabIndex = 60;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 27);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(17, 22);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 17);
+            this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 59;
             this.label3.Text = "Author:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -338,10 +345,11 @@
             this.tabComponents.Controls.Add(this.label10);
             this.tabComponents.Controls.Add(this.txtFormatsToProcess);
             this.tabComponents.Controls.Add(this.label9);
-            this.tabComponents.Location = new System.Drawing.Point(4, 25);
+            this.tabComponents.Location = new System.Drawing.Point(4, 22);
+            this.tabComponents.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabComponents.Name = "tabComponents";
-            this.tabComponents.Padding = new System.Windows.Forms.Padding(3);
-            this.tabComponents.Size = new System.Drawing.Size(923, 405);
+            this.tabComponents.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabComponents.Size = new System.Drawing.Size(690, 327);
             this.tabComponents.TabIndex = 0;
             this.tabComponents.Text = "Components";
             this.tabComponents.UseVisualStyleBackColor = true;
@@ -352,109 +360,98 @@
             this.cmoScriptsToProcess.DropDownHeight = 1;
             this.cmoScriptsToProcess.FormattingEnabled = true;
             this.cmoScriptsToProcess.IntegralHeight = false;
-            this.cmoScriptsToProcess.Location = new System.Drawing.Point(197, 186);
-            this.cmoScriptsToProcess.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmoScriptsToProcess.Location = new System.Drawing.Point(148, 151);
+            this.cmoScriptsToProcess.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmoScriptsToProcess.Name = "cmoScriptsToProcess";
-            this.cmoScriptsToProcess.Size = new System.Drawing.Size(239, 23);
+            this.cmoScriptsToProcess.Size = new System.Drawing.Size(180, 21);
             this.cmoScriptsToProcess.TabIndex = 86;
             // 
             // txtTypesToProcess
             // 
-            this.txtTypesToProcess.Location = new System.Drawing.Point(197, 225);
-            this.txtTypesToProcess.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTypesToProcess.Location = new System.Drawing.Point(148, 183);
             this.txtTypesToProcess.Name = "txtTypesToProcess";
-            this.txtTypesToProcess.Size = new System.Drawing.Size(239, 22);
+            this.txtTypesToProcess.Size = new System.Drawing.Size(180, 20);
             this.txtTypesToProcess.TabIndex = 85;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(17, 225);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Location = new System.Drawing.Point(13, 183);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(118, 17);
+            this.label21.Size = new System.Drawing.Size(89, 13);
             this.label21.TabIndex = 84;
             this.label21.Text = "Types to Process";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(17, 186);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Location = new System.Drawing.Point(13, 151);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(122, 17);
+            this.label20.Size = new System.Drawing.Size(92, 13);
             this.label20.TabIndex = 83;
             this.label20.Text = "Scripts to Process";
             // 
             // txtModuleToProcess
             // 
-            this.txtModuleToProcess.Location = new System.Drawing.Point(197, 146);
-            this.txtModuleToProcess.Margin = new System.Windows.Forms.Padding(4);
+            this.txtModuleToProcess.Location = new System.Drawing.Point(148, 119);
             this.txtModuleToProcess.Name = "txtModuleToProcess";
-            this.txtModuleToProcess.Size = new System.Drawing.Size(239, 22);
+            this.txtModuleToProcess.Size = new System.Drawing.Size(180, 20);
             this.txtModuleToProcess.TabIndex = 80;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(17, 146);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(13, 119);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(125, 17);
+            this.label13.Size = new System.Drawing.Size(95, 13);
             this.label13.TabIndex = 79;
             this.label13.Text = "Module to Process";
             // 
             // txtModuleList
             // 
-            this.txtModuleList.Location = new System.Drawing.Point(197, 107);
-            this.txtModuleList.Margin = new System.Windows.Forms.Padding(4);
+            this.txtModuleList.Location = new System.Drawing.Point(148, 87);
             this.txtModuleList.Name = "txtModuleList";
-            this.txtModuleList.Size = new System.Drawing.Size(239, 22);
+            this.txtModuleList.Size = new System.Drawing.Size(180, 20);
             this.txtModuleList.TabIndex = 78;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(17, 107);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(13, 87);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(80, 17);
+            this.label12.Size = new System.Drawing.Size(61, 13);
             this.label12.TabIndex = 77;
             this.label12.Text = "Module List";
             // 
             // txtFunctionsToProcess
             // 
-            this.txtFunctionsToProcess.Location = new System.Drawing.Point(197, 67);
-            this.txtFunctionsToProcess.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFunctionsToProcess.Location = new System.Drawing.Point(148, 54);
             this.txtFunctionsToProcess.Name = "txtFunctionsToProcess";
-            this.txtFunctionsToProcess.Size = new System.Drawing.Size(239, 22);
+            this.txtFunctionsToProcess.Size = new System.Drawing.Size(180, 20);
             this.txtFunctionsToProcess.TabIndex = 76;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(17, 67);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(13, 54);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(140, 17);
+            this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 75;
             this.label10.Text = "Functions to Process";
             // 
             // txtFormatsToProcess
             // 
-            this.txtFormatsToProcess.Location = new System.Drawing.Point(197, 28);
-            this.txtFormatsToProcess.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFormatsToProcess.Location = new System.Drawing.Point(148, 23);
             this.txtFormatsToProcess.Name = "txtFormatsToProcess";
-            this.txtFormatsToProcess.Size = new System.Drawing.Size(239, 22);
+            this.txtFormatsToProcess.Size = new System.Drawing.Size(180, 20);
             this.txtFormatsToProcess.TabIndex = 74;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 28);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(13, 23);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(130, 17);
+            this.label9.Size = new System.Drawing.Size(97, 13);
             this.label9.TabIndex = 73;
             this.label9.Text = "Formats to Process";
             // 
@@ -468,83 +465,76 @@
             this.tabExports.Controls.Add(this.txtVariablesToExport);
             this.tabExports.Controls.Add(this.txtCmdletsToExport);
             this.tabExports.Controls.Add(this.label22);
-            this.tabExports.Location = new System.Drawing.Point(4, 25);
+            this.tabExports.Location = new System.Drawing.Point(4, 22);
+            this.tabExports.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabExports.Name = "tabExports";
-            this.tabExports.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExports.Size = new System.Drawing.Size(923, 405);
+            this.tabExports.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabExports.Size = new System.Drawing.Size(690, 327);
             this.tabExports.TabIndex = 1;
             this.tabExports.Text = "Exports";
             this.tabExports.UseVisualStyleBackColor = true;
             // 
             // txtFunctionsToExport
             // 
-            this.txtFunctionsToExport.Location = new System.Drawing.Point(195, 124);
-            this.txtFunctionsToExport.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFunctionsToExport.Location = new System.Drawing.Point(146, 101);
             this.txtFunctionsToExport.Name = "txtFunctionsToExport";
-            this.txtFunctionsToExport.Size = new System.Drawing.Size(241, 22);
+            this.txtFunctionsToExport.Size = new System.Drawing.Size(182, 20);
             this.txtFunctionsToExport.TabIndex = 58;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(19, 124);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Location = new System.Drawing.Point(14, 101);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(129, 17);
+            this.label25.Size = new System.Drawing.Size(98, 13);
             this.label25.TabIndex = 57;
             this.label25.Text = "Functions to Export";
             // 
             // txtAlisesToExport
             // 
-            this.txtAlisesToExport.Location = new System.Drawing.Point(195, 25);
-            this.txtAlisesToExport.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAlisesToExport.Location = new System.Drawing.Point(146, 20);
             this.txtAlisesToExport.Name = "txtAlisesToExport";
-            this.txtAlisesToExport.Size = new System.Drawing.Size(241, 22);
+            this.txtAlisesToExport.Size = new System.Drawing.Size(182, 20);
             this.txtAlisesToExport.TabIndex = 52;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 25);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(14, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 51;
             this.label2.Text = "Aliases to Export";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 58);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(14, 47);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 17);
+            this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 53;
             this.label5.Text = "Cmdlets to Export";
             // 
             // txtVariablesToExport
             // 
-            this.txtVariablesToExport.Location = new System.Drawing.Point(195, 91);
-            this.txtVariablesToExport.Margin = new System.Windows.Forms.Padding(4);
+            this.txtVariablesToExport.Location = new System.Drawing.Point(146, 74);
             this.txtVariablesToExport.Name = "txtVariablesToExport";
-            this.txtVariablesToExport.Size = new System.Drawing.Size(241, 22);
+            this.txtVariablesToExport.Size = new System.Drawing.Size(182, 20);
             this.txtVariablesToExport.TabIndex = 56;
             // 
             // txtCmdletsToExport
             // 
-            this.txtCmdletsToExport.Location = new System.Drawing.Point(195, 58);
-            this.txtCmdletsToExport.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCmdletsToExport.Location = new System.Drawing.Point(146, 47);
             this.txtCmdletsToExport.Name = "txtCmdletsToExport";
-            this.txtCmdletsToExport.Size = new System.Drawing.Size(241, 22);
+            this.txtCmdletsToExport.Size = new System.Drawing.Size(182, 20);
             this.txtCmdletsToExport.TabIndex = 54;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(19, 91);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Location = new System.Drawing.Point(14, 74);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(127, 17);
+            this.label22.Size = new System.Drawing.Size(95, 13);
             this.label22.TabIndex = 55;
             this.label22.Text = "Variables to Export";
             // 
@@ -562,60 +552,61 @@
             this.tabRequirements.Controls.Add(this.txtPowerShellHostVersion);
             this.tabRequirements.Controls.Add(this.label15);
             this.tabRequirements.Controls.Add(this.label4);
-            this.tabRequirements.Location = new System.Drawing.Point(4, 25);
+            this.tabRequirements.Location = new System.Drawing.Point(4, 22);
+            this.tabRequirements.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabRequirements.Name = "tabRequirements";
-            this.tabRequirements.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRequirements.Size = new System.Drawing.Size(923, 405);
+            this.tabRequirements.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabRequirements.Size = new System.Drawing.Size(690, 327);
             this.tabRequirements.TabIndex = 3;
             this.tabRequirements.Text = "Requirements";
             this.tabRequirements.UseVisualStyleBackColor = true;
             // 
             // txtClrVersion
             // 
-            this.txtClrVersion.Location = new System.Drawing.Point(194, 58);
+            this.txtClrVersion.Location = new System.Drawing.Point(146, 47);
+            this.txtClrVersion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtClrVersion.Name = "txtClrVersion";
-            this.txtClrVersion.Size = new System.Drawing.Size(297, 22);
+            this.txtClrVersion.Size = new System.Drawing.Size(224, 20);
             this.txtClrVersion.TabIndex = 83;
             // 
             // txtPowerShellVersion
             // 
-            this.txtPowerShellVersion.Location = new System.Drawing.Point(194, 134);
+            this.txtPowerShellVersion.Location = new System.Drawing.Point(146, 109);
+            this.txtPowerShellVersion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPowerShellVersion.Name = "txtPowerShellVersion";
-            this.txtPowerShellVersion.Size = new System.Drawing.Size(297, 22);
+            this.txtPowerShellVersion.Size = new System.Drawing.Size(224, 20);
             this.txtPowerShellVersion.TabIndex = 82;
             // 
             // txtRequiredAssemblies
             // 
-            this.txtRequiredAssemblies.Location = new System.Drawing.Point(194, 176);
+            this.txtRequiredAssemblies.Location = new System.Drawing.Point(146, 143);
+            this.txtRequiredAssemblies.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtRequiredAssemblies.Name = "txtRequiredAssemblies";
-            this.txtRequiredAssemblies.Size = new System.Drawing.Size(297, 22);
+            this.txtRequiredAssemblies.Size = new System.Drawing.Size(224, 20);
             this.txtRequiredAssemblies.TabIndex = 81;
             // 
             // txtRequiredModules
             // 
-            this.txtRequiredModules.Location = new System.Drawing.Point(194, 216);
-            this.txtRequiredModules.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRequiredModules.Location = new System.Drawing.Point(146, 176);
             this.txtRequiredModules.Name = "txtRequiredModules";
-            this.txtRequiredModules.Size = new System.Drawing.Size(297, 22);
+            this.txtRequiredModules.Size = new System.Drawing.Size(224, 20);
             this.txtRequiredModules.TabIndex = 80;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(23, 216);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Location = new System.Drawing.Point(17, 176);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(127, 17);
+            this.label19.Size = new System.Drawing.Size(96, 13);
             this.label19.TabIndex = 79;
             this.label19.Text = "Required Modules:";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(23, 176);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Location = new System.Drawing.Point(17, 143);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(145, 17);
+            this.label18.Size = new System.Drawing.Size(108, 13);
             this.label18.TabIndex = 78;
             this.label18.Text = "Required Assemblies:";
             // 
@@ -625,78 +616,61 @@
             this.cmoProcessorArchitecture.Items.AddRange(new object[] {
             "x86",
             "x64"});
-            this.cmoProcessorArchitecture.Location = new System.Drawing.Point(194, 19);
-            this.cmoProcessorArchitecture.Margin = new System.Windows.Forms.Padding(4);
+            this.cmoProcessorArchitecture.Location = new System.Drawing.Point(146, 15);
             this.cmoProcessorArchitecture.Name = "cmoProcessorArchitecture";
-            this.cmoProcessorArchitecture.Size = new System.Drawing.Size(297, 24);
+            this.cmoProcessorArchitecture.Size = new System.Drawing.Size(224, 21);
             this.cmoProcessorArchitecture.TabIndex = 77;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(23, 29);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Location = new System.Drawing.Point(17, 24);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(88, 17);
+            this.label17.Size = new System.Drawing.Size(67, 13);
             this.label17.TabIndex = 76;
             this.label17.Text = "Architecture:";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 137);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(17, 111);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(134, 17);
+            this.label16.Size = new System.Drawing.Size(101, 13);
             this.label16.TabIndex = 74;
             this.label16.Text = "PowerShell Version:";
             // 
             // txtPowerShellHostVersion
             // 
-            this.txtPowerShellHostVersion.Location = new System.Drawing.Point(194, 98);
-            this.txtPowerShellHostVersion.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPowerShellHostVersion.Location = new System.Drawing.Point(146, 80);
             this.txtPowerShellHostVersion.Name = "txtPowerShellHostVersion";
-            this.txtPowerShellHostVersion.Size = new System.Drawing.Size(297, 22);
+            this.txtPowerShellHostVersion.Size = new System.Drawing.Size(224, 20);
             this.txtPowerShellHostVersion.TabIndex = 73;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(23, 98);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Location = new System.Drawing.Point(17, 80);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(93, 17);
+            this.label15.Size = new System.Drawing.Size(70, 13);
             this.label15.TabIndex = 72;
             this.label15.Text = "Host Version:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 58);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(17, 47);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(91, 17);
+            this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 70;
             this.label4.Text = "CLR Version:";
             // 
-            // chkGenerateModuleManifest
-            // 
-            this.chkGenerateModuleManifest.AutoSize = true;
-            this.chkGenerateModuleManifest.Location = new System.Drawing.Point(31, 27);
-            this.chkGenerateModuleManifest.Name = "chkGenerateModuleManifest";
-            this.chkGenerateModuleManifest.Size = new System.Drawing.Size(197, 21);
-            this.chkGenerateModuleManifest.TabIndex = 95;
-            this.chkGenerateModuleManifest.Text = "Generate Module Manifest";
-            this.chkGenerateModuleManifest.UseVisualStyleBackColor = true;
-            // 
             // ModuleManifestPropertyPageControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ModuleManifestPropertyPageControl";
-            this.Size = new System.Drawing.Size(967, 466);
+            this.Size = new System.Drawing.Size(725, 379);
             this.tabControl1.ResumeLayout(false);
             this.tabModule.ResumeLayout(false);
             this.tabModule.PerformLayout();

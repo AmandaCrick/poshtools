@@ -47,57 +47,65 @@
             "Restricted",
             "Undefined",
             "Unrestricted"});
-            this.cmoExecutionPolicy.Location = new System.Drawing.Point(152, 34);
+            this.cmoExecutionPolicy.Location = new System.Drawing.Point(114, 28);
+            this.cmoExecutionPolicy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmoExecutionPolicy.Name = "cmoExecutionPolicy";
-            this.cmoExecutionPolicy.Size = new System.Drawing.Size(332, 24);
+            this.cmoExecutionPolicy.Size = new System.Drawing.Size(250, 21);
             this.cmoExecutionPolicy.TabIndex = 0;
+            this.cmoExecutionPolicy.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 37);
+            this.label1.Location = new System.Drawing.Point(20, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 17);
+            this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Execution Policy";
+            this.label1.Visible = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 79);
+            this.label2.Location = new System.Drawing.Point(20, 64);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(218, 17);
+            this.label2.Size = new System.Drawing.Size(164, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Pre-build event PowerShell Script";
             // 
             // txtPrebuild
             // 
-            this.txtPrebuild.Location = new System.Drawing.Point(29, 111);
+            this.txtPrebuild.Location = new System.Drawing.Point(22, 90);
+            this.txtPrebuild.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPrebuild.Multiline = true;
             this.txtPrebuild.Name = "txtPrebuild";
-            this.txtPrebuild.Size = new System.Drawing.Size(455, 178);
+            this.txtPrebuild.Size = new System.Drawing.Size(342, 145);
             this.txtPrebuild.TabIndex = 3;
             // 
             // txtPostbuild
             // 
-            this.txtPostbuild.Location = new System.Drawing.Point(29, 340);
+            this.txtPostbuild.Location = new System.Drawing.Point(22, 276);
+            this.txtPostbuild.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPostbuild.Multiline = true;
             this.txtPostbuild.Name = "txtPostbuild";
-            this.txtPostbuild.Size = new System.Drawing.Size(455, 178);
+            this.txtPostbuild.Size = new System.Drawing.Size(342, 145);
             this.txtPostbuild.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 308);
+            this.label3.Location = new System.Drawing.Point(20, 250);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(224, 17);
+            this.label3.Size = new System.Drawing.Size(169, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Post-build event PowerShell Script";
             // 
             // BuildEventPropertyPageControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtPostbuild);
             this.Controls.Add(this.label3);
@@ -105,8 +113,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmoExecutionPolicy);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "BuildEventPropertyPageControl";
-            this.Size = new System.Drawing.Size(743, 607);
+            this.Size = new System.Drawing.Size(557, 493);
             this.ResumeLayout(false);
             this.PerformLayout();
 
