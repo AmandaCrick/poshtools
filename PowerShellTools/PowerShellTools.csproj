@@ -400,26 +400,19 @@
     <Compile Include="Project\LocDisplayNameAttribute.cs" />
     <Compile Include="Project\PowerShellConfigProvider.cs" />
     <Compile Include="Project\PowerShellNonCodeFileNode.cs" />
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPageControl.cs">
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPage.cs" />
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Project\PropertyPages\ComponentsPropertyPageControl.Designer.cs">
-      <DependentUpon>ComponentsPropertyPageControl.cs</DependentUpon>
+    <Compile Include="Project\PropertyPages\BuildEventPropertyPageControl.Designer.cs">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Project\PropertyPages\ExportsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\ExportsPropertyPageControl.cs">
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPage.cs" />
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Project\PropertyPages\ExportsPropertyPageControl.Designer.cs">
-      <DependentUpon>ExportsPropertyPageControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Project\PropertyPages\InformationPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\InformationPropertyPageControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\InformationPropertyPageControl.Designer.cs">
-      <DependentUpon>InformationPropertyPageControl.cs</DependentUpon>
+    <Compile Include="Project\PropertyPages\ModuleManifestPropertyPageControl.Designer.cs">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Project\PropertyPages\DebugPropertyPage.cs" />
     <Compile Include="Project\PropertyPages\DebugPropertyPageControl.cs">
@@ -445,21 +438,8 @@
     <Compile Include="Project\PowerShellProjectPackage.cs" />
     <Compile Include="Project\PropertyPages\GeneralPropertyPage.cs" />
     <Compile Include="Project\ProjectConstants.cs" />
-    <Compile Include="Project\PropertyPages\ItemCollection.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\ItemCollection.Designer.cs">
-      <DependentUpon>ItemCollection.cs</DependentUpon>
-    </Compile>
     <Compile Include="Project\PropertyPages\PropertyPageUserControl.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPage.cs" />
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPageControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Project\PropertyPages\RequirementsPropertyPageControl.Designer.cs">
-      <DependentUpon>RequirementsPropertyPageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Project\ProvideCodeExpansionPathAttribute.cs" />
     <Compile Include="Project\PSBuildTask.cs" />
@@ -686,26 +666,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ComponentsPropertyPageControl.resx">
-      <DependentUpon>ComponentsPropertyPageControl.cs</DependentUpon>
+    <EmbeddedResource Include="Project\PropertyPages\BuildEventPropertyPageControl.resx">
+      <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ExportsPropertyPageControl.resx">
-      <DependentUpon>ExportsPropertyPageControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\InformationPropertyPageControl.resx">
-      <DependentUpon>InformationPropertyPageControl.cs</DependentUpon>
+    <EmbeddedResource Include="Project\PropertyPages\ModuleManifestPropertyPageControl.resx">
+      <DependentUpon>ModuleManifestPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\PropertyPages\DebugPropertyPageControl.resx">
       <DependentUpon>DebugPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\PropertyPages\GeneralPropertyPageControl.resx">
       <DependentUpon>GeneralPropertyPageControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\ItemCollection.resx">
-      <DependentUpon>ItemCollection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Project\PropertyPages\RequirementsPropertyPageControl.resx">
-      <DependentUpon>RequirementsPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Project\Resources\ProjectResources.resx" />
     <EmbeddedResource Include="Project\SharedProject\ProjectResources.resx">
@@ -766,6 +737,12 @@
       <VsixPath>.</VsixPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Project\PowerShellTools.targets">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
     </Content>
     <None Include="Project\SharedProject\ProcessOutput.cs.rej" />
     <None Include="Resources\WarningIcon.ico" />
@@ -1003,7 +980,8 @@
   </PropertyGroup>
   <Import Project="..\Build\ProjectAfter.settings" />
   <PropertyGroup>
-    <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix</PostBuildEvent>
+    <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

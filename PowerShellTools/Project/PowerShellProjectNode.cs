@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudioTools.Project;
@@ -26,11 +25,10 @@ namespace PowerShellTools.Project
         {
             _dependenciesResolved = dependenciesResolved;
             _package = package;
+            //AddCATIDMapping(typeof(GeneralPropertyPage), typeof(GeneralPropertyPage).GUID);
             AddCATIDMapping(typeof(DebugPropertyPage), typeof(DebugPropertyPage).GUID);
-            AddCATIDMapping(typeof(InformationPropertyPage), typeof(InformationPropertyPage).GUID);
-            AddCATIDMapping(typeof(ComponentsPropertyPage), typeof(ComponentsPropertyPage).GUID);
-            AddCATIDMapping(typeof(ExportsPropertyPage), typeof(ExportsPropertyPage).GUID);
-            AddCATIDMapping(typeof(RequirementsPropertyPage), typeof(RequirementsPropertyPage).GUID);
+            AddCATIDMapping(typeof(ModuleManifestPropertyPage), typeof(ModuleManifestPropertyPage).GUID);
+            AddCATIDMapping(typeof(BuildEventPropertyPage), typeof(BuildEventPropertyPage).GUID);
         }
 
         public override Type GetProjectFactoryType()
@@ -61,11 +59,10 @@ namespace PowerShellTools.Project
         protected override Guid[] GetConfigurationIndependentPropertyPages()
         {
             return new[] { 
+               // typeof(GeneralPropertyPage).GUID,
                 typeof(DebugPropertyPage).GUID, 
-                typeof(InformationPropertyPage).GUID, 
-                typeof(ComponentsPropertyPage).GUID, 
-                typeof(ExportsPropertyPage).GUID, 
-                typeof(RequirementsPropertyPage).GUID };
+                typeof(ModuleManifestPropertyPage).GUID,
+                typeof(BuildEventPropertyPage).GUID };
         }
 
         public override Type GetLibraryManagerType()

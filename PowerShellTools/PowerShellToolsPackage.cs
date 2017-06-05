@@ -77,15 +77,13 @@ namespace PowerShellTools
                             RequestStockColors = true)]
     [ProvideEditorFactory(typeof(PowerShellEditorFactory), 114, TrustLevel = __VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
     [ProvideBraceCompletion(PowerShellConstants.LanguageName)]
-    // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideKeyBindingTable(GuidList.guidCustomEditorEditorFactoryString, 102)]
     [Guid(GuidList.PowerShellToolsPackageGuid)]
-    [ProvideObject(typeof(InformationPropertyPage))]
-    [ProvideObject(typeof(ComponentsPropertyPage))]
-    [ProvideObject(typeof(ExportsPropertyPage))]
-    [ProvideObject(typeof(RequirementsPropertyPage))]
+    [ProvideObject(typeof(ModuleManifestPropertyPage))]
+    [ProvideObject(typeof(GeneralPropertyPage))]
     [ProvideObject(typeof(DebugPropertyPage))]
+    [ProvideObject(typeof(BuildEventPropertyPage))]
     [Microsoft.VisualStudio.Shell.ProvideDebugEngine("{43ACAB74-8226-4920-B489-BFCF05372437}", "PowerShell",
         PortSupplier = "{708C1ECA-FF48-11D2-904F-00C04FA302A1}",
         ProgramProvider = "{08F3B557-C153-4F6C-8745-227439E55E79}", Attach = true,

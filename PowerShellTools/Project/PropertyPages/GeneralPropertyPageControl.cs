@@ -15,8 +15,6 @@ namespace PowerShellTools.Project.PropertyPages
             InitializeComponent();
             _page = page;
 
-            txtCodeSigningCert.TextChanged += Changed;
-            chkSignOutput.CheckedChanged += Changed;
             txtOutputDirectory.TextChanged += Changed;
         }
 
@@ -24,29 +22,6 @@ namespace PowerShellTools.Project.PropertyPages
         {
             if (!LoadingSettings)
                 _page.IsDirty = true;
-        }
-
-        private void chkSignOutput_CheckedChanged(object sender, EventArgs e)
-        {
-            btnCodeSigningCert.Enabled = chkSignOutput.Checked;
-        }
-
-        public bool SignOutput
-        {
-            get { return chkSignOutput.Checked;  }
-            set { chkSignOutput.Checked = value; }
-        }
-
-        public string CodeSigningCert
-        {
-            get
-            {
-                return txtCodeSigningCert.Text;
-            }
-            set
-            {
-                txtCodeSigningCert.Text = value;
-            }
         }
 
         public string OutputDirectory

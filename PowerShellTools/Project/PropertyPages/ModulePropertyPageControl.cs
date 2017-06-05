@@ -11,9 +11,9 @@ using Microsoft.VisualStudioTools.Project;
 
 namespace PowerShellTools.Project.PropertyPages
 {
-    public partial class ComponentsPropertyPageControl : PropertyPageUserControl
+    public partial class ModulePropertyPageControl : PropertyPageUserControl
     {
-        public ComponentsPropertyPageControl(CommonPropertyPage page) : base(page)
+        public ModulePropertyPageControl(CommonPropertyPage page) : base(page)
         {
             InitializeComponent();
 

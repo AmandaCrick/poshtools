@@ -2,6 +2,9 @@
 
 if ($Env:APPVEYOR -ne 'True' -or $Env:APPVEYOR_PULL_REQUEST_NUMBER -ne $null)
 {
+	mkdir 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\PowerShell Tools for Visual Studio' -ErrorAction Continue
+	Copy-Item (Join-Path $PSScriptRoot '.\Project\PowerShellTools.targets') 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\PowerShell Tools for Visual Studio' -ErrorAction Continue -Force
+
     return
 }
 
