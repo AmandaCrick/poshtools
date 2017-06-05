@@ -744,6 +744,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
       <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
     </Content>
     <None Include="Project\SharedProject\ProcessOutput.cs.rej" />
     <None Include="Resources\WarningIcon.ico" />
@@ -981,7 +982,8 @@
   </PropertyGroup>
   <Import Project="..\Build\ProjectAfter.settings" />
   <PropertyGroup>
-    <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix</PostBuildEvent>
+    <PostBuildEvent>PowerShell -ExecutionPolicy Unrestricted -File "$(ProjectDir)PostBuild.ps1" $(OutDir)PowerShellTools.$(VSTarget).vsix
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
