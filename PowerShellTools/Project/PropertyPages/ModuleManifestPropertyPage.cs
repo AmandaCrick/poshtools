@@ -22,7 +22,7 @@ namespace PowerShellTools.Project.PropertyPages
 
         public override void Apply()
         {
-            Project.SetProjectProperty("Path", _control.Path);
+            Project.SetProjectProperty("ManifestPath", _control.Path);
 
             Project.SetProjectProperty("FormatsToProcess", _control.FormatsToProcess);
             Project.SetProjectProperty("FunctionsToProcess", _control.FunctionsToProcess);
@@ -50,7 +50,7 @@ namespace PowerShellTools.Project.PropertyPages
             Project.SetProjectProperty("PowerShellVersion", _control.PowerShellVersion);
             Project.SetProjectProperty("ProcessorArchitecture", _control.ProcessorArchitecture);
             Project.SetProjectProperty("RequiredModules", _control.RequiredModules);
-            Project.SetProjectProperty("GenerateModuleManifest", _control.GenerateModuleManifest.ToString());
+           // Project.SetProjectProperty("GenerateModuleManifest", _control.GenerateModuleManifest.ToString());
 
             IsDirty = false;
         }
@@ -58,50 +58,49 @@ namespace PowerShellTools.Project.PropertyPages
         public override void LoadSettings()
         {
             _control.LoadingSettings = true;
-
-            _control.Path = Project.GetProjectProperty("Path", true);
+            _control.Path = Project.GetUnevaluatedProperty("ManifestPath");
             if (string.IsNullOrEmpty(_control.Path))
             {
                 _control.Path = "$(OutDir)\\$(ProjectName).psd1";
             }
 
-            _control.FormatsToProcess = Project.GetProjectProperty("FormatsToProcess", true);
-            _control.FunctionsToProcess = Project.GetProjectProperty("FunctionsToProcess", true);
-            _control.ModuleList = Project.GetProjectProperty("ModuleList", true);
-            _control.ModulesToProcess = Project.GetProjectProperty("ModuleToProcess", true);
-            _control.NestedModules = Project.GetProjectProperty("NestedModules", true);
-            _control.ScriptsToProcess = Project.GetProjectProperty("ScriptsToProcess", true);
-            _control.TypesToProcess = Project.GetProjectProperty("TypesToProcess", true);
+            _control.FormatsToProcess = Project.GetUnevaluatedProperty("FormatsToProcess");
+            _control.FunctionsToProcess = Project.GetUnevaluatedProperty("FunctionsToProcess");
+            _control.ModuleList = Project.GetUnevaluatedProperty("ModuleList");
+            _control.ModulesToProcess = Project.GetUnevaluatedProperty("ModuleToProcess");
+            _control.NestedModules = Project.GetUnevaluatedProperty("NestedModules");
+            _control.ScriptsToProcess = Project.GetUnevaluatedProperty("ScriptsToProcess");
+            _control.TypesToProcess = Project.GetUnevaluatedProperty("TypesToProcess");
 
-            _control.AliasesToExport = Project.GetProjectProperty("AliasesToExport", true);
-            _control.CmdletsToExport = Project.GetProjectProperty("CmdletsToExport", true);
-            _control.VariablesToExport = Project.GetProjectProperty("VariablesToExport", true);
+            _control.AliasesToExport = Project.GetUnevaluatedProperty("AliasesToExport");
+            _control.CmdletsToExport = Project.GetUnevaluatedProperty("CmdletsToExport");
+            _control.VariablesToExport = Project.GetUnevaluatedProperty("VariablesToExport");
 
-            _control.Author = Project.GetProjectProperty("Author", true);
-            _control.Company = Project.GetProjectProperty("CompanyName", true);
-            _control.Copyright = Project.GetProjectProperty("Copyright", true);
-            _control.Description = Project.GetProjectProperty("Description", true);
-            _control.Version = Project.GetProjectProperty("Version", true);
-            _control.Guid = Project.GetProjectProperty("Guid", true);
+            _control.Author = Project.GetUnevaluatedProperty("Author");
+            _control.Company = Project.GetUnevaluatedProperty("CompanyName");
+            _control.Copyright = Project.GetUnevaluatedProperty("Copyright");
+            _control.Description = Project.GetUnevaluatedProperty("Description");
+            _control.Version = Project.GetUnevaluatedProperty("Version");
+            _control.Guid = Project.GetUnevaluatedProperty("Guid");
 
             if (string.IsNullOrEmpty(_control.Guid))
             {
                 _control.Guid = Guid.NewGuid().ToString();
             }
 
-            _control.ClrVersion = Project.GetProjectProperty("ClrVersion", true);
-            _control.PowerShellHostVersion = Project.GetProjectProperty("PowerShellHostVersion", true);
-            _control.PowerShellVersion = Project.GetProjectProperty("PowerShellVersion", true);
-            _control.ProcessorArchitecture = Project.GetProjectProperty("ProcessorArchitecture", true);
-            _control.RequiredAssemblies = Project.GetProjectProperty("RequiredAssemblies", true);
-            _control.RequiredModules = Project.GetProjectProperty("RequiredModules", true);
+            _control.ClrVersion = Project.GetUnevaluatedProperty("ClrVersion");
+            _control.PowerShellHostVersion = Project.GetUnevaluatedProperty("PowerShellHostVersion");
+            _control.PowerShellVersion = Project.GetUnevaluatedProperty("PowerShellVersion");
+            _control.ProcessorArchitecture = Project.GetUnevaluatedProperty("ProcessorArchitecture");
+            _control.RequiredAssemblies = Project.GetUnevaluatedProperty("RequiredAssemblies");
+            _control.RequiredModules = Project.GetUnevaluatedProperty("RequiredModules");
 
-            bool generateManifest;
-            var manifest = Project.GetProjectProperty("GenerateModuleManifest", true);
-            if (bool.TryParse(manifest, out generateManifest))
-            {
-                _control.GenerateModuleManifest = generateManifest;
-            }
+            //bool generateManifest;
+            //var manifest = Project.GetUnevaluatedProperty("GenerateModuleManifest");
+            //if (bool.TryParse(manifest, out generateManifest))
+            //{
+            //    _control.GenerateModuleManifest = generateManifest;
+            //}
 
             _control.LoadingSettings = false;
         }

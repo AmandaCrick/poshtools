@@ -25,6 +25,7 @@ namespace PowerShellTools.Project
         {
             _dependenciesResolved = dependenciesResolved;
             _package = package;
+            //AddCATIDMapping(typeof(GeneralPropertyPage), typeof(GeneralPropertyPage).GUID);
             AddCATIDMapping(typeof(DebugPropertyPage), typeof(DebugPropertyPage).GUID);
             AddCATIDMapping(typeof(ModuleManifestPropertyPage), typeof(ModuleManifestPropertyPage).GUID);
             AddCATIDMapping(typeof(BuildEventPropertyPage), typeof(BuildEventPropertyPage).GUID);
@@ -58,6 +59,7 @@ namespace PowerShellTools.Project
         protected override Guid[] GetConfigurationIndependentPropertyPages()
         {
             return new[] { 
+               // typeof(GeneralPropertyPage).GUID,
                 typeof(DebugPropertyPage).GUID, 
                 typeof(ModuleManifestPropertyPage).GUID,
                 typeof(BuildEventPropertyPage).GUID };

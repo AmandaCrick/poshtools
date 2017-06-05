@@ -21,18 +21,16 @@ namespace PowerShellTools.Project.PropertyPages
         }
         public override void Apply()
         {
-            Project.SetProjectProperty("BuildEventExecutionPolicy", _control.ExecutionPolicy);
-            Project.SetProjectProperty("PreBuild", _control.Prebuild);
-            Project.SetProjectProperty("PostBuild", _control.Postbuild);
+            Project.SetProjectProperty("PreBuildScript", _control.Prebuild);
+            Project.SetProjectProperty("PostBuildScript", _control.Postbuild);
             IsDirty = false;
         }
 
         public override void LoadSettings()
         {
             _control.LoadingSettings = true;
-            _control.ExecutionPolicy = Project.GetProjectProperty("BuildEventExecutionPolicy", false);
-            _control.Prebuild = Project.GetProjectProperty("Prebuild", false);
-            _control.Postbuild = Project.GetProjectProperty("Postbuild", false);
+            _control.Prebuild = Project.GetUnevaluatedProperty("PrebuildScript");
+            _control.Postbuild = Project.GetUnevaluatedProperty("PostbuildScript");
             _control.LoadingSettings = false;
         }
 

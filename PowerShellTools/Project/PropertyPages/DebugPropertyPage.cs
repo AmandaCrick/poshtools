@@ -31,7 +31,7 @@ namespace PowerShellTools.Project.PropertyPages
         public override void LoadSettings()
         {
             _control.LoadingSettings = true;
-            _control.Arguments = Project.GetProjectProperty(ProjectConstants.DebugArguments);
+            _control.Arguments = Project.GetUnevaluatedProperty(ProjectConstants.DebugArguments);
             _control.LoadingSettings = false;
         }
 

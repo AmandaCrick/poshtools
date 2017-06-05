@@ -16,15 +16,8 @@ namespace PowerShellTools.Project.PropertyPages
         {
             InitializeComponent();
 
-            cmoExecutionPolicy.SelectedIndexChanged += Changed;
             txtPrebuild.TextChanged += Changed;
             txtPostbuild.TextChanged += Changed;
-        }
-
-        public string ExecutionPolicy
-        {
-            get { return cmoExecutionPolicy.SelectedText; }
-            set { cmoExecutionPolicy.SelectedText = value; }
         }
 
         public string Prebuild

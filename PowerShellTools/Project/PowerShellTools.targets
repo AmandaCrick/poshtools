@@ -1,12 +1,35 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreBuild64></PreBuild64>
+    <PostBuild64></PostBuild64>
+  </PropertyGroup>
+  
+  <UsingTask TaskName="ToBase64" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
+    <ParameterGroup>
+      <In ParameterType="System.String" Required="true" />
+      <Out ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        Out = System.Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(In));
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="Build">
+    <ToBase64 In="&amp; { $(PreBuildScript) } | Out-String" Condition="'$(PreBuildScript)' != ''">
+      <Output PropertyName="PreBuild64" TaskParameter="Out" />
+    </ToBase64>
+    <CallTarget Targets="PreBuild" Condition="'$(PreBuild64)' != ''" />
+    <ToBase64 In="&amp; { $(PostBuildScript) } | Out-String" Condition="'$(PostBuildScript)' != ''">
+      <Output PropertyName="PostBuild64" TaskParameter="Out" />
+    </ToBase64>
+    <CallTarget Targets="PostBuild" Condition="'$(PostBuild64)' != ''" />
+  </Target>
   <Target Name="PreBuild">
-    <Exec Command="powershell.exe -Command  &quot;&amp;{ $(PreBuild) } &quot; " />
+    <Message Text="$(PreBuild64)"/>
+    <Exec Command="powershell.exe -EncodedCommand $(PreBuild64)" />
   </Target>
   <Target Name="PostBuild">
-    <Exec Command="powershell.exe -Command &quot;&amp;{ $(PostBuild) } &quot; " />
-  </Target>
-  <Target Name="Build">
-    <CallTarget Targets="PreBuild" Condition="'$(PreBuild)' != ''" />
-    <CallTarget Targets="PostBuild" Condition="'$(PostBuild)' != ''" />
+    <Exec Command="powershell.exe -EncodedCommand $(PostBuild64)" />
   </Target>
 </Project>
