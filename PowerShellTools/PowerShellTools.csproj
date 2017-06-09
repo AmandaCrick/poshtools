@@ -193,8 +193,8 @@
       <HintPath>$(DevEnvDir)\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PowerShellTools.Interfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1c1481464c386bc0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PowerShellTools.Interfaces.1.0.0\lib\net46\PowerShellTools.Interfaces.dll</HintPath>
+    <Reference Include="PowerShellTools.Interfaces, Version=1.0.1.0, Culture=neutral, PublicKeyToken=1c1481464c386bc0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PowerShellTools.Interfaces.1.0.2\lib\net45\PowerShellTools.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

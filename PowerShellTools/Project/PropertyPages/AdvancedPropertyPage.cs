@@ -48,9 +48,9 @@ namespace PowerShellTools.Project.PropertyPages
             if (_pane == null) return;
 
             Loading = true;
-            foreach (var property in _pane.Properties)
+            foreach (var property in _pane.PropertyNames)
             {
-                _pane.Properties[property.Key] = Project.GetUnevaluatedProperty(property.Key);
+                _pane.Properties.Add(property, Project.GetUnevaluatedProperty(property));
             }
             Loading = false;
         }
