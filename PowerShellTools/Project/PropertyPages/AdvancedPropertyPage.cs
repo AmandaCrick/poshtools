@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -26,6 +27,7 @@ namespace PowerShellTools.Project.PropertyPages
             {
                 _pane = x.Value;
                 _advancedPropertyPage = _pane.Control;
+                _pane.OnDirty += (sender, args) => IsDirty = true;
             }
         }
 
@@ -41,6 +43,8 @@ namespace PowerShellTools.Project.PropertyPages
             {
                 Project.SetProjectProperty(item.Key, item.Value);
             }
+
+            IsDirty = false;
         }
 
         public override void LoadSettings()
@@ -48,11 +52,16 @@ namespace PowerShellTools.Project.PropertyPages
             if (_pane == null) return;
 
             Loading = true;
+
+            var dictionary = new Dictionary<string, string>();
+
             foreach (var property in _pane.PropertyNames)
             {
-                _pane.Properties.Add(property, Project.GetUnevaluatedProperty(property));
+                dictionary.Add(property, Project.GetUnevaluatedProperty(property));
             }
             Loading = false;
+
+            _pane.Properties = dictionary;
         }
 
         public override string Name
