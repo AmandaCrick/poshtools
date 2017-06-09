@@ -80,6 +80,7 @@ namespace PowerShellTools
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideKeyBindingTable(GuidList.guidCustomEditorEditorFactoryString, 102)]
     [Guid(GuidList.PowerShellToolsPackageGuid)]
+    [ProvideObject(typeof(AdvancedPropertyPage))]
     [ProvideObject(typeof(ModuleManifestPropertyPage))]
     [ProvideObject(typeof(GeneralPropertyPage))]
     [ProvideObject(typeof(DebugPropertyPage))]

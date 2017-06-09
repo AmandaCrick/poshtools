@@ -25,6 +25,7 @@ namespace PowerShellTools
         public const string DebugPropertiesPageGuid = "E6C81F79-910C-4C91-B9DF-321883DC9F44";
         public const string BuildEventsPropertiesPageGuid = "0974F0EF-8D19-423E-9637-FB853C4EA232";
         public const string ModuleManifestPropertiesPageGuid = "3B19A81A-BE20-4F0D-B577-5093853FB681";
+        public const string AdvancedPropertiesPageGuid = "1B8CADD5-EC43-474F-90FD-C0BD7EB78C8E";
 
         //Commands
         public const string CmdSetGuid = "099073C0-B561-4BC1-A847-92657B89A00E";

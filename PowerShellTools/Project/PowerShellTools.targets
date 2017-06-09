@@ -32,4 +32,6 @@
   <Target Name="PostBuild">
     <Exec Command="powershell.exe -EncodedCommand $(PostBuild64)" />
   </Target>
+
+  <Import Project="$(MSBuildExtensionsPath)\PowerShell Pro Tools\PowerShellProTools.targets" Condition="Exists('$(MSBuildExtensionsPath)\PowerShell Pro Tools\PowerShellProTools.targets')" />
 </Project>

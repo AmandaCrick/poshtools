@@ -29,6 +29,7 @@ namespace PowerShellTools.Project
             AddCATIDMapping(typeof(DebugPropertyPage), typeof(DebugPropertyPage).GUID);
             AddCATIDMapping(typeof(ModuleManifestPropertyPage), typeof(ModuleManifestPropertyPage).GUID);
             AddCATIDMapping(typeof(BuildEventPropertyPage), typeof(BuildEventPropertyPage).GUID);
+            AddCATIDMapping(typeof(AdvancedPropertyPage), typeof(AdvancedPropertyPage).GUID);
         }
 
         public override Type GetProjectFactoryType()
@@ -62,7 +63,8 @@ namespace PowerShellTools.Project
                // typeof(GeneralPropertyPage).GUID,
                 typeof(DebugPropertyPage).GUID, 
                 typeof(ModuleManifestPropertyPage).GUID,
-                typeof(BuildEventPropertyPage).GUID };
+                typeof(BuildEventPropertyPage).GUID,
+                typeof(AdvancedPropertyPage).GUID,};
         }
 
         public override Type GetLibraryManagerType()
