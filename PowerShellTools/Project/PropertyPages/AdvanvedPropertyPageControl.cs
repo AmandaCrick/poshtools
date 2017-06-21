@@ -14,7 +14,7 @@ namespace PowerShellTools.Project.PropertyPages
         private void AdvanvedPropertyPageControl_Load(object sender, System.EventArgs e)
         {
             var link = new LinkLabel.Link(0, 17);
-            link.LinkData = "http://www.poshtools.com/pro";
+            link.LinkData = "https://poshtools.com/powershell-pro-tools-for-visual-studio/";
             linkLabel1.Links.Add(link);
         }
 

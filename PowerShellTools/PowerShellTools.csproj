@@ -973,6 +973,13 @@
       <Name>PowerShellTools.Contracts</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.MSBuild\PowerShellTools.MSBuild.csproj">
+      <Project>{201bd87e-3a2a-4e13-b516-dcfae86279ba}</Project>
+      <Name>PowerShellTools.MSBuild</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
+    </ProjectReference>
     <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
       <Project>{df4ab4f5-6b06-4aae-aee7-8cab296db5f9}</Project>
       <Name>PowerShellTools.TestAdapter</Name>
