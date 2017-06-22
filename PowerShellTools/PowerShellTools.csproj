@@ -193,6 +193,9 @@
       <HintPath>$(DevEnvDir)\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PowerShellTools.Interfaces, Version=1.0.1.0, Culture=neutral, PublicKeyToken=1c1481464c386bc0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PowerShellTools.Interfaces.1.0.2\lib\net45\PowerShellTools.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -401,6 +404,13 @@
     <Compile Include="Project\LocDisplayNameAttribute.cs" />
     <Compile Include="Project\PowerShellConfigProvider.cs" />
     <Compile Include="Project\PowerShellNonCodeFileNode.cs" />
+    <Compile Include="Project\PropertyPages\AdvancedPropertyPage.cs" />
+    <Compile Include="Project\PropertyPages\AdvanvedPropertyPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Project\PropertyPages\AdvanvedPropertyPageControl.Designer.cs">
+      <DependentUpon>AdvanvedPropertyPageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Project\PropertyPages\BuildEventPropertyPage.cs" />
     <Compile Include="Project\PropertyPages\BuildEventPropertyPageControl.cs">
       <SubType>UserControl</SubType>
@@ -667,6 +677,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Project\PropertyPages\AdvanvedPropertyPageControl.resx">
+      <DependentUpon>AdvanvedPropertyPageControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Project\PropertyPages\BuildEventPropertyPageControl.resx">
       <DependentUpon>BuildEventPropertyPageControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -745,6 +758,7 @@
       <InstallRoot>MSBuild</InstallRoot>
       <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
     </Content>
+    <None Include="packages.config" />
     <None Include="Project\SharedProject\ProcessOutput.cs.rej" />
     <None Include="Resources\WarningIcon.ico" />
     <None Include="Resources\ErrorStatus.png" />
@@ -959,6 +973,13 @@
       <Project>{103c9af2-f8a5-4bf0-a341-a43147c320aa}</Project>
       <Name>PowerShellTools.Contracts</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\PowerShellTools.MSBuild\PowerShellTools.MSBuild.csproj">
+      <Project>{201bd87e-3a2a-4e13-b516-dcfae86279ba}</Project>
+      <Name>PowerShellTools.MSBuild</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <InstallRoot>MSBuild</InstallRoot>
+      <VSIXSubPath>PowerShell Tools for Visual Studio</VSIXSubPath>
     </ProjectReference>
     <ProjectReference Include="..\PowerShellTools.TestAdapter\PowerShellTools.TestAdapter.csproj">
       <Project>{df4ab4f5-6b06-4aae-aee7-8cab296db5f9}</Project>
