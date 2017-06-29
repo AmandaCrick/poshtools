@@ -46,7 +46,9 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: B72UJGPt7nkJcG5c/4ng7vK/fn8cpxq4ZiqJcen5pDA7Ln/phMV+BDYFnGo6BjeI
-  release: VS2017 $(app_veyor_buildversion)
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: VS2017 $(appveyor_build_version)
+  draft: true
   artifact: PowerShellTools.15.0.vsix
   prerelease: true
   force_update: true
