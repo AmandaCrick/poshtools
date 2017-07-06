@@ -1,8 +1,52 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask AssemblyFile="PowerShellTools.MsBuild.dll" TaskName="PowerShellTools.MsBuild.RunPowerShellCommand" />
 
-  <Target Name="Build">
+  <Target Name="BeforeBuild">
     <RunPowerShellCommand Command="$(PreBuildScript)" Condition="'$(PreBuildScript)' != ''"/>
+  </Target>
+  
+  <Target Name="Build">
+     <NewModuleManifestTask 
+       Path="$(ManifestPath)"
+       NestedModules="$(NestedModules)"
+       Guid="$(Guid)"
+       Author="$(Author)"
+       CompanyName="$(CompanyName)"
+       Copyright="$(Copyright)"
+       RootModule="$(RootModule)"
+       ModuleVersion="$(Version)"
+       Description="$(Description)"
+       ProcessorArchitecture="$(ProcessorArchitecture)"
+       PowerShellVersion="$(PowerShellVersion)"
+       ClrVersion="$(ClrVersion)"
+       DotNetFrameworkVersion="$(DotNetFrameworkVersion)"
+       PowerShellHostName="$(PowerShellHostName)"
+       PowerShellHostVersion="$(PowerShellHostVersion)"
+       RequiredModules="$(RequiredModules)"
+       TypesToProcess="$(TypesToProcess)"
+       FormatsToProcess="$(FormatsToProcess)"
+       ScriptsToProcess="$(ScriptsToProcess)"
+       RequiredAssemblies="$(RequiredAssemblies)"
+       FileList="$(FileList)"
+       ModuleList="$(ModuleList)"
+       FunctionsToExport="$(FunctionsToExport)"
+       AliasesToExport="$(AliasesToExport)"
+       VariablesToExport="$(VariablesToExport)"
+       CmdletsToExport="$(CmdletsToExport)"
+       DscResourcesToExport="$(DscResourcesToExport)"
+       CompatiblePSEditions="$(CompatiblePSEditions)"
+       PrivateData="$(PrivateData)"
+       Tags="$(Tags)"
+       ProjectUri="$(ProjectUri)"
+       LicenseUri="$(LicenseUri)"
+       IconUri="$(IconUri)"
+       ReleaseNotes="$(ReleaseNotes)"
+       HelpInfoUri="$(HelpInfoUri)"
+       DefaultCommandPrefix="$(DefaultCommandPrefix)"
+          Condition="'$(NewModuleManifestOnBuild)' == 'TRUE'" />
+  </Target>
+    
+  <Target Name="AfterBuild">
     <RunPowerShellCommand Command="$(PostBuildScript)" Condition="'$(PostBuildScript)' != ''"/>
   </Target>
 

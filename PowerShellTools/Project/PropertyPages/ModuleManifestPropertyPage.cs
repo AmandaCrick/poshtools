@@ -22,6 +22,23 @@ namespace PowerShellTools.Project.PropertyPages
 
         public override void Apply()
         {
+            //TODO: rootModule
+            //TODO: dotNetFrameworkVersion
+            //TODO: powerShellHostName
+            //TODO: requiredAssemblies
+            //TODO: fileList
+            //TODO: moduleList
+            //TODO: dscResourcesToExport 
+            //TODO: compatiblePSEditions
+            //TODO: privateData
+            //TODO: tags
+            //TODO: projectUri
+            //TODO: licenseUri
+            //TODO: iconUri
+            //TODO: releaseNotes
+            //TODO: helpInfoUri
+            //TODO: defaultCommandPrefix
+
             Project.SetProjectProperty("ManifestPath", _control.Path);
 
             Project.SetProjectProperty("FormatsToProcess", _control.FormatsToProcess);
