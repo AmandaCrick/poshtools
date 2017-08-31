@@ -38,7 +38,7 @@
 
     <BuildRoot Condition="'$(BuildRoot)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.root))</BuildRoot>
     <TargetsPath>$(BuildRoot)\Build</TargetsPath>
-    <VSToolsPath Condition="'$(VSTarget)' == '15.0'">$(BuildRoot)\packages\Microsoft.VSSDK.BuildTools.15.0.26201\tools</VSToolsPath>
+    <VSToolsPath Condition="'$(VSTarget)' == '15.0'">$(BuildRoot)\packages\Microsoft.VSSDK.BuildTools.15.1.192\tools</VSToolsPath>
     <VSToolsPath Condition="'$(VSTarget)' == '14.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
 
     <OutputPath Condition="'$(OutputPath)' == '' and '$(OutDir)' != '' and $(OutDir.EndsWith(`\`))">$(OutDir)</OutputPath>
