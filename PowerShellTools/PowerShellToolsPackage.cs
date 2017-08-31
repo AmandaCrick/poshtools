@@ -80,6 +80,7 @@ namespace PowerShellTools
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideKeyBindingTable(GuidList.guidCustomEditorEditorFactoryString, 102)]
     [Guid(GuidList.PowerShellToolsPackageGuid)]
+    [ProvideObject(typeof(AdvancedPropertyPage))]
     [ProvideObject(typeof(ModuleManifestPropertyPage))]
     [ProvideObject(typeof(GeneralPropertyPage))]
     [ProvideObject(typeof(DebugPropertyPage))]
@@ -293,7 +294,13 @@ namespace PowerShellTools
 					IVsWindowFrame ppFrame;
 		            var service = GetGlobalService(typeof(IVsWebBrowsingService)) as IVsWebBrowsingService;
 		            service.Navigate("https://poshtools.com/release/current", (uint)__VSWBNAVIGATEFLAGS.VSNWB_ForceNew, out ppFrame);
-				}
+	                System.Threading.Tasks.Task.Run(() =>
+	                {
+                        Thread.Sleep(5000);
+	                    ppFrame.Show();
+	                });
+
+	            }
 
 	            
 			}

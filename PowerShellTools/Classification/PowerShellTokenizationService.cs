@@ -2,10 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation.Language;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Adornments;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
+using Microsoft.VisualStudioTools;
 using PowerShellTools.Common.Logging;
+using PowerShellTools.LanguageService;
 using Tasks = System.Threading.Tasks;
 
 namespace PowerShellTools.Classification
@@ -14,7 +20,7 @@ namespace PowerShellTools.Classification
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PowerShellTokenizationService));
         private readonly object _tokenizationLock = new object();
-
+        private static readonly IEnumerable<string> TaskIdentifiers = new [] {"#TODO", "#HACK", "#BUG"};
         public event EventHandler<Ast> TokenizationComplete;
 
         private readonly ClassifierService _classifierService;
@@ -23,7 +29,23 @@ namespace PowerShellTools.Classification
 
         private ITextBuffer _textBuffer;
         private ITextSnapshot _lastSnapshot;
-        private bool _isBufferTokenizing;
+        private static bool _isBufferTokenizing;
+        private static TodoWindowTaskProvider taskProvider;
+        private static ErrorListProvider errorListProvider;
+
+        private static void CreateProvider()
+        {
+            if (taskProvider == null)
+            {
+                taskProvider = new TodoWindowTaskProvider(PowerShellToolsPackage.Instance);
+                taskProvider.ProviderName = "To Do";
+            }
+
+            if (errorListProvider == null)
+            {
+                errorListProvider = new ErrorListProvider(PowerShellToolsPackage.Instance);
+            }
+        }
 
         public PowerShellTokenizationService(ITextBuffer textBuffer)
         {
@@ -80,6 +102,19 @@ namespace PowerShellTools.Classification
                     {
                         if (_textBuffer.CurrentSnapshot.Version.VersionNumber == currentSnapshot.Version.VersionNumber)
                         {
+                            Tasks.Task.Factory.StartNew(() =>
+                            {
+                                try
+                                {
+                                    UpdateErrorList(errorTags, currentSnapshot);
+                                    UpdateTaskList(generatedTokens, currentSnapshot);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log.Warn("Failed to update task list!", ex);
+                                }
+                            });
+
                             SetTokenizationProperties(genereatedAst, generatedTokens, tokenSpans, errorTags, startBraces, endBraces, regions);
                             RemoveCachedTokenizationProperties();
                             _isBufferTokenizing = false;
@@ -93,12 +128,79 @@ namespace PowerShellTools.Classification
                         }
                     }
 
+
                 }
                 catch (Exception ex)
                 {
                     Log.Debug("Failed to tokenize the new snapshot.", ex);
                 }
             }
+        }
+
+        private static void UpdateErrorList(IEnumerable<TagInformation<ErrorTag>> errorTags, ITextSnapshot currentSnapshot)
+        {
+            CreateProvider();
+            errorListProvider.Tasks.Clear();
+            foreach (var error in errorTags)
+            {
+                var errorTask = new ErrorTask();
+                errorTask.Text = error.Tag.ToolTipContent.ToString();
+                errorTask.ErrorCategory = TaskErrorCategory.Error;
+                errorTask.Line = error.Start;
+                errorTask.Document = currentSnapshot.TextBuffer.GetFilePath();
+                errorTask.Priority = TaskPriority.High;
+
+                errorListProvider.Tasks.Add(errorTask);
+                errorTask.Navigate += (sender, args) =>
+                {
+                    var dte = PowerShellToolsPackage.Instance.GetService(typeof(DTE)) as DTE;
+                    var document = dte.Documents.Open(currentSnapshot.TextBuffer.GetFilePath());
+                    document.Activate();
+                    var ts = dte.ActiveDocument.Selection as TextSelection;
+                    ts.GotoLine(error.Start, true);
+                };
+            }
+        }
+
+        private static void UpdateTaskList(IEnumerable<Token> generatedTokens, ITextSnapshot currentSnapshot)
+        {
+            CreateProvider();
+            taskProvider.Tasks.Clear();
+            foreach (
+                var token in
+                    generatedTokens.Where(
+                        m => m.Kind == TokenKind.Comment && TaskIdentifiers.Any(x => m.Text.StartsWith(x, StringComparison.OrdinalIgnoreCase))))
+            {
+                var errorTask = new Task();
+                errorTask.CanDelete = false;
+                errorTask.Category = TaskCategory.Comments;
+                errorTask.Document = currentSnapshot.TextBuffer.GetFilePath();
+                errorTask.Line = token.Extent.StartLineNumber;
+                errorTask.Column = token.Extent.StartColumnNumber;
+                errorTask.Navigate += (sender, args) =>
+                {
+                    var dte = PowerShellToolsPackage.Instance.GetService(typeof (DTE)) as DTE;
+                    var document = dte.Documents.Open(currentSnapshot.TextBuffer.GetFilePath());
+                    document.Activate();
+                    var ts = dte.ActiveDocument.Selection as TextSelection;
+                    ts.GotoLine(token.Extent.StartLineNumber, true);
+                };
+
+                errorTask.Text = token.Text.Substring(1);
+                errorTask.Priority = TaskPriority.Normal;
+                errorTask.IsPriorityEditable = true;
+
+                taskProvider.Tasks.Add(errorTask);
+            }
+            
+            var taskList = PowerShellToolsPackage.Instance.GetService(typeof (SVsTaskList)) as IVsTaskList2;
+            if (taskList == null)
+            {
+                return;
+            }
+
+            var guidProvider = typeof (TodoWindowTaskProvider).GUID;
+            taskList.SetActiveProvider(ref guidProvider);
         }
 
         private void NotifyOnTagsChanged(string name, ITextSnapshot currentSnapshot)

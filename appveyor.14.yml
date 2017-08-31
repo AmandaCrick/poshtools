@@ -33,3 +33,17 @@ assembly_info:
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: B72UJGPt7nkJcG5c/4ng7vK/fn8cpxq4ZiqJcen5pDA7Ln/phMV+BDYFnGo6BjeI
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  release: VS2015 $(appveyor_build_version)
+  draft: true
+  artifact: PowerShellTools.14.0.vsix
+  prerelease: true
+  force_update: true
+  on:
+    branch: dev
+    APPVEYOR_REPO_TAG: true

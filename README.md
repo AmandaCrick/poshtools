@@ -5,7 +5,10 @@ PowerShell integration for Visual Studio.
 
 Build status of adamdriscoll/poshtools: <a href="https://ci.appveyor.com/project/adamdriscoll/poshtools/branch/dev"><img src="https://ci.appveyor.com/api/projects/status/h9gfrh1xots5tg2y/branch/dev?svg=true"/></a><br/>
 
-More information on <a href="https://wandering.life">Adam Driscoll's blog</a>. To download the VSIX, please visit the <a href="https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561">Visual Studio Gallery</a>. 
+<a href="https://adamdriscoll.gitbooks.io/powershell-tools-documentation/content/">Project Documentation</a></br>
+<a href="https://poshtools.com">More information about PowerShell Tools for Visual Studio</a>
+
+To download the VSIX, please visit the <a href="https://marketplace.visualstudio.com/items?itemName=AdamRDriscoll.PowerShellToolsforVisualStudio2017-18561">Visual Studio Gallery</a>. 
 
 PowerShell Tools for Visual Studio currently offers the following features. 
 
