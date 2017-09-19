@@ -210,11 +210,14 @@ namespace PowerShellTools.TestAdapter
         {
 	        var solution = _solutionProvider.GetLoadedSolution();
 
-            return solution.Projects.SelectMany(FindPowerShellTestFiles).ToList();
+            return solution.Projects.Where(m => m.IsPowerShellProject).SelectMany(FindPowerShellTestFiles).ToList();
         }
 
         private IEnumerable<string> FindPowerShellTestFiles(IProject project)
         {
+			if (!project.IsPowerShellProject)
+				return new string[0];
+
             _logger.Log(MessageLevel.Diagnostic,
                 "PowerShellTestContainerDiscoverer:OnTestContainersChanged - FindPs1Files");
             return from item in project.Items
