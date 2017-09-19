@@ -24,6 +24,7 @@ namespace PowerShellTools.Test.TestAdapter
 			solutionProvider.Setup(m => m.GetLoadedSolution()).Returns(solution.Object);
 			solution.Setup(m => m.Projects).Returns(new[] {project.Object});
 			project.Setup(m => m.Items).Returns(new[] {"My-Test.tests.ps1"});
+			project.Setup(m => m.IsPowerShellProject).Returns(true);
 
 		    var discoverer = new PowerShellTestContainerDiscoverer(solutionProvider.Object, logger.Object, solutionEventListener.Object, testFilesUpdateWatcher.Object, testFilesAddRemoveListener.Object);
 
