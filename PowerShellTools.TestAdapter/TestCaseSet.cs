@@ -29,13 +29,13 @@ namespace PowerShellTools.TestAdapter
 			foreach (PSObject result in results)
 			{
 				var describe = result.Properties["Describe"].Value as string;
-				if (!HandleParseError(result, describe))
+				var name = result.Properties["Name"].Value as string;
+				if (!HandleParseError(result, describe, name))
 				{
 					break;
 				}
 
 				var context = result.Properties["Context"].Value as string;
-				var name = result.Properties["Name"].Value as string;
 
 				if (string.IsNullOrEmpty(context))
 					context = "No Context";
@@ -57,10 +57,10 @@ namespace PowerShellTools.TestAdapter
 			}
 		}
 
-		private bool HandleParseError(PSObject result, string describe)
+		private bool HandleParseError(PSObject result, string describe, string name)
 		{
 			var errorMessage = string.Format("Error in {0}", File);
-			if (describe.Contains(errorMessage))
+			if (describe.Contains(errorMessage) || name.StartsWith("Error occurred in"))
 			{
 				var stackTraceString = result.Properties["StackTrace"].Value as string;
 				var errorString = result.Properties["FailureMessage"].Value as string;
