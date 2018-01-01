@@ -9,8 +9,8 @@
         <ProvideDefaultName>true</ProvideDefaultName>
     </TemplateData>
     <TemplateContent>
-        <Project File="PowerShellProject.pssproj">
-            <ProjectItem OpenInEditor="true">Script.ps1</ProjectItem>
+        <Project File="PowerShellProject.pssproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.ps1" OpenInEditor="true">Script.ps1</ProjectItem>
         </Project>
     </TemplateContent>
 </VSTemplate>
