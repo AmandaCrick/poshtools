@@ -460,7 +460,8 @@ namespace PowerShellTools
             var serviceContainer = (IServiceContainer)this;
             serviceContainer.AddService(typeof(IPowerShellService), (c, t) => _powerShellService.Value, true);
             serviceContainer.AddService(typeof(IPowerShellHostClientService), (c, t) => _powerShellHostClientService.Value, true);
-        }
+			serviceContainer.AddService(typeof(IClipboardService), new ClipboardService(), promote: true);
+		}
 
         private void TextBufferFactoryService_TextBufferCreated(object sender, TextBufferCreatedEventArgs e)
         {
