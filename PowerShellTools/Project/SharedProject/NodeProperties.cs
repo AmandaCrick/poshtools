@@ -414,7 +414,22 @@ namespace Microsoft.VisualStudioTools.Project {
                 this.HierarchyNode.ItemNode.SetMetadata("SubType", value.ToString());
             }
         }
-    }
+
+		[SRCategoryAttribute(SR.Advanced)]
+		[SRDisplayName(SR.CustomTool)]
+		[SRDescriptionAttribute(SR.CustomToolDescription)]
+		public string CustomTool
+		{
+			get
+			{
+				return this.HierarchyNode.ItemNode.GetMetadata("CustomTool");
+			}
+			set
+			{
+				this.HierarchyNode.ItemNode.SetMetadata("CustomTool", value.ToString());
+			}
+		}
+	}
 
     [ComVisible(true)]
     public class LinkFileNodeProperties : FileNodeProperties {
