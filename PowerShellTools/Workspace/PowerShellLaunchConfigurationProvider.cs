@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Workspace;
+﻿#if DEV15_OR_LATER
+using Microsoft.VisualStudio.Workspace;
 using Microsoft.VisualStudio.Workspace.Debug;
 
 namespace PowerShellTools.Workspace {
@@ -20,3 +21,4 @@ namespace PowerShellTools.Workspace {
         }
     }
 }
+#endif

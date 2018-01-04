@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEV15_OR_LATER
+using System;
 using System.ComponentModel.Composition;
 using System.IO;
 using Microsoft.VisualStudio.Imaging;
@@ -29,3 +30,4 @@ namespace PowerShellTools.Workspace
         }
     }
 }
+#endif

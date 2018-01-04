@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEV15_OR_LATER
+using System;
 using Microsoft.VisualStudio.Workspace;
 using Microsoft.VisualStudio.Workspace.Debug;
 using PowerShellTools.Project;
@@ -66,3 +67,4 @@ namespace PowerShellTools.Workspace
         }
     }
 }
+#endif
