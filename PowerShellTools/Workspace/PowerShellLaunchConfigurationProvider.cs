@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Workspace.Debug;
 namespace PowerShellTools.Workspace {
     [ExportLaunchConfigurationProvider(
         ProviderType,
-        new[] { PowerShellConstants.FileExtension },
+        new[] { PowerShellConstants.PS1File },
         PowerShellLaunchDebugTargetProvider.LaunchTypeName,
         PowerShellLaunchDebugTargetProvider.JsonSchema
     )]

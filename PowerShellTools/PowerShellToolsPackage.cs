@@ -111,6 +111,8 @@ namespace PowerShellTools
     [ProvideDebugPortSupplier("Powershell Remote Debugging (SSL Required)", typeof(RemoteDebugPortSupplier), PowerShellTools.Common.Constants.PortSupplierId, typeof(RemotePortPicker))]
     [ProvideDebugPortSupplier("Powershell Remote Debugging", typeof(RemoteUnsecuredDebugPortSupplier), PowerShellTools.Common.Constants.UnsecuredPortSupplierId, typeof(RemoteUnsecuredPortPicker))]
     [ProvideDebugPortPicker(typeof(RemotePortPicker))]
+	[ProvideDebugLanguage(PowerShellConstants.LanguageName, "{45CF952F-A269-4DE3-8403-E0638D94292D}", "5CA5D431-02A9-4E75-87A3-F8752D9FC7A9", "{43ACAB74-8226-4920-B489-BFCF05372437}")]
+
     [ProvideToolWindow(
         typeof(PSCommandExplorerWindow),
         Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed,
