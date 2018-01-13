@@ -35,17 +35,17 @@ namespace PowerShellTools.Project
         {
             get
             {
-                if (FileName.EndsWith(PowerShellConstants.PSM1File))
+                if (FileName.EndsWith(PowerShellConstants.PSM1File, StringComparison.OrdinalIgnoreCase))
                 {
                     return PowerShellMonikers.ModuleIconImageMoniker;
                 }
 
-                if (FileName.EndsWith(PowerShellConstants.PSD1File))
+                if (FileName.EndsWith(PowerShellConstants.PSD1File, StringComparison.OrdinalIgnoreCase))
                 {
                     return PowerShellMonikers.DataIconImageMoniker;
                 }
 
-                if (FileName.EndsWith(PowerShellConstants.Test))
+                if (FileName.EndsWith(PowerShellConstants.Test, StringComparison.OrdinalIgnoreCase))
                 {
                     return PowerShellMonikers.TestIconImageMoniker;
                 }
