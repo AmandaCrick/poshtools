@@ -488,6 +488,41 @@ namespace Microsoft.VisualStudioTools.Project {
         }
 
         /// <devdoc>
+		/// Please use this "approved" method to compare file names.
+		/// </devdoc>
+		public static bool IsSamePath(string file1, string file2)
+        {
+            if (file1 == null || file1.Length == 0)
+            {
+                return (file2 == null || file2.Length == 0);
+            }
+
+            Uri uri1 = null;
+            Uri uri2 = null;
+
+            try
+            {
+                if (!Uri.TryCreate(file1, UriKind.Absolute, out uri1) || !Uri.TryCreate(file2, UriKind.Absolute, out uri2))
+                {
+                    return false;
+                }
+
+                if (uri1 != null && uri1.IsFile && uri2 != null && uri2.IsFile)
+                {
+                    return 0 == String.Compare(uri1.LocalPath, uri2.LocalPath, StringComparison.OrdinalIgnoreCase);
+                }
+
+                return file1 == file2;
+            }
+            catch (UriFormatException e)
+            {
+                Trace.WriteLine("Exception " + e.Message);
+            }
+
+            return false;
+        }
+
+        /// <devdoc>
         /// Helper class for setting the text parameters to OLECMDTEXT structures.
         /// </devdoc>
         public static class OLECMDTEXT {

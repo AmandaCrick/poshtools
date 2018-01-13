@@ -53,6 +53,7 @@ namespace Microsoft.VisualStudioTools.Project {
         private HierarchyNode parentNode;
         private HierarchyNode nextSibling;
         private HierarchyNode firstChild;
+        private string virtualNodeName = String.Empty;	// Only used by virtual nodes
 
         /// <summary>
         /// Remember the last child in the list,
@@ -421,6 +422,18 @@ namespace Microsoft.VisualStudioTools.Project {
                 } else {
                     flags &= ~HierarchyNodeFlags.IsExpanded;
                 }
+            }
+        }
+
+        public string VirtualNodeName
+        {
+            get
+            {
+                return this.virtualNodeName;
+            }
+            set
+            {
+                this.virtualNodeName = value;
             }
         }
 
@@ -1834,7 +1847,37 @@ namespace Microsoft.VisualStudioTools.Project {
             }
         }
 
-#region helper methods
+        #region helper methods
+
+        internal HierarchyNode FindChild(string name)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+
+            HierarchyNode result;
+            for (HierarchyNode child = this.firstChild; child != null; child = child.NextSibling)
+            {
+                if (!String.IsNullOrEmpty(child.VirtualNodeName) && String.Compare(child.VirtualNodeName, name, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    return child;
+                }
+                // If it is a foldernode then it has a virtual name but we want to find folder nodes by the document moniker or url
+                else if ((String.IsNullOrEmpty(child.VirtualNodeName) || (child is FolderNode)) &&
+                        (NativeMethods.IsSamePath(child.GetMkDocument(), name) || NativeMethods.IsSamePath(child.Url, name)))
+                {
+                    return child;
+                }
+
+                result = child.FindChild(name);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            return null;
+        }
 
         /// <summary>
         /// Searches the immediate children of this node for a node which matches the specified predicate.
