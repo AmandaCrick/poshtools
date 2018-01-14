@@ -156,20 +156,32 @@ namespace Microsoft.VisualStudioTools.Project.Automation {
         /// </summary>
         public virtual EnvDTE.ProjectItems Collection {
             get {
-                // Get the parent node
-                HierarchyNode parentNode = this.node.Parent;
-                Debug.Assert(parentNode != null, "Failed to get the parent node");
+                var projectNode = FindProjectNode(this.node);
 
                 // Get the ProjectItems object for the parent node
-                if (parentNode is ProjectNode) {
+                if (projectNode != null) {
                     // The root node for the project
-                    return ((OAProject)parentNode.GetAutomationObject()).ProjectItems;
+                    return ((OAProject)projectNode.GetAutomationObject()).ProjectItems;
                 } else {
                     // Not supported. Override this method in derived classes to return appropriate collection object
                     throw new InvalidOperationException();
                 }
             }
         }
+
+        private ProjectNode FindProjectNode(HierarchyNode node)
+        {
+            if (node.Parent == null) return null;
+
+            var projectNode = node.Parent as ProjectNode;
+            if (projectNode == null)
+            {
+                return FindProjectNode(node.Parent);
+            }
+
+            return projectNode;
+        }
+
         /// <summary>
         /// Gets a list of available Extenders for the object.
         /// </summary>
