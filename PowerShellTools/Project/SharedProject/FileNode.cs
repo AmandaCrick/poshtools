@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Project;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using OleConstants = Microsoft.VisualStudio.OLE.Interop.Constants;
@@ -243,8 +244,10 @@ namespace Microsoft.VisualStudioTools.Project {
                 return new ExcludedFileNodeProperties(this);
             }
 
-            return new IncludedFileNodeProperties(this);
-        }
+            ISingleFileGenerator generator = this.CreateSingleFileGenerator();
+
+            return  generator == null ? new FileNodeProperties(this) : new SingleFileGeneratorNodeProperties(this);
+    }
 
         /// <summary>
         /// Get an instance of the automation object for a FileNode
@@ -599,9 +602,34 @@ namespace Microsoft.VisualStudioTools.Project {
             return File.Exists(moniker);
         }
 
-#endregion
+        #endregion
 
-#region virtual methods
+        #region SingleFileGenerator Support methods
+        /// <summary>
+        /// Event handler for the Custom tool property changes
+        /// </summary>
+        /// <param name="sender">FileNode sending it</param>
+        /// <param name="e">Node event args</param>
+        internal virtual void OnCustomToolChanged(object sender, HierarchyNodeEventArgs e)
+        {
+            this.RunGenerator();
+        }
+
+        /// <summary>
+        /// Event handler for the Custom tool namespce property changes
+        /// </summary>
+        /// <param name="sender">FileNode sending it</param>
+        /// <param name="e">Node event args</param>
+        internal virtual void OnCustomToolNameSpaceChanged(object sender, HierarchyNodeEventArgs e)
+        {
+            this.RunGenerator();
+        }
+
+        #endregion
+
+
+
+        #region virtual methods
 
         public override object GetProperty(int propId) {
             switch ((__VSHPROPID)propId) {
@@ -926,9 +954,26 @@ namespace Microsoft.VisualStudioTools.Project {
             ExpandItem(EXPANDFLAGS.EXPF_SelectItem);
         }
 
-#endregion
+        #endregion
 
-#region helpers
+        /// <summary>
+        /// factory method for creating single file generators.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual ISingleFileGenerator CreateSingleFileGenerator()
+        {
+            return new SingleFileGenerator(this.ProjectMgr);
+        }
+
+        #region helpers
+        internal void RunGenerator()
+        {
+            ISingleFileGenerator generator = this.CreateSingleFileGenerator();
+            if (generator != null)
+            {
+                generator.RunGenerator(this.Url);
+            }
+        }
 
 
         /// <summary>
