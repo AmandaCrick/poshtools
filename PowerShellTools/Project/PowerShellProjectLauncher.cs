@@ -13,13 +13,13 @@ using PowerShellTools.Common.Logging;
 
 namespace PowerShellTools.Project
 {
-    internal class PowerShellProjectLauncher : IProjectLauncher
+    public class PowerShellProjectLauncher : IProjectLauncher
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PowerShellProjectLauncher));
         private readonly PowerShellProjectNode _project;
         private readonly bool _dependenciesResolved;
 
-        public PowerShellProjectLauncher(PowerShellProjectNode project, bool dependenciesResolved)
+        internal PowerShellProjectLauncher(PowerShellProjectNode project, bool dependenciesResolved)
         {
             _dependenciesResolved = dependenciesResolved;
             _project = project;

@@ -150,6 +150,7 @@
     <Reference Include="Microsoft.VisualStudio.Language.Intellisense, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Language.StandardClassification, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Settings.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" Condition="'$(VSTarget)' == '14.0'" />
     <Reference Include="Microsoft.VisualStudio.Package.LanguageService.$(VSTarget), Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Platform.VSEditor" Condition="'$(VSTarget)' == '14.0'" />
@@ -196,6 +197,10 @@
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0" />
     <Reference Include="Microsoft.VisualStudio.Threading, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" Condition="'$(VSTarget)' == '14.0'" />
     <Reference Include="Microsoft.VisualStudio.Threading, Version=15.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" Condition="'$(VSTarget)' == '15.0'" />
+    <Reference Include="Microsoft.VisualStudio.Validation, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" Condition="'$(VSTarget)' == '15.0'">
+      <HintPath>..\packages\Microsoft.VisualStudio.Validation.15.3.32\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Windows.Design.Host">
       <HintPath>$(DevEnvDir)\PrivateAssemblies\Microsoft.Windows.Design.Host.dll</HintPath>
       <Private>False</Private>
@@ -238,6 +243,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Microsoft.VisualStudio.Workspace" Condition="'$(VSTarget)' == '15.0'" />
+    <Reference Include="Microsoft.VisualStudio.Workspace.Extensions" Condition="'$(VSTarget)' == '15.0'" />
+    <Reference Include="Microsoft.VisualStudio.Workspace.Extensions.VS" Condition="'$(VSTarget)' == '15.0'" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classification\ClassificationType.cs">
@@ -601,6 +609,9 @@
     <Compile Include="Project\SharedProject\ReferenceNode.cs" />
     <Compile Include="Project\SharedProject\Resources.cs" />
     <Compile Include="Project\SharedProject\SharedCommands.cs" />
+    <Compile Include="Project\SharedProject\SingleFileGenerator.cs" />
+    <Compile Include="Project\SharedProject\SingleFileGeneratorFactory.cs" />
+    <Compile Include="Project\SharedProject\SingleFileGeneratorNodeProperties.cs" />
     <Compile Include="Project\SharedProject\SolutionEventsListener.cs" />
     <Compile Include="Project\SharedProject\SolutionListener.cs" />
     <Compile Include="Project\SharedProject\SolutionListenerForBuildDependencyUpdate.cs" />
@@ -673,6 +684,9 @@
     <Compile Include="Service\PowerShellHostClientService.cs" />
     <Compile Include="Service\PowerShellService.cs" />
     <Compile Include="Snippets\SnippetHandler.cs" />
+    <Compile Include="Workspace\PowerShellFileIconProvider.cs" />
+    <Compile Include="Workspace\PowerShellLaunchConfigurationProvider.cs" />
+    <Compile Include="Workspace\PowerShellLaunchDebugTargetProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CredentialUI\Resources.resx">
@@ -733,6 +747,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="app.config" />
     <None Include="Manifest\$(VSTarget)\source.extension.vsixmanifest" />
     <Content Include="poshtools.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

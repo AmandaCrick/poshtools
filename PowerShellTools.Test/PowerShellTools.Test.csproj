@@ -64,15 +64,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces" Condition="'$(VisualStudioVersion)' == '15.0'">
-       <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
-       <Private>False</Private>
+      <HintPath>$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-     <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel" Condition="'$(VisualStudioVersion)' != '15.0'">
-        <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
-     </Reference>
-     <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces" Condition="'$(VisualStudioVersion)' != '15.0'">
-        <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
-     </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel" Condition="'$(VisualStudioVersion)' != '15.0'">
+      <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces" Condition="'$(VisualStudioVersion)' != '15.0'">
+      <HintPath>$(MSBuildProgramFiles32)\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Text.Data, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Text.UI, Version=$(VSTarget).0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -154,6 +154,7 @@
     <None Include="..\Build\FinalPublicKey.snk">
       <Link>FinalPublicKey.snk</Link>
     </None>
+    <None Include="app.config" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\Be.ps1" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeGreaterThan.ps1" />
     <None Include="Modules\Pester-3.3.5\Functions\Assertions\BeLessThan.ps1" />

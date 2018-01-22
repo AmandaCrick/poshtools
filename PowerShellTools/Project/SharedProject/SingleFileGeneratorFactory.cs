@@ -11,11 +11,15 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
+using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.Settings;
 using Microsoft.Win32;
+using PowerShellTools;
 using VSRegistry = Microsoft.VisualStudio.Shell.VSRegistry;
 
 namespace Microsoft.VisualStudio.Project
@@ -203,25 +207,22 @@ namespace Microsoft.VisualStudio.Project
 		/// <summary>
 		/// Returns the project generator key under [VS-ConfigurationRoot]]\Generators
 		/// </summary>
-		private RegistryKey BaseGeneratorsKey
+		private SettingsStore SettingsManager
 		{
 			get
 			{
-				if(this.baseGeneratorRegistryKey == null)
-				{
-					using(RegistryKey root = VSRegistry.RegistryRoot(__VsLocalRegistryType.RegType_Configuration))
-					{
-						if(null != root)
-						{
-							string regPath = "Generators\\" + this.ProjectGuid.ToString("B");
-							baseGeneratorRegistryKey = root.OpenSubKey(regPath);
-						}
-					}
-				}
-
-				return this.baseGeneratorRegistryKey;
-			}
+                var settingsManager = new ShellSettingsManager(PowerShellToolsPackage.Instance);
+                return settingsManager.GetReadOnlySettingsStore(SettingsScope.Configuration);
+            }
 		}
+
+        private string StorePath
+        {
+            get
+            {
+                return "Generators\\" + this.ProjectGuid.ToString("B");
+            }
+        }
 
 		/// <summary>
 		/// Returns the local registry instance
@@ -318,27 +319,23 @@ namespace Microsoft.VisualStudio.Project
 			//Create the single file generator and pass it out.
 			if(!this.generatorsMap.ContainsKey(progId))
 			{
-				// We have to check whether the BaseGeneratorkey returns null.
-				RegistryKey tempBaseGeneratorKey = this.BaseGeneratorsKey;
-				if(tempBaseGeneratorKey == null || (genKey = tempBaseGeneratorKey.OpenSubKey(progId)) == null)
-				{
-					return VSConstants.S_FALSE;
-				}
+                var generatorPath = StorePath + "\\" + progId;
+                var properties = SettingsManager.GetPropertyNames(generatorPath);
 
-				//Get the CLSID
-				string guid = (string)genKey.GetValue(GeneratorClsid, "");
-				if(string.IsNullOrEmpty(guid))
+                //Get the CLSID
+                string guid = properties.Any(m => m == GeneratorClsid) ? SettingsManager.GetString(generatorPath, GeneratorClsid) : string.Empty;
+                if (string.IsNullOrEmpty(guid))
 					return VSConstants.S_FALSE;
 
 				GeneratorMetaData genData = new GeneratorMetaData();
 
 				genData.GeneratorClsid = guidGenerator = new Guid(guid);
 				//Get the GeneratesDesignTimeSource flag. Assume 0 if not present.
-				genData.GeneratesDesignTimeSource = generatesDesignTimeSource = (int)genKey.GetValue(this.GeneratesDesignTimeSource, 0);
+				genData.GeneratesDesignTimeSource = generatesDesignTimeSource = properties.Any(m => m == GeneratesDesignTimeSource) ? SettingsManager.GetInt32(generatorPath, GeneratesDesignTimeSource) : 0; 
 				//Get the GeneratesSharedDesignTimeSource flag. Assume 0 if not present.
-				genData.GeneratesSharedDesignTimeSource = generatesSharedDesignTimeSource = (int)genKey.GetValue(GeneratesSharedDesignTimeSource, 0);
+				genData.GeneratesSharedDesignTimeSource = generatesSharedDesignTimeSource = properties.Any(m => m == GeneratesSharedDesignTimeSource) ? SettingsManager.GetInt32(generatorPath, GeneratesSharedDesignTimeSource) : 0; 
 				//Get the UseDesignTimeCompilationFlag flag. Assume 0 if not present.
-				genData.UseDesignTimeCompilationFlag = useTempPEFlag = (int)genKey.GetValue(UseDesignTimeCompilationFlag, 0);
+				genData.UseDesignTimeCompilationFlag = useTempPEFlag = properties.Any(m => m == UseDesignTimeCompilationFlag) ? SettingsManager.GetInt32(generatorPath, UseDesignTimeCompilationFlag) : 0; 
 				this.generatorsMap.Add(progId, genData);
 			}
 			else
