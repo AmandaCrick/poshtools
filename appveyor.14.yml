@@ -12,7 +12,7 @@ platform: Any CPU
 
 environment:
   signing_code:
-    secure: fDI39OFs8s8fqvp08JPiOQ==
+    secure: 1QhQ50Ve+n0Hz+svIAnxyg==
   matrix:
   - VisualStudioVersion: 14.0
 
