@@ -17,4 +17,11 @@ mkdir $PDBDir
 Copy-Item (Join-Path $Bin '*.pdb') $PDBDir
 
 Set-Location $PSScriptRoot
-Start-Process $ToolPath -ArgumentList "sign /f DigiCert2018.pfx /sha1 be87b4bd86289ec9a27779d54d0dffd369ae24c3  /p $Env:signing_code /v /t http://timestamp.digicert.com $VSIXPath" -NoNewWindow 
+
+if ($VSIXPath.Contains('15.0')) {
+	Start-Process $ToolPath -ArgumentList "sign /f DigiCert2018.pfx /sha1 be87b4bd86289ec9a27779d54d0dffd369ae24c3  /p $Env:signing_code /v /t http://timestamp.digicert.com $VSIXPath" -NoNewWindow 
+} else {
+	Start-Process $ToolPath -ArgumentList "sign /f DigiCertJan2017.pfx /sha1 be87b4bd86289ec9a27779d54d0dffd369ae24c3  /p $Env:signing_code /v /t http://timestamp.digicert.com $VSIXPath" -NoNewWindow 
+}
+
+
