@@ -119,3 +119,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /.vs/PowerShellTools/v15/sqlite3/storage.ide
 /.vs/PowerShellTools/v15
+*.dtbcache
