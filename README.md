@@ -3,6 +3,8 @@ PowerShell Tools for Visual Studio
 
 PowerShell integration for Visual Studio. 
 
+# This repository is no longer maintained. [Read more here](https://poshtools.com/2018/10/24/powershell-tools-for-visual-studio-the-future/).
+
 Build status of adamdriscoll/poshtools: <a href="https://ci.appveyor.com/project/adamdriscoll/poshtools/branch/dev"><img src="https://ci.appveyor.com/api/projects/status/h9gfrh1xots5tg2y/branch/dev?svg=true"/></a><br/>
 
 <a href="https://adamdriscoll.gitbooks.io/powershell-tools-documentation/content/">Project Documentation</a></br>
